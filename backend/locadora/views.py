@@ -1,15 +1,14 @@
-from django.shortcuts import render
-from rest_framework import viewsets
-from . import serializers
-from . import models
 
+from rest_framework import mixins, generics, permissions
+
+
+from .models import Funcionario
+from .serializers import FuncionarioSerializer
 
 # Create your views here.
-class FuncionariosViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.FuncionariosSerializer
-    queryset = models.Funcionarios.objects.all()
 
 
-class ClientesViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.ClienteSerializer
-    queryset = models.Cliente.objects.all()
+class FuncionarioListAPIView(generics.ListAPIView):
+    serializer_class = FuncionarioSerializer
+    permission_classes = [permissions.AllowAny]
+    queryset = Funcionario.objects.all()

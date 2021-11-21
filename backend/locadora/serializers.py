@@ -1,12 +1,13 @@
 from rest_framework import fields, serializers
 from locadora import models
 from django.contrib.auth.models import User
+from .models import Funcionario
 
 
-class FuncionariosSerializer(serializers.ModelSerializer):
+class FuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model = models.Funcionarios
-        fields = '__all__'
+        model = Funcionario
+        fields = ('nome',)
         read_only_fields = ('id',)
 
 

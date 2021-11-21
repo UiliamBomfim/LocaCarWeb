@@ -5,8 +5,11 @@ from . import views
 app_name = 'locadora'
 
 urlpatterns = [
-    path('funcionarios/', views.FuncionariosViewSet.as_view({'get': 'list'}),
-         name='funcionarios-list'),
-    path('cliente/', views.ClientesViewSet.as_view({'get': 'list'}),
-         name='cliente-list'),
+    path('locadora/',  views.FuncionarioListAPIView.as_view(),
+         name='funcionario-list'),
+
+    # utilizada para teste
+    # path('locadora/',  views.FuncionariosViewSet.as_view({'get': 'list'}),
+    #     name='funcionarios-list'),
+
 ]

@@ -2,9 +2,8 @@ from django.db import models
 from django.conf import settings
 
 
-class Funcionarios(models.Model):
-    usuario = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class Funcionario(models.Model):
+    #usuario = models.ForeignKey( settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()
@@ -15,15 +14,14 @@ class Funcionarios(models.Model):
     funcao = models.CharField(max_length=30)
 
     class Meta:
-        db_table = 'funcionarios'
+        db_table = 'funcionario'
 
     def __str__(self):
-        return self.nome
+        return f'{self.nome}'
 
 
 class Cliente(models.Model):
-    usuario = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    #usuario = models.ForeignKey(   settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()

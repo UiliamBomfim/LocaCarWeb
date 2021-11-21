@@ -86,7 +86,7 @@ DATABASES = {
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+# https://docs.djangoproject.com/en/3.2/Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
