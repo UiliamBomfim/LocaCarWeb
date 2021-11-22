@@ -6,7 +6,7 @@ function App() {
 
   useEffect(() => {
     const loadData = () => {
-      fetch('/api/locadora/')
+      fetch('http://localhost:3002/api/locadora/')
         .then(response => response.json())
         .then(data => setLocadora(data))
     }
@@ -20,7 +20,6 @@ function App() {
         {locadora.map(funcionarios => (
           <h1 key={funcionarios.id}>{funcionarios.nome} </h1>
         ))}
-
       </header>
     </div>
   );
