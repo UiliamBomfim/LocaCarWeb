@@ -13,10 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-<<<<<<< HEAD
+
 from django import urls
-=======
->>>>>>> 13a237bafbd97b78b31a20e0fbf5f27e33e8ca15
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
@@ -25,10 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('locadora.urls')),
-<<<<<<< HEAD
-=======
-
->>>>>>> 13a237bafbd97b78b31a20e0fbf5f27e33e8ca15
 ]
 
 urlpatterns += [re_path(r'^.*',
