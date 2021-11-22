@@ -2,9 +2,14 @@ from django.db import models
 from django.conf import settings
 
 
+<<<<<<< HEAD
 class Funcionarios(models.Model):
     usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+=======
+class Funcionario(models.Model):
+    #usuario = models.ForeignKey( settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+>>>>>>> 13a237bafbd97b78b31a20e0fbf5f27e33e8ca15
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()
@@ -15,15 +20,23 @@ class Funcionarios(models.Model):
     funcao = models.CharField(max_length=30)
 
     class Meta:
+<<<<<<< HEAD
         db_table = 'funcionarios'
+=======
+        db_table = 'funcionario'
+>>>>>>> 13a237bafbd97b78b31a20e0fbf5f27e33e8ca15
 
     def __str__(self):
         return f'{self.nome}'
 
 
 class Cliente(models.Model):
+<<<<<<< HEAD
     usuario = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+=======
+    #usuario = models.ForeignKey(   settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+>>>>>>> 13a237bafbd97b78b31a20e0fbf5f27e33e8ca15
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()
@@ -31,12 +44,17 @@ class Cliente(models.Model):
     telefone = models.IntegerField()
     cpf = models.IntegerField()
     email = models.CharField(max_length=60, blank=True, null=True)
+<<<<<<< HEAD
+=======
+    funcao = models.CharField(max_length=30)
+>>>>>>> 13a237bafbd97b78b31a20e0fbf5f27e33e8ca15
 
     class Meta:
         db_table = 'cliente'
 
     def __str__(self):
         return self.nome
+<<<<<<< HEAD
 
 
 class Veiculo(models.Model):
@@ -117,3 +135,5 @@ class Locacao(models.Model):
 
     def __str__(self):
         return self.status
+=======
+>>>>>>> 13a237bafbd97b78b31a20e0fbf5f27e33e8ca15
