@@ -1,18 +1,24 @@
 import { useEffect, useState } from 'react';
+import logo from './logo.svg';
 import './App.css';
+import React from "react";
+import api from "./api";
+
 
 function App() {
   const [locadora, setLocadora] = useState([]);
 
   useEffect(() => {
-    const loadData = () => {
-      fetch('http://localhost:3002/api/locadora/')
-        .then(response => response.json())
-        .then(data => setLocadora(data))
-    }
-    loadData();
-
-  }, [])
+    api
+      .get("funcionarios/")
+      .then((response) => {
+        console.log(response)
+        setLocadora(response.data)
+      })
+      .catch((err) => {
+        console.error("ops! ocorreu um erro" + err);
+      });
+  }, []);
 
   return (
     <div className="App">

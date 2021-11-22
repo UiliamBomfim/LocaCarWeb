@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('locadora.urls')),
+
 ]
 
 urlpatterns += [re_path(r'^.*',
