@@ -8,3 +8,4 @@ admin.site.register(Cliente)
 admin.site.register(Veiculo)
 admin.site.register(Fornecedor)
 admin.site.register(Locacao)
+

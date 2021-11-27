@@ -1,4 +1,6 @@
 from django.urls import path
+from django.urls import path, include
+
 
 from . import views
 
@@ -16,4 +18,7 @@ urlpatterns = [
          name='fornecedor-list'),
     path('locacao/', views.LocacaoViewSet.as_view({'get': 'list'}),
          name='locacao-list'),
+    path('accounts/', include('django.contrib.auth.urls')),
+
+
 ]
