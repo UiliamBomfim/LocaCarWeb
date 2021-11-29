@@ -18,7 +18,8 @@ urlpatterns = [
          name='fornecedor-list'),
     path('locacao/', views.LocacaoViewSet.as_view({'get': 'list'}),
          name='locacao-list'),
-    path('accounts/', include('django.contrib.auth.urls')),
+
+
 
 
 ]

@@ -19,27 +19,23 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 from locadora import views
-from locadora.views import current_user, UserList
-from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from django.urls import path
+from rest_framework import routers
 
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+router.register(r'locacao', views.LocacaoViewSet)
+router.register(r'veiculo', views.VeiculoViewSet)
+router.register(r'funcionario', views.FuncionariosViewSet)
+router.register(r'fornecedor', views.FornecedorViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     # add depois
     path('api/', include('locadora.urls')),
-    path('api/token/$', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),
-
-    #path('token-auth/', obtain_jwt_token),
-
-
+    path('', include(router.urls)),
 
 ]
 

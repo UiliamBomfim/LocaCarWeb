@@ -22,9 +22,9 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                {locadora.map(funcionarios => (
-                    <h1 key={funcionarios.id}>{funcionarios.nome} </h1>
-                ))}
+            {locadora.map(funcionarios => (
+                <h1 key={funcionarios.id}>{funcionarios.nome} </h1>
+            ))}
             </header>
         </div>
     );
