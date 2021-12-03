@@ -1,5 +1,4 @@
 
-from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 from rest_framework import permissions, authentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
@@ -32,7 +31,8 @@ class VeiculoViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.VeiculoSerializer
     queryset = models.Veiculo.objects.all()
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
 
 
 class FornecedorViewSet(viewsets.ModelViewSet):
@@ -42,9 +42,13 @@ class FornecedorViewSet(viewsets.ModelViewSet):
 
 class LocacaoViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.LocacaoSerializer
-    queryset = models.Locacao.objects.all()
     permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [authentication.TokenAuthentication, authentication.SessionAuthentication]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def get_queryset(self):
+        user = self.request.user
+        return models.Locacao.objects.filter(owner=user)
 
 
 class UserViewSet(viewsets.ModelViewSet):

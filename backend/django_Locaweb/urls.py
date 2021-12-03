@@ -16,28 +16,31 @@ Including another URLconf
 
 from django import urls
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include, re_path, path
 from django.views.generic import TemplateView
-from locadora import views
+
+from locadora.views import UserViewSet, GroupViewSet, LocacaoViewSet, VeiculoViewSet, FuncionariosViewSet, FornecedorViewSet
+
+
 from django.urls import path
 from rest_framework import routers
+from rest_framework.authtoken import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'locacao', views.LocacaoViewSet)
-router.register(r'veiculo', views.VeiculoViewSet)
-router.register(r'funcionario', views.FuncionariosViewSet)
-router.register(r'fornecedor', views.FornecedorViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
+router.register(r'locacao', LocacaoViewSet, basename='locacao')
+router.register(r'veiculo', VeiculoViewSet)
+router.register(r'funcionario', FuncionariosViewSet)
+router.register(r'fornecedor', FornecedorViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_framework.urls')),
+    path('api-token-auth/', views.obtain_auth_token),
     # add depois
-    path('api/', include('locadora.urls')),
+    #path('api/', include('locadora.urls')),
     path('', include(router.urls)),
 
 ]
 
-urlpatterns += [re_path(r'^.*',
-                        TemplateView.as_view(template_name='index.html'))]
+#urlpatterns += [re_path(r'^.*',                     TemplateView.as_view(template_name='index.html'))]

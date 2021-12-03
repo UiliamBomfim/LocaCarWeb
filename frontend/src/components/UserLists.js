@@ -1,5 +1,6 @@
 import React from 'react';
 import Locacao from './Locacao';
+import Login from './Login';
 
 
 export default class UserLists extends React.Component {
@@ -8,7 +9,7 @@ export default class UserLists extends React.Component {
     async componentDidMount() {
         const config = new Headers();
         config.append('Content-Type', 'application/json');
-        config.append('Authorization', 'Token 97e10759a701626c4d455bc11638825bbd7c131d');
+        config.append('Authorization', 'Token cd2dccff20db26f0bc7236be96c7a504460121fb');
 
         const requestOptions = {
             headers: config,
@@ -21,22 +22,24 @@ export default class UserLists extends React.Component {
         const response = await fetch(url, requestOptions);
         const data = await response.json();
         console.log('Dados: ', data);
-        this.setState({ lists: data, loading: data === [] ? true : false});
+        this.setState({ lists: data, loading: data === [] ? true : false });
     }
 
     render() {
         const listsApi = this.state.lists;
-        const carregando = this.state.loading;
+        var token = '';
 
-        console.log('ccarregando : ', carregando)
-        
-        return (
-            <div>{!carregando &&
-                listsApi.map(list => <Locacao key={list.id} listName={list.data_locacao} veiculo={list.veiculo} />)}
-            </div>
+        if (token === '')
+            return <Login />
+        else
+
+            return (
+                <div>{
+                    listsApi.map(list => <Locacao key={list.id} listName={list.id} veiculo={list.veiculo} dataLocacao={list.data_locacao} dataDevolucao={list.data_devolucao} />)}
+                </div>
 
 
-        )
+            )
     }
 
 }
