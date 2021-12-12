@@ -3,8 +3,6 @@ from collections import namedtuple
 import datetime
 from django.contrib.auth.models import User, Group
 from django.db.models.query import QuerySet
-from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import status, viewsets
@@ -13,7 +11,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.response import Response
 from . import serializers
 from . import models
-from .serializers import UserSerializer, GroupSerializer
+from .serializers import ClienteSerializer, FuncionariosSerializer, UserSerializer, GroupSerializer
 
 
 # Create your views here.
@@ -31,6 +29,20 @@ class FuncionariosViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [
         authentication.TokenAuthentication, authentication.SessionAuthentication]
+    
+    #criar o usuario de autenticacao e o funcionario ao mesmo tempo
+    def create(self, request, *args, **kwargs):
+        funcionario_data = request.data
+        
+        auth_user = User.objects.create_user(funcionario_data["nome"], funcionario_data["email"], funcionario_data["senha"])
+        
+        funcionario = models.Funcionarios.objects.create(usuario=auth_user, nome=funcionario_data["nome"], nacionalidade=funcionario_data["nacionalidade"],
+            dataDeNascimento=funcionario_data["dataDeNascimento"], endereco=funcionario_data["endereco"], telefone=funcionario_data["telefone"],
+            cpf=funcionario_data["cpf"], email=funcionario_data["email"], funcao_id=funcionario_data["funcao"])
+        
+        funcionario.save()
+
+        return Response(FuncionariosSerializer(funcionario).data, status=status.HTTP_201_CREATED)
 
 
 class FuncaoFuncionarioViewSet(viewsets.ModelViewSet):
@@ -53,6 +65,20 @@ class ClientesViewSet(viewsets.ModelViewSet):
         if approvedUser is not None:
             queryset = queryset.filter(aprovado=approvedUser)
         return queryset
+    
+    #criar o usuario de autenticacao e o cliente ao mesmo tempo
+    def create(self, request, *args, **kwargs):
+        cliente_data = request.data
+        
+        auth_user = User.objects.create_user(cliente_data["nome"], cliente_data["email"], cliente_data["senha"])
+        
+        cliente = models.Cliente.objects.create(usuario=auth_user, nome=cliente_data["nome"], nacionalidade=cliente_data["nacionalidade"],
+            dataDeNascimento=cliente_data["dataDeNascimento"], endereco=cliente_data["endereco"], telefone=cliente_data["telefone"],
+            cpf=cliente_data["cpf"], email=cliente_data["email"], cnh=cliente_data["cnh"], aprovado=cliente_data["aprovado"])
+        
+        cliente.save()
+
+        return Response(ClienteSerializer(cliente).data, status=status.HTTP_201_CREATED)
 
 
 class VeiculoViewSet(viewsets.ModelViewSet):

@@ -15,6 +15,7 @@ class FuncaoFuncionario(models.Model):
 
 
 class Funcionarios(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()
@@ -38,11 +39,9 @@ class Cliente(models.Model):
     dataDeNascimento = models.DateField()
     endereco = models.CharField(max_length=60)
     telefone = models.IntegerField()
-    cpf = models.IntegerField()
-    email = models.CharField(max_length=60, blank=True, null=True)
+    email = models.CharField(max_length=60, unique=True)
     cpf = models.IntegerField(unique=True)
     cnh = models.IntegerField(unique=True)
-    email = models.CharField(max_length=60, blank=True, null=True, unique=True)
     aprovado = models.BooleanField(default=False)
 
     class Meta:

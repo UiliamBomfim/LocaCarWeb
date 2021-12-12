@@ -16,18 +16,23 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['url', 'name']
 
 
-class FuncionariosSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Funcionarios
-        fields = '__all__'
-        read_only_fields = ('id',)
-
-
 class FuncaoFuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.FuncaoFuncionario
         fields = '__all__'
         read_only_fields = ('id',)
+
+
+class FuncionariosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Funcionarios
+        fields = '__all__'
+        read_only_fields = ('id',)
+    
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['funcao'] = FuncaoFuncionarioSerializer(instance.funcao).data
+        return response
 
 
 class ClienteSerializer(serializers.ModelSerializer):
