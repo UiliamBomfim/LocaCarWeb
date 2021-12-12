@@ -19,7 +19,14 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class FuncionariosSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Funcionarios
-        fields = ('id', 'nome',)
+        fields = '__all__'
+        read_only_fields = ('id',)
+
+
+class FuncaoFuncionarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.FuncaoFuncionario
+        fields = '__all__'
         read_only_fields = ('id',)
 
 
@@ -30,15 +37,29 @@ class ClienteSerializer(serializers.ModelSerializer):
         read_only_fields = ('id',)
 
 
+class JustificativaReprovacaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.JustificativaReprovacao
+        fields = '__all__'
+        read_only_fields = ('id',)
+
+
 class VeiculoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Veiculo
-        fields = ['id', 'modelo', 'cor', 'ano', 'status']
+        fields = ['id', 'modelo', 'placa', 'cor', 'ano', 'tipo', 'status']
 
 
 class FornecedorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Fornecedor
+        fields = '__all__'
+        read_only_fields = ('id',)
+
+
+class AquisicaoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Aquisicao
         fields = '__all__'
         read_only_fields = ('id',)
 

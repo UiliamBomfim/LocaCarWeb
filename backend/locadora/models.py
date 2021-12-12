@@ -3,8 +3,18 @@ from django.conf import settings
 from django.contrib.auth.models import User
 
 
+class FuncaoFuncionario(models.Model):
+    nome = models.CharField(max_length=50)
+    salarioBase = models.FloatField()
+
+    class Meta:
+        db_table = 'funcaoFuncionario'
+
+    def __str__(self):
+        return self.nome
+
+
 class Funcionarios(models.Model):
-   # usuario = models.ForeignKey( settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()
@@ -12,7 +22,7 @@ class Funcionarios(models.Model):
     telefone = models.IntegerField()
     cpf = models.IntegerField()
     email = models.CharField(max_length=60, blank=True, null=True)
-    funcao = models.CharField(max_length=30)
+    funcao = models.ForeignKey(FuncaoFuncionario, on_delete=models.CASCADE)
 
     class Meta:
         db_table = 'funcionarios'
@@ -22,8 +32,7 @@ class Funcionarios(models.Model):
 
 
 class Cliente(models.Model):
-    usuario = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()
@@ -31,6 +40,10 @@ class Cliente(models.Model):
     telefone = models.IntegerField()
     cpf = models.IntegerField()
     email = models.CharField(max_length=60, blank=True, null=True)
+    cpf = models.IntegerField(unique=True)
+    cnh = models.IntegerField(unique=True)
+    email = models.CharField(max_length=60, blank=True, null=True, unique=True)
+    aprovado = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'cliente'
@@ -39,42 +52,59 @@ class Cliente(models.Model):
         return self.nome
 
 
+class JustificativaReprovacao(models.Model):
+    funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    texto = models.CharField(max_length=200)
+
+    class Meta:
+        db_table = 'justificativa'
+
+    def __str__(self):
+        return self.texto
+
+
 class Veiculo(models.Model):
-    CUPE = 'CUPE'
-    CROSSOVER = 'CROSSOVER'
-    ESPORTIVO = 'ESPORTIVO'
-    HATCH = 'HATCH'
-    JIPE = 'JIPE'
-    PICAPE = 'PICAPE'
-    SEDAN = 'SEDAN'
-    SUV = 'SUV'
-    VAN = 'VAN E MINIVAM'
-
-    TIPO = (
-        (CUPE, 'Cupe'),
-        (CROSSOVER, 'Crossover'),
-        (ESPORTIVO, 'Esportivo'),
-        (HATCH, 'Hacth'),
-        (JIPE, 'Jipe'),
-        (PICAPE, 'Picape'),
-        (SEDAN, 'Sedan'),
-        (SUV, 'SUV'),
-        (VAN, 'Van/Minivam'),
+    TIPO_VEICULO = (
+        ('CUPE', 'Cupe'),
+        ('CROSSOVER', 'Crossover'),
+        ('ESPORTIVO', 'Esportivo'),
+        ('HATCH', 'Hacth'),
+        ('JIPE', 'Jipe'),
+        ('PICAPE', 'Picape'),
+        ('SEDAN', 'Sedan'),
+        ('SUV', 'SUV'),
+        ('VAN/MINIVAM', 'Van/Minivam'),
     )
 
-    DISPONIVEL = 'DISPONÍVEL'
-    INDISPONIVEL = 'INDISPONÍVEL'
     STATUS_VEICULO = (
-        (DISPONIVEL, 'Disponível'),
-        (INDISPONIVEL, 'Indisponível'),
+        ('DISPONIVEL', 'Disponível'),
+        ('INDISPONIVEL', 'Indisponível'),
+        ('EM_AVALIACAO', 'Devolvido - Em Avaliação'),
+        ('CONSERTO', 'Devolvido - Conserto'),
     )
 
-    modelo = models.CharField(max_length=200)
-    cor = models.CharField(max_length=15)
+    COR_VEICULO = (
+        ('PRETO', 'Preto'),
+        ('BRANCO', 'Branco'),
+        ('PRATA', 'Prata'),
+        ('VERMELHO', 'Vermelho'),
+        ('CINZA', 'Cinza'),
+        ('AZUL', 'Azul'),
+        ('AMARELO', 'Amarelo'),
+        ('VERDE', 'Verde'),
+        ('LARANJA', 'Laranja'),
+        ('OUTRA', 'Outra')
+    )
+
     ano = models.IntegerField()
+    modelo = models.CharField(max_length=200)
     placa = models.CharField(max_length=15)
-    tipo = models.CharField(max_length=15, choices=TIPO)
+    cor = models.CharField(max_length=10, choices=COR_VEICULO)
+    tipo = models.CharField(max_length=15, choices=TIPO_VEICULO)
     status = models.CharField(max_length=20, choices=STATUS_VEICULO)
+    quilometragem = models.IntegerField()
+    combustivel = models.IntegerField()
 
     class Meta:
         db_table = 'veiculo'
@@ -96,22 +126,37 @@ class Fornecedor(models.Model):
     def __str__(self):
         return self.empresa
 
+class Aquisicao(models.Model):
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
+    valor = models.FloatField()
+    data = models.DateField()
+    descricao = models.CharField(max_length=200)
+
+    class Meta:
+        db_table = 'aquisicao'
+
+    def __str__(self):
+        return self.descricao
+
 
 class Locacao(models.Model):
-    EM_ABERTO = 'EM_ABERTO'
-    FECHADA = 'FECHADA'
-    DEVOLUCAO_STATUS = (
-        (EM_ABERTO, 'Em Aberto'),
-        (FECHADA, 'Fechada'),
+    LOCACAO_STATUS = (
+        ('RESERVA', 'Reserva'),
+        ('EM_ABERTO', 'Em Aberto'),
+        ('EM_AVALIACAO', 'Em Avaliacao'),
+        ('FECHADA', 'Fechada'),
     )
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     data_locacao = models.DateField()
+    data_prevista_devolucao = models.DateField()
     data_devolucao = models.DateField()
-    status = models.CharField(max_length=10, choices=DEVOLUCAO_STATUS)
+    status = models.CharField(max_length=15, choices=LOCACAO_STATUS)
     funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
+    acressimos = models.FloatField(default=0)
+    valor = models.FloatField()
 
     class Meta:
         db_table = 'locacao'
