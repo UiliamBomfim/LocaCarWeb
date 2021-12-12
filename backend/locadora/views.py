@@ -17,6 +17,14 @@ from .serializers import UserSerializer, GroupSerializer
 
 
 # Create your views here.
+class AquisicaoViewSet(viewsets.ModelViewSet):
+    serializer_class = serializers.AquisicaoSerializer
+    queryset = models.Aquisicao.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+
 class FuncionariosViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.FuncionariosSerializer
     queryset = models.Funcionarios.objects.all()
