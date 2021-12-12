@@ -34,6 +34,8 @@ router.register(r'funcionario', FuncionariosViewSet)
 router.register(r'fornecedor', FornecedorViewSet)
 router.register(r'funcaoFuncionario', FuncaoFuncionarioViewSet)
 router.register(r'cliente', ClientesViewSet, basename='cliente')
+router.register(r'relatorio/despesas', RelatorioDespesasViewSet, basename='relatorio')
+router.register(r'relatorio/receitas', RelatorioReceitasViewSet, basename='relatorio')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

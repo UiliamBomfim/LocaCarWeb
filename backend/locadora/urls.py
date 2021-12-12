@@ -17,6 +17,10 @@ urlpatterns = [
          name='fornecedor-list'),
     path('locacao/', views.LocacaoViewSet.as_view({'get': 'list'}),
          name='locacao-list'),
-    path('funcaoFuncaionario/', views.FuncaoFuncionarioViewSet.as_view({'get': 'list'}),
-         name='funcaoFuncaionario-list'),
+    path('funcaoFuncionario/', views.FuncaoFuncionarioViewSet.as_view({'get': 'list'}),
+         name='funcaoFuncionario-list'),
+    path('relatorio/despesas/', views.RelatorioDespesasViewSet.as_view(),
+         name='relatorioDespesas-list'),
+    path('relatorio/receitas', views.RelatorioReceitasViewSet.as_view(),
+         name='relatorioFinanceiro-list'),
 ]

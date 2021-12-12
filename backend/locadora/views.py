@@ -5,14 +5,17 @@ from rest_framework import permissions, authentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
 from .serializers import UserSerializer
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from . import serializers
 from . import models
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User, Group
+from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework import permissions
 from .serializers import UserSerializer, GroupSerializer
+from rest_framework.response import Response
+import datetime
 
 
 # Create your views here.
@@ -95,3 +98,51 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class RelatorioDespesasViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def list(self, request, *args, **kwargs):
+        mesPesquisa = datetime.date.today().month
+
+        mesFiltro = self.request.query_params.get('mes')
+        if mesFiltro is not None:
+            mesPesquisa = mesPesquisa
+        
+        #aquisicoes realizadas no mes pesquisado
+        aquisicoes_mes = models.Aquisicao.objects.filter(data__month=mesPesquisa)
+        #os funcionarios sao custos fixos, entao eh o salario de todos
+        funcionarios_mes = models.Funcionarios.objects.all()
+        #locacoes devolvidas no mes de pesquisa que tem acressimo de manutencao
+        manutencoes_mes = models.Locacao.objects.filter(data_devolucao__month=mesPesquisa, acressimos_manutencao__gt=0)
+
+        model = { "aquisicoes": aquisicoes_mes, "funcionarios": funcionarios_mes, "manutencoes": manutencoes_mes }
+        return Response(model, status=status.HTTP_200_OK)
+
+
+class RelatorioReceitasViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def list(self, request, *args, **kwargs):
+        hoje = datetime.date.today()
+        mesPesquisa = hoje.month
+
+        mesFiltro = self.request.query_params.get('mes')
+        if mesFiltro is not None:
+            mesPesquisa = mesPesquisa
+        
+        #as reservas so sao exibidas no mes atual pq depois muda de status
+        reservas_mes = []
+        if mesPesquisa == hoje.month:
+            reservas_mes = models.Locacao.objects.filter(status='RESERVA')
+
+        #locacoes devolvidas no mes de pesquisa
+        locacoes_mes = models.Locacao.objects.filter(data_devolucao__month=mesPesquisa)
+
+        model = { "locacoes": locacoes_mes, "reservas": reservas_mes }
+        return Response(model, status=status.HTTP_200_OK)

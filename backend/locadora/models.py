@@ -155,7 +155,8 @@ class Locacao(models.Model):
     funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
-    acressimos = models.FloatField(default=0)
+    acressimos_manutencao = models.FloatField(default=0)
+    acressimos_atraso = models.FloatField(default=0)
     valor = models.FloatField()
 
     class Meta:
