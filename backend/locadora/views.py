@@ -1,21 +1,19 @@
 
-from django.contrib.auth.models import User
-from django.db.models.query import QuerySet
-from rest_framework import permissions, authentication
-from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
-from .serializers import UserSerializer
-from django.shortcuts import render
-from rest_framework import status, viewsets
-from . import serializers
-from . import models
-from django.views.decorators.csrf import csrf_exempt
+from collections import namedtuple
+import datetime
 from django.contrib.auth.models import User, Group
-from rest_framework.views import APIView
+from django.db.models.query import QuerySet
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer
+from rest_framework import status, viewsets
+from rest_framework import permissions, authentication
+from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
 from rest_framework.response import Response
-import datetime
+from . import serializers
+from . import models
+from .serializers import UserSerializer, GroupSerializer
 
 
 # Create your views here.
@@ -98,6 +96,42 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class TipoVeiculoViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+    
+    def list(self, request, *args, **kwargs):
+        return Response(models.Veiculo.TIPO_VEICULO, status=status.HTTP_200_OK)
+
+
+class StatusVeiculoViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+    
+    def list(self, request, *args, **kwargs):
+        return Response(models.Veiculo.STATUS_VEICULO, status=status.HTTP_200_OK)
+
+
+class CorVeiculoViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+    
+    def list(self, request, *args, **kwargs):
+        return Response(models.Veiculo.COR_VEICULO, status=status.HTTP_200_OK)
+
+
+class StatusLocacaoViewSet(viewsets.ViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+    
+    def list(self, request, *args, **kwargs):
+        return Response(models.Locacao.LOCACAO_STATUS, status=status.HTTP_200_OK)
 
 
 class RelatorioDespesasViewSet(viewsets.ViewSet):

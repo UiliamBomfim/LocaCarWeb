@@ -36,6 +36,10 @@ router.register(r'funcaoFuncionario', FuncaoFuncionarioViewSet)
 router.register(r'cliente', ClientesViewSet, basename='cliente')
 router.register(r'relatorio/despesas', RelatorioDespesasViewSet, basename='relatorio')
 router.register(r'relatorio/receitas', RelatorioReceitasViewSet, basename='relatorio')
+router.register(r'tipoVeiculo', TipoVeiculoViewSet, basename='tipoVeiculo')
+router.register(r'statusVeiculo', StatusVeiculoViewSet, basename='statusVeiculo')
+router.register(r'corVeiculo', CorVeiculoViewSet, basename='corVeiculo')
+router.register(r'statusLocacao', StatusLocacaoViewSet, basename='statusLocacao')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

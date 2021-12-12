@@ -23,4 +23,12 @@ urlpatterns = [
          name='relatorioDespesas-list'),
     path('relatorio/receitas', views.RelatorioReceitasViewSet.as_view(),
          name='relatorioFinanceiro-list'),
+    path('tipoVeiculo/', views.TipoVeiculoViewSet.as_view(),
+         name='tipoVeiculo-list'),
+    path('statusVeiculo/', views.StatusVeiculoViewSet.as_view(),
+         name='statusVeiculo-list'),
+    path('corVeiculo/', views.CorVeiculoViewSet.as_view(),
+         name='corVeiculo-list'),
+    path('statusLocacao/', views.StatusLocacaoViewSet.as_view(),
+         name='statusLocacao-list'),
 ]
