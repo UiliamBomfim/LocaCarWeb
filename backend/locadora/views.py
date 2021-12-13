@@ -11,7 +11,7 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.response import Response
 from . import serializers
 from . import models
-from .serializers import ClienteSerializer, FuncionariosSerializer, UserSerializer, GroupSerializer
+from .serializers import AquisicaoSerializer, ClienteSerializer, FuncionariosSerializer, LocacaoSerializer, UserSerializer, GroupSerializer
 
 
 # Create your views here.
@@ -117,13 +117,15 @@ class LocacaoViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return models.Locacao.objects.filter(owner=user)
+        return models.Locacao.objects.filter(cliente__usuario__id=user.id)
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -178,14 +180,14 @@ class RelatorioDespesasViewSet(viewsets.ViewSet):
 
         mesFiltro = self.request.query_params.get('mes')
         if mesFiltro is not None:
-            mesPesquisa = mesPesquisa
+            mesPesquisa = mesFiltro
         
         #aquisicoes realizadas no mes pesquisado
-        aquisicoes_mes = models.Aquisicao.objects.filter(data__month=mesPesquisa)
+        aquisicoes_mes = AquisicaoSerializer(models.Aquisicao.objects.filter(data__month=mesPesquisa), many=True).data
         #os funcionarios sao custos fixos, entao eh o salario de todos
-        funcionarios_mes = models.Funcionarios.objects.all()
+        funcionarios_mes = FuncionariosSerializer(models.Funcionarios.objects.all(), many=True).data
         #locacoes devolvidas no mes de pesquisa que tem acressimo de manutencao
-        manutencoes_mes = models.Locacao.objects.filter(data_devolucao__month=mesPesquisa, acressimos_manutencao__gt=0)
+        manutencoes_mes = LocacaoSerializer(models.Locacao.objects.filter(data_devolucao__month=mesPesquisa, acressimos_manutencao__gt=0), many=True).data
 
         model = { "aquisicoes": aquisicoes_mes, "funcionarios": funcionarios_mes, "manutencoes": manutencoes_mes }
         return Response(model, status=status.HTTP_200_OK)
@@ -202,15 +204,15 @@ class RelatorioReceitasViewSet(viewsets.ViewSet):
 
         mesFiltro = self.request.query_params.get('mes')
         if mesFiltro is not None:
-            mesPesquisa = mesPesquisa
+            mesPesquisa = mesFiltro
         
         #as reservas so sao exibidas no mes atual pq depois muda de status
         reservas_mes = []
         if mesPesquisa == hoje.month:
-            reservas_mes = models.Locacao.objects.filter(status='RESERVA')
+            reservas_mes = LocacaoSerializer(models.Locacao.objects.filter(status='RESERVA', data_prevista_devolucao__month=mesPesquisa), many=True).data
 
         #locacoes devolvidas no mes de pesquisa
-        locacoes_mes = models.Locacao.objects.filter(data_devolucao__month=mesPesquisa)
+        locacoes_mes = LocacaoSerializer(models.Locacao.objects.filter(data_devolucao__month=mesPesquisa), many=True).data
 
         model = { "locacoes": locacoes_mes, "reservas": reservas_mes }
         return Response(model, status=status.HTTP_200_OK)

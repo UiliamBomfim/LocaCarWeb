@@ -7,7 +7,7 @@ from rest_framework import serializers
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'groups']
+        fields = ['id', 'url', 'username', 'email', 'groups']
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
@@ -52,7 +52,7 @@ class JustificativaReprovacaoSerializer(serializers.ModelSerializer):
 class VeiculoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Veiculo
-        fields = ['id', 'modelo', 'placa', 'cor', 'ano', 'tipo', 'status']
+        fields = ['id', 'modelo', 'placa', 'cor', 'ano', 'tipo', 'status', 'combustivel', 'quilometragem']
 
 
 class FornecedorSerializer(serializers.ModelSerializer):
@@ -67,12 +67,24 @@ class AquisicaoSerializer(serializers.ModelSerializer):
         model = models.Aquisicao
         fields = '__all__'
         read_only_fields = ('id',)
+    
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['fornecedor'] = FornecedorSerializer(instance.fornecedor).data
+        return response
 
 
-class LocacaoSerializer(serializers.HyperlinkedModelSerializer):
-    veiculo = VeiculoSerializer(many=False)
-
+class LocacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Locacao
-        fields = ['id', 'owner', 'data_locacao',
-                  'data_devolucao', 'veiculo', 'status']
+        fields = '__all__'
+    
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['veiculo'] = VeiculoSerializer(instance.veiculo).data
+        response['cliente'] = ClienteSerializer(instance.cliente).data
+
+        if instance.funcionario is not None:
+            response['funcionario'] = FuncionariosSerializer(instance.funcionario).data
+
+        return response

@@ -146,17 +146,16 @@ class Locacao(models.Model):
         ('FECHADA', 'Fechada'),
     )
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     data_locacao = models.DateField()
     data_prevista_devolucao = models.DateField()
-    data_devolucao = models.DateField()
+    data_devolucao = models.DateField(null=True, blank=True)
     status = models.CharField(max_length=15, choices=LOCACAO_STATUS)
-    funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE)
+    funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE, null=True, blank=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
     acressimos_manutencao = models.FloatField(default=0)
     acressimos_atraso = models.FloatField(default=0)
-    valor = models.FloatField()
+    valor = models.FloatField(default=0)
 
     class Meta:
         db_table = 'locacao'
