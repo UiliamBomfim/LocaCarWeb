@@ -1,10 +1,10 @@
 import { Navigate, useRoutes } from 'react-router-dom';
-import RentalList from './components/UserLists';
 import Layout from './layout/layout';
 import LocacaoPage from './page/locacaoPage';
 import LoginPage from './page/loginPage';
 import AlugadoCarroPage from './page/alugadoCarroPage'
-import ClienteListPage from './page/cliente/ClienteListPage';
+import ClientListPage from './page/cliente/ClientListPage';
+import ClientApprove from './page/cliente/ClientApprove';
 import Home from './page/Home';
 
 const Routers = () => {
@@ -12,25 +12,35 @@ const Routers = () => {
         {
             path: '/locadora',
             element: <Layout />,
-            children: [{
-                element: <Navigate to='/locadora/home' replace />
-            },
-            {
-                path: 'login',
-                element: <LoginPage />
-            },
-            {
-                path: 'locacao',
-                element: <LocacaoPage />
-            },
-            {
-                path: 'locacaofinal',
-                element: <AlugadoCarroPage />
-            },
-            {
-                path: 'clientes/list',
-                element: <ClienteListPage />
-            }
+            children: [
+                {
+                    element: <Navigate to='/locadora/home' replace />
+                },
+                {
+                    path: 'login',
+                    element: <LoginPage />
+                },
+                {
+                    path: 'locacao',
+                    element: <LocacaoPage />
+                },
+                {
+                    path: 'locacaofinal',
+                    element: <AlugadoCarroPage />
+                },
+                {
+                    path: 'clientes/',
+                    children: [
+                        {
+                            path: 'list',
+                            element: <ClientListPage />
+                        },
+                        {
+                            path: 'approve/:id',
+                            element: <ClientApprove />
+                        }
+                    ]
+                }
             ]
         },
         {

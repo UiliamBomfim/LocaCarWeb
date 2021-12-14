@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
 import ClientService from "../../services/ClientService";
 import Table from "../../components/Table";
-import Button from '@mui/material/Button';
 
-const ClienteListPage = () => {
+const ClientListPage = () => {
 
     const clientService = ClientService()
     const [clients, setClients] = useState([])
@@ -24,9 +23,9 @@ const ClienteListPage = () => {
                                 <tr>
                                     <td>{ element['nome'] }</td>
                                     <td>{ element['email'] }</td>
-                                    <td>{ element['aprovado'] }</td>
+                                    <td>{ element['aprovado'] ? "Sim" : "Não" }</td>
                                     <td>{
-                                        <a class="btn btn-primary" href={"/locadora/clientes/aprovar/" + element['id']} role="button">Aprovar</a>
+                                        !element['aprovado'] ? <a class="btn btn-primary" href={"/locadora/clientes/approve/" + element['id']} role="button">Aprovar</a> : ""
                                      }</td>
                                 </tr>
                             )
@@ -38,4 +37,4 @@ const ClienteListPage = () => {
     )
 };
 
-export default ClienteListPage
+export default ClientListPage
