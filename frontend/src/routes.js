@@ -4,6 +4,7 @@ import Layout from './layout/layout';
 import LocacaoPage from './page/locacaoPage';
 import LoginPage from './page/loginPage';
 import AlugadoCarroPage from './page/alugadoCarroPage'
+import Home from './page/Home';
 
 const Routers = () => {
     return useRoutes([
@@ -12,10 +13,6 @@ const Routers = () => {
             element: <Layout />,
             children: [{
                 element: <Navigate to='/locadora/home' replace />
-            },
-            {
-                path: 'home',
-                element: <RentalList />
             },
             {
                 path: 'login',
@@ -37,7 +34,7 @@ const Routers = () => {
             children: [
                 {
                     path: '/locadora/home',
-                    element: <RentalList />
+                    element: <Home />
                 }
             ]
         }

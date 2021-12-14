@@ -1,48 +1,55 @@
 import React from "react"
-import RentalList from "../components/UserLists";
-import isLogin from "../functions/loggingIn";
+import LoginService from "../services/LoginService";
+import ContentContainer from "../components/ContentContainer";
 
 const LoginPage = () => {
+    const loginService = LoginService();
+
     const [userName, setUserName] = React.useState("");
     const [userPass, setUserPass] = React.useState("");
-    const [isLogged, setIsLogged] = React.useState(false);
+    const [isLogged, setIsLogged] = React.useState(loginService.isLogged());
+
+    const goToHome = () => {
+        window.location.href = "/locadora/home"
+    };
 
     const handleSubmit = async () => {
         try {
-            !(await isLogin(userName, userPass)) ? alert('Usuário ou Senha Inválida') : setIsLogged(true) || alert('Logado no Sistema') || (window.location.href = "/locadora/home")
+            var isLogged = await loginService.login(userName, userPass)
+
+            isLogged ? setIsLogged(true) || goToHome() :
+                alert('Usuário ou Senha Inválida')
+
         } catch (error) {
-            console.log('Ocorreu erro no processo de handleSubmit ', error);
+            console.log('Ocorreu erro no processo de login.', error);
         }
     };
 
     if (!isLogged) {
         return (
-            <div >
-                <label>
-                    Name:
-                </label>
-                <input type="text" value={userName} onChange={(event) => setUserName(event.target.value)} />
-                <label>
-                    Senha:
-                </label>
-                <input type="password" value={userPass} onChange={(event) => setUserPass(event.target.value)} />
-                <div>
-                    <button onClick={handleSubmit}>Submit</button>
-                </div>
-            </div >
+            <ContentContainer title={"Login"}>
+                <div className="px-5" >
+                    <div className="form-group">
+                        <label> Nome: </label>
+                        <input type="text" value={userName} onChange={(event) => setUserName(event.target.value)} />
+                    </div>
+                    <br/>
+
+                    <div className="form-group">
+                        <label> Senha: </label>
+                        <input type="password" value={userPass} onChange={(event) => setUserPass(event.target.value)} />
+                    </div>
+                    <br/>
+                    
+                    <div className="text-center">
+                        <button onClick={handleSubmit}>Login</button>
+                    </div>
+                </div >
+            </ContentContainer>
         );
     } else {
-        return (
-            <div>
-                <div>
-                    <RentalList />
-                </div>
-                <div>
-                    <button onClick={() => localStorage.removeItem("token") || window.location.reload()}> Logout </button>
-                </div>
-
-            </div>
-        )
+        goToHome()
+        return ( <></> )
     }
 };
 
