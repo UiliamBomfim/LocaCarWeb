@@ -1,6 +1,8 @@
 from django.urls import path
 from django.urls import path, include
 
+from backend.locadora.models import Veiculo
+
 
 from . import views
 
@@ -18,6 +20,7 @@ urlpatterns = [
          name='fornecedor-list'),
     path('locacao/', views.LocacaoViewSet.as_view({'get': 'list'}),
          name='locacao-list'),
+    path('veiculo/create', views.VeiculosCreate, name='veiculo-save')
 
 
 

@@ -112,6 +112,7 @@ class Locacao(models.Model):
     funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
+    preco = models.FloatField()
 
     class Meta:
         db_table = 'locacao'

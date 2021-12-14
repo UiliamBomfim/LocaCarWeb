@@ -1,5 +1,6 @@
 
 from django.contrib.auth.models import User
+from django.db.models import query
 from rest_framework import permissions, authentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
 from .serializers import UserSerializer
@@ -35,9 +36,24 @@ class VeiculoViewSet(viewsets.ModelViewSet):
         authentication.TokenAuthentication, authentication.SessionAuthentication]
 
 
+# class VeiculosCreate(viewsets.ModelViewSet):
+#    veiculo = serializers.VeiculoSerializer
+ #   querySet = models.Veiculo.save(veiculo)
+ #   permission_classes = [permissions.IsAuthenticated]
+  #  authentication_classes = [
+   #     authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+
 class FornecedorViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.FornecedorSerializer
     queryset = models.Fornecedor.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [
+        authentication.TokenAuthentication, authentication.SessionAuthentication]
+
+    def get_queryset(self):
+        user = self.request.user
+        return models.Locacao.objects.filter(owner=user)
 
 
 class LocacaoViewSet(viewsets.ModelViewSet):

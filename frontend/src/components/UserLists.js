@@ -1,37 +1,64 @@
+import { CssBaseline, Grid, Link } from '@mui/material';
 import React from 'react';
-import Locacao from './Locacao';
+import SearchData from '../functions/searchData';
 
+const RentalList = () => {
+    const [rentalList, setRentalList] = React.useState([]);
 
+    var formato = { minimumFractionDigits: 2, style: 'currency', currency: 'BRL' }
 
-export default class UserLists extends React.Component {
-    state = { lists: [], loading: true }
-
-    async componentDidMount(){
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
+    React.useEffect(() => {
+        const callData = async () => {
+            const data = await SearchData('http://127.0.0.1:8000/locacao/');
+            setRentalList(data)
         }
-        config.headers['Authorization'] = 'Token ' + localStorage.getItem('token');
+        callData();
+    }, []);
 
-        var url = 'http://127.0.0.1:8000/locacao/';
-        const response = await fetch(url, config);
-        const data = await response.json();
-        console.log(data);
-        this.setState({lists: data, loading: false});
-    }
+    return (
+        <React.Fragment>
+            <CssBaseline />
+            <Grid
+                id="GridHome"
+                container
+                spacing={2}
+                direction="row"
+                justify="space-around"
+                alignItems="stretch"
+            >
+                <Grid
+                    item
+                    xs={12}
+                    sm={12}
+                >
+                    {rentalList.map(list =>
+                        <div key={list.id}>
+                            <div>
+                                <h1> Histórico de Locações </h1>
+                            </div>
+                            <div>
+                                <h3> Código Locação: {list.id} </h3>
+                                <ul>
+                                    <h6> Data Locação: {list.data_devolucao} </h6>
+                                    <h6> Data Devolução: {list.data_locacao} </h6>
+                                    <h6>Código do Carro: {list.veiculo.id}</h6>
+                                    <h6>Modelo do Carro: {list.veiculo.modelo}</h6>
+                                    <h6>Cor do Carro: {list.veiculo.cor}</h6>
+                                    <h6>Ano do Carro: {list.veiculo.ano}</h6>
+                                    <h6>Placa do Carro: {list.veiculo.placa}</h6>
+                                    <h6>Tipo do Carro: {list.veiculo.tipo}</h6>
+                                    <h6>Status do Carro: {list.veiculo.status}</h6>
+                                    <h6> Total Locação: {list.preco.toLocaleString('pt-BR', formato)} </h6>
+                                </ul>
+                            </div>
+                        </div>
+                    )}
+                    <Link href="/locadora/locacao">Iniciar Locacao</Link>
 
-    render() {
-        const listsApi = this.state.lists;
+                </Grid>
+            </Grid>
+        </React.Fragment>
+    );
+};
 
-        return (
-            <div>{
-                listsApi.map(list => <Locacao key={list.id} listName={list.id} veiculo={list.veiculo} dataLocacao={list.data_locacao} dataDevolucao={list.data_devolucao} />)}
-            </div>
-
-
-        )
-
-    }
-
-}
+export default RentalList;

@@ -36,11 +36,10 @@ class VeiculoSerializer(serializers.HyperlinkedModelSerializer):
         fields = ['id', 'modelo', 'cor', 'ano', 'status']
 
 
-class FornecedorSerializer(serializers.ModelSerializer):
+class FornecedorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Fornecedor
-        fields = '__all__'
-        read_only_fields = ('id',)
+        fields = ['id', 'empresa', 'endereco', 'telefone', 'email', 'produto']
 
 
 class LocacaoSerializer(serializers.HyperlinkedModelSerializer):
@@ -49,4 +48,4 @@ class LocacaoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Locacao
         fields = ['id', 'owner', 'data_locacao',
-                  'data_devolucao', 'veiculo', 'status']
+                  'data_devolucao', 'veiculo', 'status', 'preco']
