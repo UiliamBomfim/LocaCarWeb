@@ -18,49 +18,41 @@ import LoginService from '../services/LoginService';
         return (
             <>
                 <Button
-                    onClick={() => loginService.logout()}
                     href="/locadora/compras"
                     color="inherit">
                     Compras
                 </Button>
                 <Button
-                    onClick={() => loginService.logout()}
-                    href="/locadora/locacoes"
+                    href="/locadora/clientes/list"
                     color="inherit">
                     Clientes
                 </Button>
                 <Button
-                    onClick={() => loginService.logout()}
                     href="/locadora/locacoes"
                     color="inherit">
                     Funcionários
                 </Button>
                 <Button
-                    onClick={() => loginService.logout()}
                     href="/locadora/locacoes"
                     color="inherit">
                     Locações
                 </Button>
                 <Button
-                    onClick={() => loginService.logout()}
                     href="/locadora/fornecedores"
                     color="inherit">
                     Fornecedores
                 </Button>
                 <Button
-                    onClick={() => loginService.logout()}
                     href="/locadora/veiculos"
                     color="inherit">
                     Veículos
                 </Button>
                 <Button
-                    onClick={() => loginService.logout()}
                     href="/locadora/relatorio/despesas"
                     color="inherit">
                     Relatório de despesas
                 </Button>
                 <Button
-                    onClick={() => loginService.logout()}
                     href="/locadora/relatorio/receitas"
                     color="inherit">
                     Relatório de receitas

@@ -23,18 +23,23 @@ const LoginService = () => {
         return ((token === undefined) ? Boolean(false) : token)
     };
 
+    const getToken = () => {
+        return localStorage.getItem("token");
+    };
+
     const logout = () => {
         localStorage.removeItem("token")
     };
 
     const isLogged = () => {
-        return localStorage.getItem("token") ? true : false;
+        return getToken() ? true : false;
     };
 
     return {
         login: login,
         logout: logout,
         isLogged: isLogged,
+        getToken: getToken,
     }
 };
 

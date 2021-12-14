@@ -4,6 +4,7 @@ import Layout from './layout/layout';
 import LocacaoPage from './page/locacaoPage';
 import LoginPage from './page/loginPage';
 import AlugadoCarroPage from './page/alugadoCarroPage'
+import ClienteListPage from './page/cliente/ClienteListPage';
 import Home from './page/Home';
 
 const Routers = () => {
@@ -25,6 +26,10 @@ const Routers = () => {
             {
                 path: 'locacaofinal',
                 element: <AlugadoCarroPage />
+            },
+            {
+                path: 'clientes/list',
+                element: <ClienteListPage />
             }
             ]
         },
