@@ -9,6 +9,8 @@ function Home() {
             <p>Venha curtir as paisagens da nossa cidade com conforto e facilidades que você merece!</p>
             <p>Reserve o seu carro conosco, fazendo o seu cadastro agora mesmo!</p>
             <LinkButton to="/customerregistration" text="Cadastro"/>
+            <p>Se já é membro, realiaze o login.</p>
+            <LinkButton to="/login" text="Login"/>
            <img src={chavecar} alt="Chavecar" />
            
         </section>

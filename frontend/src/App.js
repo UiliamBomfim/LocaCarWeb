@@ -1,6 +1,7 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 import Home from './components/pages/Home'
+import Login from './components/pages/Login'
 import Company from './components/pages/Company'
 import Contact from './components/pages/Contact'
 import Client from './components/pages/Client'
@@ -21,14 +22,15 @@ function App() {
       <Container customClass="min-height">
         <Routes>
           <Route path="/" element={<Home/>} />
-          <Route  path="/client" element={<Client/>}/>
-          <Route  path="/reservas" element={<Reservas/>}/>
+          <Route path="/login" element={<Login/>} />
+          <Route path="/client" element={<Client/>}/>
+          <Route path="/reservas" element={<Reservas/>}/>
           <Route path="/company" element={<Company/>}/>
           <Route path="/contact" element={<Contact/>}/>
           <Route path="/customerregistration" element={<CustomerRegistration/>}/>
-          <Route  path="/newreserva" element={<NewReserva/>}/>
-          <Route  path="/funcionario" element={<Funcionario/>}/>
-          <Route  path="/rentcar" element={<RentCar/>}/>
+          <Route path="/newreserva" element={<NewReserva/>}/>
+          <Route path="/funcionario" element={<Funcionario/>}/>
+          <Route path="/rentcar" element={<RentCar/>}/>
        </Routes>
       </Container>
       <Footer />
