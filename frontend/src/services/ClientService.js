@@ -25,7 +25,24 @@ const ClientService = () => {
     const patch = async (id, content) => {
         try {
             var data = (await api.patch(BASE_URL + id + "/", content)).data
-            console.log(data)
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
+    const post = async (id, content) => {
+        try {
+            var data = (await api.post(BASE_URL + id + "/", content)).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
+    const put = async (id, content) => {
+        try {
+            var data = (await api.put(BASE_URL + id + "/", content)).data
             return data
         } catch (error) {
             return null
@@ -36,6 +53,8 @@ const ClientService = () => {
         getAll: getAll,
         getById: getById,
         patch: patch,
+        post: post,
+        put: put,
     }
 
 };

@@ -4,7 +4,8 @@ import LocacaoPage from './page/locacaoPage';
 import LoginPage from './page/loginPage';
 import AlugadoCarroPage from './page/alugadoCarroPage'
 import ClientListPage from './page/cliente/ClientListPage';
-import ClientApprove from './page/cliente/ClientApprove';
+import ClientApprovePage from './page/cliente/ClientApprovePage';
+import ClientEditPage from './page/cliente/ClientEditPage';
 import Home from './page/Home';
 
 const Routers = () => {
@@ -37,7 +38,11 @@ const Routers = () => {
                         },
                         {
                             path: 'approve/:id',
-                            element: <ClientApprove />
+                            element: <ClientApprovePage />
+                        },
+                        {
+                            path: 'edit/:id',
+                            element: <ClientEditPage />
                         }
                     ]
                 }

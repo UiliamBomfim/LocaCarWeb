@@ -32,6 +32,11 @@ const BaseApi = () => {
         return create().patch(url, content, _config);
     };
 
+    const put = (url, content, config) => {
+        var _config = appendConfig(config)
+        return create().put(url, content, _config);
+    };
+
     const appendConfig = (config) => {
         var _config = defaultConfig
         return Object.assign(_config, config)
@@ -42,6 +47,7 @@ const BaseApi = () => {
         post: post,
         get: get,
         patch: patch,
+        put: put,
     }
 };
 

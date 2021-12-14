@@ -4,7 +4,6 @@ const ClientForm = ({ client, isDisabled, footer }) => {
 
     client = client ? client : {}
 
-    const [id, setId] = useState(client.id)
     const [nome, setName] = useState(client.nome)
     const [email, setEmail] = useState(client.email)
     const [nacionalidade, setNacionalidade] = useState(client.nacionalidade)
@@ -16,8 +15,16 @@ const ClientForm = ({ client, isDisabled, footer }) => {
 
     const getFormData = () => {
         return {
+            dataDeNascimento: dataDeNascimento,
+            nacionalidade: nacionalidade,
+            usuario: client.usuario,
+            endereco: endereco,
+            telefone: telefone,
+            id: client.id,
+            email: email,
             nome: nome,
-            id: id,
+            cpf: cpf,
+            cnh: cnh,
         }
     }
 

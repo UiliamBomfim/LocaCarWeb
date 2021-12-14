@@ -4,7 +4,7 @@ import ContentContainer from "../../components/ContentContainer";
 import ClientService from "../../services/ClientService";
 import ClientForm from './ClientForm';
 
-const ClientApprove = () => {
+const ClientApprovePage = () => {
     const { id } = useParams();
     const clientService = ClientService()
     const [client, setClient] = useState(undefined)
@@ -59,4 +59,4 @@ const ClientApprove = () => {
     )
 }
 
-export default ClientApprove
+export default ClientApprovePage
