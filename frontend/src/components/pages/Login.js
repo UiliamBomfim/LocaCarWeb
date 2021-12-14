@@ -1,16 +1,32 @@
 import React from 'react';
-import AuthenticationStatus from '../functions/authenticationStatus';
-import LoggingIn from '../login';
+import AuthService from '../services/Auth';
 
 const LoginForm = () => {
+
+    const authService = AuthService();
 
     const [userName, setUserName] = React.useState("");
     const [userPass, setUserPass] = React.useState("");
 
     const [loggedIn, setLoggedIn] = React.useState(false);
 
-    const Acessing = () => LoggingIn(userName, userPass) ? setLoggedIn(true) || AuthenticationStatus(true) : setLoggedIn(false) || AuthenticationStatus(false);
-    const SingUp = () => localStorage.setItem("authStatus", "singup");
+    const Acessing = () => {
+        var thenCallback = (response) => {
+            console.log('then', response)
+        };
+
+        var catchCallback = (error) => {
+            console.log('catch', error)
+        };
+
+        var r = authService.loggingIn(userName, userPass, thenCallback, catchCallback);
+            // setLoggedIn(true) || authService.setStatus(true) :
+            // setLoggedIn(false) || authService.setStatus(false);
+    }
+
+    const SingUp = () => {
+        authService.setStatus("singup");
+    }
 
     return(
         <form>
@@ -38,6 +54,5 @@ const LoginForm = () => {
     </form>
     )
 }
-
 
 export default LoginForm;
