@@ -6,6 +6,7 @@ import AlugadoCarroPage from './page/alugadoCarroPage'
 import ClientListPage from './page/cliente/ClientListPage';
 import ClientApprovePage from './page/cliente/ClientApprovePage';
 import ClientEditPage from './page/cliente/ClientEditPage';
+import ClientShowPage from './page/cliente/ClientShowPage';
 import Home from './page/Home';
 
 const Routers = () => {
@@ -43,6 +44,10 @@ const Routers = () => {
                         {
                             path: 'edit/:id',
                             element: <ClientEditPage />
+                        },
+                        {
+                            path: 'show/:id',
+                            element: <ClientShowPage />
                         }
                     ]
                 }

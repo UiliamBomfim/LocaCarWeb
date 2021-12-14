@@ -25,7 +25,11 @@ const ClientListPage = () => {
                                     <td>{ element['email'] }</td>
                                     <td>{ element['aprovado'] ? "Sim" : "Não" }</td>
                                     <td>{
-                                        !element['aprovado'] ? <a class="btn btn-primary" href={"/locadora/clientes/approve/" + element['id']} role="button">Aprovar</a> : ""
+                                        <>
+                                            {(!element['aprovado'] ? <a className="btn btn-primary pr-5" href={"/locadora/clientes/approve/" + element['id']} role="button">Aprovar</a> : "")}
+                                            &nbsp;&nbsp;
+                                            <a className="btn btn-primary" href={"/locadora/clientes/show/" + element['id']} role="button">Consultar</a>
+                                        </>
                                      }</td>
                                 </tr>
                             )

@@ -95,7 +95,7 @@ const ClientForm = ({ client, isDisabled, footer }) => {
                 </div>
                 <br/>
 
-                { footer(getFormData) }
+                { footer && footer(getFormData) }
             </div >
         )
     }
