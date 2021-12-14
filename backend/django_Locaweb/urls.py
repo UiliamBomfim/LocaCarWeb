@@ -19,8 +19,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path, path
 from django.views.generic import TemplateView
 
-from locadora.views import UserViewSet, GroupViewSet, LocacaoViewSet, VeiculoViewSet, FuncionariosViewSet, FornecedorViewSet
-
+from locadora.views import *
 
 from django.urls import path
 from rest_framework import routers
@@ -30,17 +29,26 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'locacao', LocacaoViewSet, basename='locacao')
-router.register(r'veiculo', VeiculoViewSet)
+router.register(r'veiculo', VeiculoViewSet, basename='cliente')
 router.register(r'funcionario', FuncionariosViewSet)
 router.register(r'fornecedor', FornecedorViewSet)
+router.register(r'aquisicao', AquisicaoViewSet)
+router.register(r'funcaoFuncionario', FuncaoFuncionarioViewSet)
+router.register(r'cliente', ClientesViewSet, basename='cliente')
+router.register(r'relatorio/despesas', RelatorioDespesasViewSet, basename='relatorio')
+router.register(r'relatorio/receitas', RelatorioReceitasViewSet, basename='relatorio')
+router.register(r'tipoVeiculo', TipoVeiculoViewSet, basename='tipoVeiculo')
+router.register(r'statusVeiculo', StatusVeiculoViewSet, basename='statusVeiculo')
+router.register(r'corVeiculo', CorVeiculoViewSet, basename='corVeiculo')
+router.register(r'statusLocacao', StatusLocacaoViewSet, basename='statusLocacao')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-token-auth/', views.obtain_auth_token),
-    # add depois
+    #add depois
     #path('api/', include('locadora.urls')),
     path('', include(router.urls)),
 
 ]
 
-#urlpatterns += [re_path(r'^.*',                     TemplateView.as_view(template_name='index.html'))]
+#urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
