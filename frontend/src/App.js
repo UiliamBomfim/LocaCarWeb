@@ -10,6 +10,7 @@ import CustomerRegistration from './components/pages/CustomerRegistration'
 import NewReserva from './components/pages/NewReserva'
 import Funcionario from './components/pages/Funcionario'
 import  RentCar from './components/pages/RentCar'
+import  Devolucao from './components/pages/Devolucao'
 
 import Container from './components/layout/Container'
 import Navbar from './components/layout/Navbar'
@@ -31,6 +32,7 @@ function App() {
           <Route path="/newreserva" element={<NewReserva/>}/>
           <Route path="/funcionario" element={<Funcionario/>}/>
           <Route path="/rentcar" element={<RentCar/>}/>
+          <Route  path="/devolucao" element={<Devolucao/>}/>
        </Routes>
       </Container>
       <Footer />
