@@ -6,6 +6,7 @@ import LoginPage from './page/loginPage';
 import LocationListPage from './page/locacao/LocationListPage';
 import LocationApprovePage from './page/locacao/LocationApprovePage';
 import LocationShowPage from './page/locacao/LocationShowPage';
+import LocationDevolvePage from './page/locacao/LocationDevolvePage';
 
 import AlugadoCarroPage from './page/alugadoCarroPage'
 
@@ -43,6 +44,10 @@ const Routers = () => {
                         {
                             path: 'show/:id',
                             element: <LocationShowPage />
+                        },
+                        {
+                            path: 'devolve/:id',
+                            element: <LocationDevolvePage />
                         },
                     ]
                 },

@@ -5,7 +5,7 @@ import LocationService from "../../services/LocationService";
 import VehicleService from "../../services/VehicleService";
 import LocationForm from "./LocationForm";
 
-const LocationApprovePage = () => {
+const LocationDevolvePage = () => {
     const { id } = useParams();
     const vehicleService = VehicleService()
     const locationService = LocationService()
@@ -14,39 +14,40 @@ const LocationApprovePage = () => {
     useEffect(async () => {
         var _location = await locationService.getById(id);
 
-        if (_location.status != 'RESERVA') {
-            alert('O status da locação é diferente de RESERVA, ela não pode ser aprovada novamente.')
+        if (_location.status != 'EM_ABERTO') {
+            alert('O status da locação é diferente de EM_ABERTO, ela não pode ser entregue novamente.')
             window.location.href = "/locadora/locacao/list"
         }
         
         setLocation(_location)
     }, [])
 
-    const approveLocation = async (getFormData) => {
+    const devolveLocation = async (getFormData) => {
         var locationData = getFormData()
 
         // dar update na locacao
-        // TODO: quando tiver o funcionario, passar o "funcionario"
+        var date = new Date()
+        var formattedDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate()
         var result = await locationService.patch(locationData.id, {
-            valor: locationData.valor,
-            status: "EM_ABERTO",
+            data_devolucao: formattedDate,
+            status: "EM_AVALIACAO",
         })
 
         if (!result) {
-            alert('Falha ao aprovar Locação')
+            alert('Falha ao entregar Locação')
             window.location.href = "/locadora/locacao/list"
         }
 
         // dar update no veiculo
         var result = await vehicleService.patch(locationData.veiculo.id, {
-            status: "INDISPONIVEL",
+            status: "EM_AVALIACAO",
         })
 
         if (result) {
-            alert('Locação aprovada com sucesso')
+            alert('Locação entregue com sucesso')
             window.location.href = "/locadora/locacao/list"
         } else {
-            alert('Falha ao aprovar Locação')
+            alert('Falha ao entregar Locação')
         }
     }
 
@@ -54,7 +55,7 @@ const LocationApprovePage = () => {
         return (
             <div className='row text-center'>
                 <div className=''>
-                    <button onClick={() => approveLocation(getFormData)}>Aprovar</button>
+                    <button onClick={() => devolveLocation(getFormData)}>Entregar</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button onClick={() => window.history.back()}>Voltar</button>
                 </div>
@@ -62,16 +63,16 @@ const LocationApprovePage = () => {
         )
     }
 
-    var except = ['dataDevolucao', 'funcionario', 'acressimosManutencao', 'acressimosAtraso']
-    var editable = ['valor']
+    var except = ['dataDevolucao', 'acressimosManutencao', 'acressimosAtraso']
+    var editable = []
     
     return (
-        <ContentContainer title={"Aprovar Locação"}>
+        <ContentContainer title={"Entregar Locação"}>
             {
                 location ? <LocationForm location={location} isDisabled={true} footer={footer} except={except} editable={editable} /> : undefined
             }
         </ContentContainer>
     )
-};
+}
 
-export default LocationApprovePage
+export default LocationDevolvePage
