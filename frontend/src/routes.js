@@ -7,6 +7,7 @@ import LocationListPage from './page/locacao/LocationListPage';
 import LocationApprovePage from './page/locacao/LocationApprovePage';
 import LocationShowPage from './page/locacao/LocationShowPage';
 import LocationDevolvePage from './page/locacao/LocationDevolvePage';
+import LocationEndPage from './page/locacao/LocationEndPage';
 
 import AlugadoCarroPage from './page/alugadoCarroPage'
 
@@ -48,6 +49,10 @@ const Routers = () => {
                         {
                             path: 'devolve/:id',
                             element: <LocationDevolvePage />
+                        },
+                        {
+                            path: 'end/:id',
+                            element: <LocationEndPage />
                         },
                     ]
                 },
