@@ -1,6 +1,5 @@
 import ContentContainer from "../../components/ContentContainer";
 import ClientService from "../../services/ClientService";
-import LoginService from "../../services/LoginService";
 import ClientForm from './ClientForm';
 
 const ClientCreatePage = () => {

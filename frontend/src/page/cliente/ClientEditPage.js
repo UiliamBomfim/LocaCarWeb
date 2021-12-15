@@ -22,6 +22,7 @@ const ClientEditPage = () => {
 
         if (result) {
             alert('Alterações realizadas com sucesso')
+            window.history.go(-1)
         } else {
             alert('Falha ao alterar usuario')
         }

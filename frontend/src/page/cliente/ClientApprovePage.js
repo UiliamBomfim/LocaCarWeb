@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
 import ClientService from "../../services/ClientService";
+import LoginService from "../../services/LoginService";
 import ClientForm from './ClientForm';
 
 const ClientApprovePage = () => {
@@ -11,6 +12,7 @@ const ClientApprovePage = () => {
     const [justification, setJustification] = useState(undefined)
 
     useEffect(async () => {
+        LoginService.checkPermission(['employee'])
         var _client = await clientService.getById(id);
         setClient(_client)
     }, [])

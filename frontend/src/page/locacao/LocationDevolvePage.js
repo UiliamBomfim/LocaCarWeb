@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ContentContainer from "../../components/ContentContainer";
 import LocationService from "../../services/LocationService";
 import VehicleService from "../../services/VehicleService";
+import LoginService from "../../services/LoginService";
 import LocationForm from "./LocationForm";
 
 const LocationDevolvePage = () => {
@@ -12,6 +13,8 @@ const LocationDevolvePage = () => {
     const [location, setLocation] = useState(undefined)
 
     useEffect(async () => {
+        LoginService.checkPermission(['client'])
+        
         var _location = await locationService.getById(id);
 
         if (_location.status != 'EM_ABERTO') {

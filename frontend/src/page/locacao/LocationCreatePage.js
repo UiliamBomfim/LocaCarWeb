@@ -1,14 +1,20 @@
+import { useEffect } from "react";
 import ContentContainer from "../../components/ContentContainer";
 import LocationService from "../../services/LocationService";
+import LoginService from "../../services/LoginService";
 import LocationForm from "./LocationForm";
 
 const LocationCreatePage = () => {
     const locationService = LocationService()
 
+    useEffect(async () => {
+        LoginService.checkPermission(['client'])
+    }, [])
+
     const createLocation = async (getFormData) => {
         var locationData = getFormData()
+        var user = LoginService.getUser()
 
-        // TODO: pegar id do cliente logado
         var result = await locationService.post({
             data_prevista_devolucao: locationData.dataPrevistaDevolucao,
             data_locacao: locationData.dataLocacao,
@@ -18,7 +24,7 @@ const LocationCreatePage = () => {
             data_devolucao: null,
             funcionario: null,
             status: "RESERVA",
-            cliente: 1,
+            cliente: user.id,
             valor: 0.0
         })
 

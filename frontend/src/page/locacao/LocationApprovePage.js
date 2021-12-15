@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import ContentContainer from "../../components/ContentContainer";
 import LocationService from "../../services/LocationService";
 import VehicleService from "../../services/VehicleService";
+import LoginService from "../../services/LoginService";
 import LocationForm from "./LocationForm";
 
 const LocationApprovePage = () => {
@@ -12,6 +13,7 @@ const LocationApprovePage = () => {
     const [location, setLocation] = useState(undefined)
 
     useEffect(async () => {
+        LoginService.checkPermission(['employee'])
         var _location = await locationService.getById(id);
 
         if (_location.status != 'RESERVA') {
@@ -24,11 +26,12 @@ const LocationApprovePage = () => {
 
     const approveLocation = async (getFormData) => {
         var locationData = getFormData()
+        var user = LoginService.getUser()
 
         // dar update na locacao
-        // TODO: quando tiver o funcionario, passar o "funcionario"
         var result = await locationService.patch(locationData.id, {
             valor: locationData.valor,
+            funcionario: user.id,
             status: "EM_ABERTO",
         })
 
@@ -56,7 +59,7 @@ const LocationApprovePage = () => {
                 <div className=''>
                     <button onClick={() => approveLocation(getFormData)}>Aprovar</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button onClick={() => window.history.back()}>Voltar</button>
+                    <button onClick={() => window.history.go(-1)}>Voltar</button>
                 </div>
             </div>
         )

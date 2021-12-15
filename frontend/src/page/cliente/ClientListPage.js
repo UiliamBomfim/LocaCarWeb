@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
 import ClientService from "../../services/ClientService";
+import LoginService from "../../services/LoginService";
 import Table from "../../components/Table";
 
 const ClientListPage = () => {
@@ -9,6 +10,7 @@ const ClientListPage = () => {
     const [clients, setClients] = useState([])
 
     useEffect(async () => {
+        LoginService.checkPermission(['employee'])
         var _clients = await clientService.getAll();
         setClients(_clients)
     }, [])

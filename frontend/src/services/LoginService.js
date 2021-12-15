@@ -61,4 +61,12 @@ LoginService.getUser = () => {
     return JSON.parse(localStorage.getItem("user"));
 };
 
+LoginService.checkPermission = (permissions) => {
+    if ((LoginService.userIsEmployee() && !permissions.includes('employee')) ||
+        (!LoginService.userIsEmployee() && !permissions.includes('client'))) {
+        alert('Você não tem permissão para acessar esse recurso')
+        window.location.href = "/locadora/home"
+    }
+};
+
 export default LoginService;
