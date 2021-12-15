@@ -32,10 +32,60 @@ const VehicleService = () => {
         }
     }
 
+    const post = async (content) => {
+        try {
+            var data = (await api.post(BASE_URL, content)).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
+    const put = async (id, content) => {
+        try {
+            var data = (await api.put(BASE_URL + id + "/", content)).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
+    const getColors = async () => {
+        try {
+            var data = (await api.get("corVeiculo/")).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
+    const getTypes = async () => {
+        try {
+            var data = (await api.get("tipoVeiculo/")).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
+    const getStates = async () => {
+        try {
+            var data = (await api.get("statusVeiculo/")).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
     return {
+        getStates: getStates,
+        getTypes: getTypes,
+        getColors: getColors,
         getAll: getAll,
         getById: getById,
         patch: patch,
+        post: post,
+        put: put,
     }
 
 };

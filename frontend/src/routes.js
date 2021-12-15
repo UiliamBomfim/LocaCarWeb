@@ -10,13 +10,16 @@ import LocationDevolvePage from './page/locacao/LocationDevolvePage';
 import LocationEndPage from './page/locacao/LocationEndPage';
 import LocationCreatePage from './page/locacao/LocationCreatePage';
 
-import AlugadoCarroPage from './page/alugadoCarroPage'
-
 import ClientListPage from './page/cliente/ClientListPage';
 import ClientApprovePage from './page/cliente/ClientApprovePage';
 import ClientEditPage from './page/cliente/ClientEditPage';
 import ClientShowPage from './page/cliente/ClientShowPage';
 import ClientCreatePage from './page/cliente/ClientCreatePage';
+
+import VehicleListPage from './page/veiculo/VehicleListPage';
+import VehicleShowPage from './page/veiculo/VehicleShowPage';
+import VehicleCreatePage from './page/veiculo/VehicleCreatePage';
+import VehicleEditPage from './page/veiculo/VehicleEditPage';
 
 import Home from './page/Home';
 
@@ -63,8 +66,25 @@ const Routers = () => {
                     ]
                 },
                 {
-                    path: 'locacaofinal',
-                    element: <AlugadoCarroPage />
+                    path: 'veiculos/',
+                    children: [
+                        {
+                            path: 'list',
+                            element: <VehicleListPage />
+                        },
+                        {
+                            path: 'show/:id',
+                            element: <VehicleShowPage />
+                        },
+                        {
+                            path: 'create/',
+                            element: <VehicleCreatePage />
+                        },
+                        {
+                            path: 'edit/:id',
+                            element: <VehicleEditPage />
+                        }
+                    ]
                 },
                 {
                     path: 'clientes/',
