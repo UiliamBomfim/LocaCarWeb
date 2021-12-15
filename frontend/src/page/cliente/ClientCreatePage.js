@@ -1,29 +1,26 @@
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
 import ClientService from "../../services/ClientService";
+import LoginService from "../../services/LoginService";
 import ClientForm from './ClientForm';
 
-const ClientEditPage = () => {
-    const { id } = useParams();
+const ClientCreatePage = () => {
     const clientService = ClientService()
-    const [client, setClient] = useState(undefined)
-
-    useEffect(async () => {
-        var _client = await clientService.getById(id);
-        setClient(_client)
-    }, [])
 
     const saveClient = async (getFormData) => {
         var clientData = getFormData()
+        
         delete clientData.id
+        delete clientData.usuario
 
-        var result = await clientService.put(id, clientData)
+        clientData.aprovado = "False"
+
+        var result = await clientService.createUser(clientData)
 
         if (result) {
-            alert('Alterações realizadas com sucesso')
+            alert('Cadastro realizado com sucesso')
+            window.location.href = "/locadora/login"
         } else {
-            alert('Falha ao alterar usuario')
+            alert('Falha ao realizar cadastro')
         }
     }
 
@@ -38,12 +35,12 @@ const ClientEditPage = () => {
     }
     
     return (
-        <ContentContainer title={"Editar Cliente"}>
+        <ContentContainer title={"Cadastrar Cliente"}>
             {
-                client ? <ClientForm client={client} isDisabled={false} footer={footer} /> : undefined
+                <ClientForm isDisabled={false} footer={footer} showPassword={true} />
             }
         </ContentContainer>
     )
-};
+}
 
-export default ClientEditPage
+export default ClientCreatePage

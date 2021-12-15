@@ -13,6 +13,8 @@ urlpatterns = [
          name='funcionarios-list'),
     path('cliente/', views.ClientesViewSet.as_view({'get': 'list'}),
          name='cliente-list'),
+    path('cliente_create/', views.CreateClienteViewSet.as_view({'post': 'create'}),
+         name='cliente_create'),
     path('veiculo/', views.VeiculoViewSet.as_view({'get': 'list'}),
          name='veiculo-list'),
     path('fornecedor/', views.VeiculoViewSet.as_view({'get': 'list'}),

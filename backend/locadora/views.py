@@ -5,11 +5,10 @@ from django.contrib.auth.models import User, Group
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
-from rest_framework import permissions
 from rest_framework import status, viewsets
 from rest_framework import permissions, authentication
 from rest_framework.authtoken.models import Token
-from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
+from rest_framework.decorators import api_view, authentication_classes as view_authentication_classes, renderer_classes
 from rest_framework.response import Response
 from . import serializers
 from . import models
@@ -68,6 +67,15 @@ class ClientesViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(aprovado=approvedUser)
         return queryset
     
+    def create(self, request, *args, **kwargs):
+        return Response({ 'mensagem': "Não implementado" }, status=status.HTTP_501_NOT_IMPLEMENTED)
+
+class CreateClienteViewSet(viewsets.ModelViewSet):
+    queryset = models.Cliente.objects.all()
+    serializer_class = serializers.ClienteSerializer
+    permission_classes = [permissions.AllowAny]
+    authentication_classes = []
+
     #criar o usuario de autenticacao e o cliente ao mesmo tempo
     def create(self, request, *args, **kwargs):
         cliente_data = request.data
@@ -81,7 +89,21 @@ class ClientesViewSet(viewsets.ModelViewSet):
         cliente.save()
 
         return Response(ClienteSerializer(cliente).data, status=status.HTTP_201_CREATED)
+    
+    def list(self, request):
+        return Response({ 'mensagem': "Não implementado" }, status=status.HTTP_501_NOT_IMPLEMENTED)
 
+    def retrieve(self, request, pk=None):
+        return Response({ 'mensagem': "Não implementado" }, status=status.HTTP_501_NOT_IMPLEMENTED)
+
+    def update(self, request, pk=None):
+        return Response({ 'mensagem': "Não implementado" }, status=status.HTTP_501_NOT_IMPLEMENTED)
+
+    def partial_update(self, request, pk=None):
+        return Response({ 'mensagem': "Não implementado" }, status=status.HTTP_501_NOT_IMPLEMENTED)
+
+    def destroy(self, request, pk=None):
+        return Response({ 'mensagem': "Não implementado" }, status=status.HTTP_501_NOT_IMPLEMENTED)
 
 class VeiculoViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.VeiculoSerializer

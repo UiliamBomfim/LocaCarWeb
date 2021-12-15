@@ -53,4 +53,12 @@ const LoginService = () => {
     }
 };
 
+LoginService.userIsEmployee = () => {
+    return localStorage.getItem("user-is-employee") === 'true';
+};
+
+LoginService.getUser = () => {
+    return JSON.parse(localStorage.getItem("user"));
+};
+
 export default LoginService;

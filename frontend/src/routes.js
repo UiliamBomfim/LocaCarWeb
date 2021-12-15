@@ -16,6 +16,7 @@ import ClientListPage from './page/cliente/ClientListPage';
 import ClientApprovePage from './page/cliente/ClientApprovePage';
 import ClientEditPage from './page/cliente/ClientEditPage';
 import ClientShowPage from './page/cliente/ClientShowPage';
+import ClientCreatePage from './page/cliente/ClientCreatePage';
 
 import Home from './page/Home';
 
@@ -83,6 +84,10 @@ const Routers = () => {
                         {
                             path: 'show/:id',
                             element: <ClientShowPage />
+                        },
+                        {
+                            path: 'create/',
+                            element: <ClientCreatePage />
                         }
                     ]
                 }

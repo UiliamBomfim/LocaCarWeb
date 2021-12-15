@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const ClientForm = ({ client, isDisabled, footer }) => {
+const ClientForm = ({ client, isDisabled, footer, showPassword }) => {
 
     client = client ? client : {}
 
@@ -10,22 +10,30 @@ const ClientForm = ({ client, isDisabled, footer }) => {
     const [dataDeNascimento, setDataDeNascimento] = useState(client.dataDeNascimento)
     const [endereco, setEndereco] = useState(client.endereco)
     const [telefone, setTelefone] = useState(client.telefone)
+    const [password, setPassword] = useState("")
     const [cpf, setCPF] = useState(client.cpf)
     const [cnh, setCNH] = useState(client.cnh)
 
     const getFormData = () => {
-        return {
+        var userModel = {
             dataDeNascimento: dataDeNascimento,
             nacionalidade: nacionalidade,
             usuario: client.usuario,
             endereco: endereco,
             telefone: telefone,
+            senha: password,
             id: client.id,
             email: email,
             nome: nome,
             cpf: cpf,
             cnh: cnh,
         }
+
+        if (!showPassword) {
+            delete userModel.senha
+        }
+
+        return userModel
     }
 
     const getForm = () => {
@@ -56,10 +64,9 @@ const ClientForm = ({ client, isDisabled, footer }) => {
                 <br/>
     
                 <div className="form-group">
-                    <label> Nascimento: </label>
-                    <input type="text" value={dataDeNascimento}
-                        disabled={isDisabled ? "disabled" : ""}
-                        onChange={(event) => isDisabled ? undefined : setDataDeNascimento(event.target.value) } />
+                    <label> Data de Nascimento: </label>
+                    <input type="date" value={dataDeNascimento} className="form-control"
+                        onChange={(event) => setDataDeNascimento(event.target.value) } />
                 </div>
                 <br/>
     
@@ -73,7 +80,7 @@ const ClientForm = ({ client, isDisabled, footer }) => {
     
                 <div className="form-group">
                     <label> Telefone: </label>
-                    <input type="text" value={telefone}
+                    <input type="number" value={telefone} className="form-control"
                         disabled={isDisabled ? "disabled" : ""}
                         onChange={(event) => isDisabled ? undefined : setTelefone(event.target.value) } />
                 </div>
@@ -81,7 +88,7 @@ const ClientForm = ({ client, isDisabled, footer }) => {
     
                 <div className="form-group">
                     <label> CPF: </label>
-                    <input type="text" value={cpf}
+                    <input type="number" value={cpf} className="form-control"
                         disabled={isDisabled ? "disabled" : ""}
                         onChange={(event) => isDisabled ? undefined : setCPF(event.target.value) } />
                 </div>
@@ -89,10 +96,21 @@ const ClientForm = ({ client, isDisabled, footer }) => {
     
                 <div className="form-group">
                     <label> CNH: </label>
-                    <input type="text" value={cnh}
+                    <input type="number" value={cnh} className="form-control"
                         disabled={isDisabled ? "disabled" : ""}
                         onChange={(event) => isDisabled ? undefined : setCNH(event.target.value) } />
                 </div>
+                <br/>
+
+                {
+                    showPassword ? (
+                        <div className="form-group">
+                            <label> Senha: </label>
+                            <input type="password" value={password}
+                                onChange={(event) => setPassword(event.target.value) } />
+                        </div>
+                    ) : undefined
+                }
                 <br/>
 
                 { footer && footer(getFormData) }

@@ -31,9 +31,9 @@ const ClientService = () => {
         }
     }
 
-    const post = async (id, content) => {
+    const post = async (content) => {
         try {
-            var data = (await api.post(BASE_URL + id + "/", content)).data
+            var data = (await api.post(BASE_URL, content)).data
             return data
         } catch (error) {
             return null
@@ -49,7 +49,17 @@ const ClientService = () => {
         }
     }
 
+    const createUser = async (content) => {
+        try {
+            var data = (await api.post("cliente_create/", content)).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
     return {
+        createUser: createUser,
         getAll: getAll,
         getById: getById,
         patch: patch,

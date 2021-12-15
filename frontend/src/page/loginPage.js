@@ -21,7 +21,7 @@ const LoginPage = () => {
                 alert('Usuário ou Senha Inválida')
 
         } catch (error) {
-            console.log('Ocorreu erro no processo de login.', error);
+            alert('Ocorreu erro no processo de login.');
         }
     };
 
@@ -43,6 +43,13 @@ const LoginPage = () => {
                     
                     <div className="text-center">
                         <button onClick={handleSubmit}>Login</button>
+                    </div>
+
+                    <hr/>
+                    <div className="d-flex justify-content-center row pt-5">
+                        <p className="text-center col mb-4">Ou Cadastre-se agora</p>
+                        <div class="w-100"></div>
+                        <a className="btn btn-primary col" href="/locadora/clientes/create">Cadastrar</a>
                     </div>
                 </div >
             </ContentContainer>

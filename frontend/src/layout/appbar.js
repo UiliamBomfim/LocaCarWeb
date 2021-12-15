@@ -15,10 +15,8 @@ import LoginService from '../services/LoginService';
     const loginService = LoginService()
 
     const loggedActions = () => {
-        var isEmployee = localStorage.getItem("user-is-employee") === 'true';
-        var user = JSON.parse(localStorage.getItem("user"));
-
-        console.log(isEmployee, user)
+        var isEmployee = LoginService.userIsEmployee();
+        var user = LoginService.getUser();
 
         return (
             <>
