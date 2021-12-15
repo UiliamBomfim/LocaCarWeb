@@ -13,6 +13,13 @@ const LocationApprovePage = () => {
 
     useEffect(async () => {
         var _location = await locationService.getById(id);
+
+        if (_location.status != 'RESERVA') {
+            alert('O status da locação é diferente de RESERVA, ela não pode ser aprovada novamente.')
+            window.location.href = "/locadora/locacao/list"
+        }
+
+
         setLocation(_location)
     }, [])
 
@@ -49,6 +56,8 @@ const LocationApprovePage = () => {
             <div className='row text-center'>
                 <div className=''>
                     <button onClick={() => approveLocation(getFormData)}>Aprovar</button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <button onClick={() => window.history.back()}>Voltar</button>
                 </div>
             </div>
         )

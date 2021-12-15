@@ -43,7 +43,7 @@ const LocationListPage = () => {
                                                 )
                                             }
                                             &nbsp;&nbsp;
-                                            <a className="btn btn-primary" href={"/locadora/locacoes/show/" + element['id']} role="button">Consultar</a>
+                                            <a className="btn btn-primary" href={"/locadora/locacao/show/" + element['id']} role="button">Consultar</a>
                                         </>
                                      }</td>
                                 </tr>
