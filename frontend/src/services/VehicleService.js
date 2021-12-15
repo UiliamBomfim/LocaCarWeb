@@ -6,7 +6,8 @@ const VehicleService = () => {
 
     const getAll = async (queryParams) => {
         try {
-            var data = (await api.get(BASE_URL)).data
+            queryParams = queryParams ? queryParams : "";
+            var data = (await api.get(BASE_URL + queryParams)).data
             return data
         } catch (error) {
             return null

@@ -4,7 +4,7 @@ import EmployeeService from "../../services/EmployeeService";
 import ClientService from "../../services/ClientService";
 import Select from 'react-select';
 
-const LocationForm = ({ location, isDisabled, footer, except, editable }) => {
+const LocationForm = ({ location, isDisabled, footer, except, editable, action }) => {
 
     location = location ? location : {}
     except = except && except.length > 0 ? except : []
@@ -33,9 +33,10 @@ const LocationForm = ({ location, isDisabled, footer, except, editable }) => {
         var _employees = await employeeService.getAll()
         setEmployees(_employees)
         
-        var _vehicles = await vehicleService.getAll()
+        var queryParam = action && action == 'create' ? "?status=DISPONIVEL" : undefined
+        var _vehicles = await vehicleService.getAll(queryParam)
         setVehicles(_vehicles)
-        
+
         var _clients = await clientService.getAll()
         setClients(_clients)
     }, [])
@@ -68,7 +69,8 @@ const LocationForm = ({ location, isDisabled, footer, except, editable }) => {
                         <>
                             <div className="form-group">
                                 <label> Data de locação: </label>
-                                <input type="text" value={dataLocacao}
+
+                                <input type="date" value={dataLocacao} className="form-control"
                                     disabled={isFieldDisabled('dataLocacao') ? "disabled" : ""}
                                     onChange={(event) => isFieldDisabled('dataLocacao') ? undefined : setDataLocacao(event.target.value) } />
                             </div>
@@ -82,7 +84,8 @@ const LocationForm = ({ location, isDisabled, footer, except, editable }) => {
                         <>
                             <div className="form-group">
                                 <label> Data Prevista de devolução: </label>
-                                <input type="text" value={dataPrevistaDevolucao}
+
+                                <input type="date" value={dataPrevistaDevolucao} className="form-control"
                                     disabled={isFieldDisabled('dataPrevistaDevolucao') ? "disabled" : ""}
                                     onChange={(event) => isFieldDisabled('dataPrevistaDevolucao') ? undefined : setDataPrevistaDevolucao(event.target.value) } />
                             </div>
@@ -96,7 +99,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable }) => {
                         <>
                             <div className="form-group">
                                 <label> Data de devolução: </label>
-                                <input type="text" value={dataDevolucao}
+                                <input type="date" value={dataDevolucao} className="form-control"
                                     disabled={isFieldDisabled('dataDevolucao') ? "disabled" : ""}
                                     onChange={(event) => isFieldDisabled('dataDevolucao') ? undefined : setDataDevolucao(event.target.value) } />
                             </div>
@@ -129,7 +132,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable }) => {
                                 <label> Solicitante: </label>
                                 <Select
                                     isDisabled ={isFieldDisabled('cliente')}
-                                    defaultValue={{ value: cliente.id, label: cliente.nome }}
+                                    defaultValue={cliente ? { value: cliente.id, label: cliente.nome } : undefined}
                                     options={clients.map(e => { return { value: e.id, label: e.nome } } )}
                                 />
                             </div>
@@ -145,7 +148,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable }) => {
                                 <label> Veiculo: </label>
                                 <Select
                                     isDisabled ={isFieldDisabled('veiculo')}
-                                    defaultValue={{ value: veiculo.id, label: veiculo.modelo + " | " + veiculo.cor }}
+                                    defaultValue={veiculo ? { value: veiculo.id, label: veiculo.modelo + " | " + veiculo.cor } : undefined}
                                     onChange={setVeiculo}
                                     options={vehicles.map(e => { return { value: e.id, label: e.modelo + " | " + e.cor } } )}
                                 />

@@ -32,10 +32,20 @@ const LocationService = () => {
         }
     }
 
+    const post = async (content) => {
+        try {
+            var data = (await api.post(BASE_URL, content)).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
     return {
         getAll: getAll,
         getById: getById,
         patch: patch,
+        post: post
     }
 
 };

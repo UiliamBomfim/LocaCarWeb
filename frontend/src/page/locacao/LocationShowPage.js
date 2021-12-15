@@ -18,7 +18,7 @@ const LocationShowPage = () => {
         return (
             <div className='row text-center'>
                 <div className=''>
-                    <button onClick={() => window.history.back()}>Voltar</button>
+                    <button onClick={() => window.history.go(-1)}>Voltar</button>
                 </div>
             </div>
         )

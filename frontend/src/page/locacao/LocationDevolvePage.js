@@ -57,7 +57,7 @@ const LocationDevolvePage = () => {
                 <div className=''>
                     <button onClick={() => devolveLocation(getFormData)}>Entregar</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button onClick={() => window.history.back()}>Voltar</button>
+                    <button onClick={() => window.history.go(-1)}>Voltar</button>
                 </div>
             </div>
         )

@@ -8,6 +8,7 @@ import LocationApprovePage from './page/locacao/LocationApprovePage';
 import LocationShowPage from './page/locacao/LocationShowPage';
 import LocationDevolvePage from './page/locacao/LocationDevolvePage';
 import LocationEndPage from './page/locacao/LocationEndPage';
+import LocationCreatePage from './page/locacao/LocationCreatePage';
 
 import AlugadoCarroPage from './page/alugadoCarroPage'
 
@@ -53,6 +54,10 @@ const Routers = () => {
                         {
                             path: 'end/:id',
                             element: <LocationEndPage />
+                        },
+                        {
+                            path: 'create/',
+                            element: <LocationCreatePage />
                         },
                     ]
                 },
