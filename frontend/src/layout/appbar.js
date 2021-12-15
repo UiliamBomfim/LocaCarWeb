@@ -33,7 +33,7 @@ import LoginService from '../services/LoginService';
                     Funcionários
                 </Button>
                 <Button
-                    href="/locadora/locacoes"
+                    href="/locadora/locacao/list"
                     color="inherit">
                     Locações
                 </Button>

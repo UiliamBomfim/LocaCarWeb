@@ -156,7 +156,6 @@ class Locacao(models.Model):
     acressimos_manutencao = models.FloatField(default=0)
     acressimos_atraso = models.FloatField(default=0)
     valor = models.FloatField(default=0)
-    preco = models.FloatField()
 
     class Meta:
         db_table = 'locacao'

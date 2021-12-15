@@ -116,8 +116,12 @@ class LocacaoViewSet(viewsets.ModelViewSet):
         authentication.TokenAuthentication, authentication.SessionAuthentication]
 
     def get_queryset(self):
-        user = self.request.user
-        return models.Locacao.objects.filter(cliente__usuario__id=user.id)
+        queryset = models.Locacao.objects.all()
+        itemUsuario = self.request.query_params.get('listAll')
+        if itemUsuario == 'False':
+            user = self.request.user
+            queryset = queryset.filter(cliente__usuario__id=user.id)
+        return queryset
 
 
 class UserViewSet(viewsets.ModelViewSet):
