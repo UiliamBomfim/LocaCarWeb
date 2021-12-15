@@ -1,12 +1,13 @@
 import BaseApi from "./BaseApi";
 
-const EmployeeService = () => {
+const EmployeeRoleService = () => {
     const api = BaseApi()
-    const BASE_URL = 'funcionario/'
+    const BASE_URL = 'funcaoFuncionario/'
 
     const getAll = async (queryParams) => {
         try {
-            var data = (await api.get(BASE_URL)).data
+            queryParams = queryParams ? queryParams : "";
+            var data = (await api.get(BASE_URL + queryParams)).data
             return data
         } catch (error) {
             return null
@@ -40,13 +41,22 @@ const EmployeeService = () => {
         }
     }
 
+    const put = async (id, content) => {
+        try {
+            var data = (await api.put(BASE_URL + id + "/", content)).data
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
     return {
         getAll: getAll,
         getById: getById,
         patch: patch,
         post: post,
+        put: put,
     }
-    
 }
 
-export default EmployeeService
+export default EmployeeRoleService

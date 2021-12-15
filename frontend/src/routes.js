@@ -21,6 +21,10 @@ import VehicleShowPage from './page/veiculo/VehicleShowPage';
 import VehicleCreatePage from './page/veiculo/VehicleCreatePage';
 import VehicleEditPage from './page/veiculo/VehicleEditPage';
 
+import EmployeeListPage from './page/funcionario/EmployeeListPage';
+import EmployeeCreatePage from './page/funcionario/EmployeeCreatePage';
+import EmployeeShowPage from './page/funcionario/EmployeeShowPage';
+
 import Home from './page/Home';
 
 const Routers = () => {
@@ -110,7 +114,25 @@ const Routers = () => {
                             element: <ClientCreatePage />
                         }
                     ]
-                }
+                },
+                {
+                    path: 'funcionarios/',
+                    children: [
+                        {
+                            path: 'list',
+                            element: <EmployeeListPage />
+                        },
+                        {
+                            path: 'show/:id',
+                            element: <EmployeeShowPage />
+                        },
+                        {
+                            path: 'create/',
+                            element: <EmployeeCreatePage />
+                        },
+                        //TODO: FALTA O DE EDIT
+                    ]
+                },
             ]
         },
         {
