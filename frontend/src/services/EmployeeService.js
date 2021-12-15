@@ -1,13 +1,12 @@
 import BaseApi from "./BaseApi";
 
-const LocationService = () => {
+const EmployeeService = () => {
     const api = BaseApi()
-    const BASE_URL = 'locacao/'
+    const BASE_URL = 'funcionario/'
 
     const getAll = async (queryParams) => {
         try {
-            queryParams = queryParams ? queryParams : "";
-            var data = (await api.get(BASE_URL + queryParams)).data
+            var data = (await api.get(BASE_URL)).data
             return data
         } catch (error) {
             return null
@@ -37,7 +36,7 @@ const LocationService = () => {
         getById: getById,
         patch: patch,
     }
+    
+}
 
-};
-
-export default LocationService
+export default EmployeeService
