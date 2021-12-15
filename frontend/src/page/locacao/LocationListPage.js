@@ -16,10 +16,24 @@ const LocationListPage = () => {
         setLocations(_locations)
     }, [userIsEmployee])
 
+    const tableActions = () => {
+        return (
+            <div className="mb-5">
+                {
+                    !userIsEmployee ? (
+                        <div className="d-flex justify-content-end">
+                            <a className="btn btn-primary" href={"/locadora/locacao/create/"} role="button">Locar</a>
+                        </div>
+                    ) : undefined
+                }
+            </div>
+        )
+    }
+
     return (
         <ContentContainer title={"Listagem de Locações"}>
             { 
-                <Table  header={['Status', 'Solicitante', 'Aprovador', 'Data de Locação', 'Valor Total', 'Ações']}>
+                <Table  header={['Status', 'Solicitante', 'Aprovador', 'Data de Locação', 'Valor Total', 'Ações']} tableActions={tableActions}>
                     {
                         locations.map(element => {
                             return (

@@ -55,21 +55,11 @@ import LoginService from '../services/LoginService';
                         </Button>
                     ) : undefined
                 }
-                {
-                    isEmployee ? (
-                        <Button
-                            href="/locadora/locacao/list"
-                            color="inherit">
-                            Locações
-                        </Button>
-                    ) : (
-                        <Button
-                            href="/locadora/locacao/create"
-                            color="inherit">
-                            Locar Carro
-                        </Button>
-                    )
-                }
+                <Button
+                    href="/locadora/locacao/list"
+                    color="inherit">
+                    Locações
+                </Button>
                 {
                     isEmployee ? (
                         <Button
