@@ -14,49 +14,96 @@ import LoginService from '../services/LoginService';
 
     const loginService = LoginService()
 
-    const loggedActios = () => {
+    const loggedActions = () => {
+        var isEmployee = localStorage.getItem("user-is-employee") === 'true';
+        var user = JSON.parse(localStorage.getItem("user"));
+
+        console.log(isEmployee, user)
+
         return (
             <>
+                {
+                    isEmployee ? (
+                        <Button
+                            href="/locadora/compras/list"
+                            color="inherit">
+                            Compras
+                        </Button>
+                    ) : undefined
+                }
+                {
+                    isEmployee ? (
+                        <Button
+                            href="/locadora/clientes/list"
+                            color="inherit">
+                            Clientes
+                        </Button>
+                    ) : (
+                        user ? (
+                            <Button
+                                href={"/locadora/clientes/edit/" + user.id}
+                                color="inherit">
+                                Editar cadastro
+                            </Button>
+                        ) : undefined
+                    )
+                }
+                {
+                    isEmployee ? (
+                        <Button
+                            href="/locadora/funcionarios/list"
+                            color="inherit">
+                            Funcionários
+                        </Button>
+                    ) : undefined
+                }
+                {
+                    isEmployee ? (
+                        <Button
+                            href="/locadora/locacao/list"
+                            color="inherit">
+                            Locações
+                        </Button>
+                    ) : (
+                        <Button
+                            href="/locadora/locacao/create"
+                            color="inherit">
+                            Locar Carro
+                        </Button>
+                    )
+                }
+                {
+                    isEmployee ? (
+                        <Button
+                            href="/locadora/fornecedores/list"
+                            color="inherit">
+                            Fornecedores
+                        </Button>
+                    ) : undefined
+                }
                 <Button
-                    href="/locadora/compras"
-                    color="inherit">
-                    Compras
-                </Button>
-                <Button
-                    href="/locadora/clientes/list"
-                    color="inherit">
-                    Clientes
-                </Button>
-                <Button
-                    href="/locadora/locacoes"
-                    color="inherit">
-                    Funcionários
-                </Button>
-                <Button
-                    href="/locadora/locacao/list"
-                    color="inherit">
-                    Locações
-                </Button>
-                <Button
-                    href="/locadora/fornecedores"
-                    color="inherit">
-                    Fornecedores
-                </Button>
-                <Button
-                    href="/locadora/veiculos"
+                    href="/locadora/veiculos/list"
                     color="inherit">
                     Veículos
                 </Button>
-                <Button
-                    href="/locadora/relatorio/despesas"
-                    color="inherit">
-                    Relatório de despesas
-                </Button>
-                <Button
-                    href="/locadora/relatorio/receitas"
-                    color="inherit">
-                    Relatório de receitas
-                </Button>
+                {
+                    isEmployee ? (
+                        <Button
+                            href="/locadora/relatorio/despesas"
+                            color="inherit">
+                            Relatório de despesas
+                        </Button>
+                    ) : undefined
+                }
+                {
+                    isEmployee ? (
+                        <Button
+                            href="/locadora/relatorio/receitas"
+                            color="inherit">
+                            Relatório de receitas
+                        </Button>
+                    ) : undefined
+                }
                 <Button
                     onClick={() => loginService.logout()}
                     href="/locadora/login"
@@ -79,7 +126,7 @@ import LoginService from '../services/LoginService';
                         Locação de Carros
                     </Typography>
 
-                    { loginService.isLogged() ? loggedActios() : "" }
+                    { loginService.isLogged() ? loggedActions() : "" }
 
                 </Toolbar>
             </AppBar>

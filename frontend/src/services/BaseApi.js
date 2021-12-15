@@ -6,9 +6,6 @@ const BaseApi = () => {
 
     const defaultConfig = {
         "Content-Type": "application/json",
-        headers: {
-            "Authorization": localStorage.getItem("token")
-        },
     }
 
     const create = () => {
@@ -39,6 +36,7 @@ const BaseApi = () => {
 
     const appendConfig = (config) => {
         var _config = defaultConfig
+        _config.headers = { "Authorization": localStorage.getItem("token") }
         return Object.assign(_config, config)
     };
 

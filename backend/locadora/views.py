@@ -3,10 +3,12 @@ from collections import namedtuple
 import datetime
 from django.contrib.auth.models import User, Group
 from django.db.models.query import QuerySet
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework import permissions
 from rest_framework import status, viewsets
 from rest_framework import permissions, authentication
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, authentication_classes, permission_classes, renderer_classes
 from rest_framework.response import Response
 from . import serializers
@@ -130,6 +132,28 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [
         authentication.TokenAuthentication, authentication.SessionAuthentication]
+    
+    def retrieve(self, request, pk=None):
+        user = Token.objects.get(key=request.auth.key).user
+
+        try:
+            _querysetCliente = models.Cliente.objects.get(usuario__id=user.id)
+            if _querysetCliente is not None:
+                serializedCliente = ClienteSerializer(_querysetCliente).data
+                return Response(serializedCliente, status=status.HTTP_200_OK)
+        except:
+            print()
+
+        
+        try:
+            _querysetFuncionario = models.Funcionarios.objects.get(usuario__id=user.id)
+            if _querysetFuncionario is not None:
+                serializedFuncionario = FuncionariosSerializer(_querysetFuncionario).data
+                return Response(serializedFuncionario, status=status.HTTP_200_OK)
+        except:
+            print()
+        
+        return Response({ 'message':'Usuario nao encontrado' }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GroupViewSet(viewsets.ModelViewSet):

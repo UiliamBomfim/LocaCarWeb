@@ -20,6 +20,10 @@ const LoginService = () => {
         token = ((token === undefined) ? null : ('Token ' + token))
         localStorage.setItem("token", token);
 
+        var user = await getLoggedUser()
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("user-is-employee", `${(user.funcao != undefined)}`);
+
         return ((token === undefined) ? Boolean(false) : token)
     };
 
@@ -29,11 +33,17 @@ const LoginService = () => {
 
     const logout = () => {
         localStorage.removeItem("token")
+        localStorage.removeItem("user");
+        localStorage.removeItem("user-is-employee");
     };
 
     const isLogged = () => {
         return getToken() ? true : false;
     };
+
+    const getLoggedUser = async () => {
+        return (await api.get('users/0')).data
+    }
 
     return {
         login: login,
