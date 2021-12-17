@@ -25,6 +25,9 @@ import EmployeeListPage from './page/funcionario/EmployeeListPage';
 import EmployeeCreatePage from './page/funcionario/EmployeeCreatePage';
 import EmployeeShowPage from './page/funcionario/EmployeeShowPage';
 
+import AcquisitionListPage from './page/compra/AcquisitionListPage';
+import AcquisitionCreatePage from './page/compra/AcquisitionCreatePage';
+
 import Home from './page/Home';
 
 const Routers = () => {
@@ -131,6 +134,20 @@ const Routers = () => {
                             element: <EmployeeCreatePage />
                         },
                         //TODO: FALTA O DE EDIT
+                    ]
+                },
+                {
+                    path: 'compras/',
+                    children: [
+                        {
+                            path: 'list',
+                            element: <AcquisitionListPage />
+                        },
+                        {
+                            path: 'create/',
+                            element: <AcquisitionCreatePage />
+                        },
+                        //TODO: FALTA O DE EDIT E SHOW
                     ]
                 },
             ]
