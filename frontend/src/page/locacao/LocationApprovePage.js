@@ -16,7 +16,7 @@ const LocationApprovePage = () => {
         LoginService.checkPermission(['employee'])
         var _location = await locationService.getById(id);
 
-        if (_location.status != 'RESERVA') {
+        if (_location.status !== 'RESERVA') {
             alert('O status da locação é diferente de RESERVA, ela não pode ser aprovada novamente.')
             window.location.href = "/locadora/locacao/list"
         }

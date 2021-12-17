@@ -33,7 +33,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
         var _employees = await employeeService.getAll()
         setEmployees(_employees)
         
-        var queryParam = action && action == 'create' ? "?status=DISPONIVEL" : undefined
+        var queryParam = action && action === 'create' ? "?status=DISPONIVEL" : undefined
         var _vehicles = await vehicleService.getAll(queryParam)
         setVehicles(_vehicles)
 

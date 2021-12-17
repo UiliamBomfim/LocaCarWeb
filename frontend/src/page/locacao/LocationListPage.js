@@ -48,12 +48,12 @@ const LocationListPage = () => {
                                             {
                                                 userIsEmployee ? (
                                                     <>
-                                                        { element['status'] == 'RESERVA' ? <a className="btn btn-primary" href={"/locadora/locacao/approve/" + element['id']} role="button">Aprovar</a> : undefined }
-                                                        { element['status'] == 'EM_AVALIACAO' ? <a className="btn btn-primary" href={"/locadora/locacao/end/" + element['id']} role="button">Finalizar</a> : undefined }
+                                                        { element['status'] === 'RESERVA' ? <a className="btn btn-primary" href={"/locadora/locacao/approve/" + element['id']} role="button">Aprovar</a> : undefined }
+                                                        { element['status'] === 'EM_AVALIACAO' ? <a className="btn btn-primary" href={"/locadora/locacao/end/" + element['id']} role="button">Finalizar</a> : undefined }
                                                     </>
                                                 ) : (
                                                     <>
-                                                        { element['status'] == 'EM_ABERTO' ? <a className="btn btn-primary" href={"/locadora/locacao/devolve/" + element['id']} role="button">Devolver</a> : undefined }
+                                                        { element['status'] === 'EM_ABERTO' ? <a className="btn btn-primary" href={"/locadora/locacao/devolve/" + element['id']} role="button">Devolver</a> : undefined }
                                                     </>
                                                 )
                                             }

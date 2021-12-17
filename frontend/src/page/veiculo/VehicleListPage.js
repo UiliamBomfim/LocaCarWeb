@@ -45,7 +45,7 @@ const VehicleListPage = () => {
                                     <td>{ element['status'] }</td>
                                     <td>{
                                         <>
-                                            {(('INDISPONIVEL' == element['status']) && userIsEmployee ? <a className="btn btn-primary pr-5" href={"/locadora/veiculos/edit/" + element['id']} role="button">Editar</a> : "")}
+                                            {(('INDISPONIVEL' === element['status']) && userIsEmployee ? <a className="btn btn-primary pr-5" href={"/locadora/veiculos/edit/" + element['id']} role="button">Editar</a> : "")}
                                             &nbsp;&nbsp;
                                             <a className="btn btn-primary" href={"/locadora/veiculos/show/" + element['id']} role="button">Consultar</a>
                                         </>

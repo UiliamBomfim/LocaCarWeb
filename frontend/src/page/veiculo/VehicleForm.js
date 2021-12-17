@@ -48,7 +48,7 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
     }
 
     const getSelectOption = (values, key) => {
-        var _value = values.find(e => e[0] == key)
+        var _value = values.find(e => e[0] === key)
 
         if (_value)
             return { value: _value[0], label: _value[1] }

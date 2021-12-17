@@ -17,7 +17,7 @@ const LocationEndPage = () => {
         
         var _location = await locationService.getById(id);
 
-        if (_location.status != 'EM_AVALIACAO') {
+        if (_location.status !== 'EM_AVALIACAO') {
             alert('O status da locação é diferente de EM_AVALIACAO, ela não pode ser finalizada novamente.')
             window.location.href = "/locadora/locacao/list"
         }
