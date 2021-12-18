@@ -2,10 +2,3 @@
  
   command = "npm run build"
   publish = "build/" 
-
-
-
-[[redireciona]] 
-  de = "/*" 
-  para = "/index.html" 
-  status = 200
