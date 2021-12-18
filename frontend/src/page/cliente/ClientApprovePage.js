@@ -9,22 +9,15 @@ const ClientApprovePage = () => {
     const { id } = useParams();
     const clientService = ClientService()
     const [client, setClient] = useState(undefined)
-    const [justification, setJustification] = useState(undefined)
+    // TODO: adicionar justificativa da reprovação
 
-    /*useEffect(async () => {
-        LoginService.checkPermission(['employee'])
-        var _client = await clientService.getById(id);
-        setClient(_client)
-    }, [])*/
-    
-     useEffect(() => {
-        async function fetchData(){
+    useEffect(() => {
+        (async () => {
             LoginService.checkPermission(['employee'])
-        var _client = await clientService.getById(id);
-        setClient(_client)
-        }
-        fetchData();
-    }, [clientService, id])
+            var _client = await clientService.getById(id);
+            setClient(_client)
+        })();
+    }, [])
 
     const approveClient = async (getFormData) => {
         var clientData = getFormData()
@@ -43,20 +36,11 @@ const ClientApprovePage = () => {
         return (
             <div className='row text-center'>
                 <div className='col-md-6'>
-                    {/*<br/><br/><br/><br/><br/><br/>*/}
                     <button onClick={() => approveClient(getFormData)}>Aprovar</button>
                 </div>
-                {/* remover quando for habilitar a justificativa de reprovacao
-                    <div className='col-md-6'>
-                        <div className="form-group">
-                            <label> Justificativa: </label>
-                            <input type="text" value={justification}
-                                onChange={(event) => setJustification(event.target.value) } />
-                        </div>
-                        <br/><br/>
-                        <button onClick={() => console.log(getFormData())}>Reprovar</button>
-                    </div>
-                */}
+                <div className='col-md-6'>
+                    <button onClick={() => window.history.go(-1)}>Voltar</button>
+                </div>
             </div>
         )
     }

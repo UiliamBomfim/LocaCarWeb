@@ -9,26 +9,20 @@ const ClientListPage = () => {
     const clientService = ClientService()
     const [clients, setClients] = useState([])
 
-   /* useEffect(async () => {
-        LoginService.checkPermission(['employee'])
-        var _clients = await clientService.getAll();
-        setClients(_clients)
-    }, [])*/
-    
-     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['employee'])
-        var _clients = await clientService.getAll();
-        setClients(_clients);
-        }
-        fetchData();
-    }, [clientService])
+    useEffect(() => {
+        (async () => {
+            LoginService.checkPermission(['employee'])
+            var _clients = await clientService.getAll();
+            setClients(_clients)
+        })();
+    }, [])
 
     return (
         <ContentContainer title={"Listagem de Clientes"}>
             { 
                 <Table  header={['Nome', 'Email', 'Aprovado', 'Ações']}>
                     {
-                        clients.map(element => {
+                        clients && clients.map(element => {
                             return (
                                 <tr>
                                     <td>{ element['nome'] }</td>

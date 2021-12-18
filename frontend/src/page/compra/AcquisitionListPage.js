@@ -7,21 +7,14 @@ import Table from "../../components/Table";
 const AcquisitionListPage = () => {
     const acquisitionService = AcquisitionService()
     const [acquisitions, setAcquisitions] = useState([])
-    //const userIsEmployee = LoginService.userIsEmployee()
-
-    /*useEffect(async () => {
-        LoginService.checkPermission(['employee'])
-        var _acquisitions = await acquisitionService.getAll();
-        setAcquisitions(_acquisitions)
-    }, [])*/
     
     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['employee'])
-        var _acquisitions = await acquisitionService.getAll();
-        setAcquisitions(_acquisitions);
-    }
-    fetchData();
-    }, [acquisitionService])
+        (async () => {
+            LoginService.checkPermission(['employee'])
+            var _acquisitions = await acquisitionService.getAll();
+            setAcquisitions(_acquisitions)
+        })();
+    }, [])
 
     const tableActions = () => {
         return (
@@ -38,7 +31,7 @@ const AcquisitionListPage = () => {
             { 
                 <Table  header={['Descrição', 'Data', 'Valor', 'Fornecedor']} tableActions={tableActions}>
                     {
-                        acquisitions.map(element => {
+                        acquisitions && acquisitions.map(element => {
                             return (
                                 <tr>
                                     <td>{ element['descricao'] }</td>

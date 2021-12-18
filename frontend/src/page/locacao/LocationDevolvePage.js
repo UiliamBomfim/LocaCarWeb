@@ -12,30 +12,21 @@ const LocationDevolvePage = () => {
     const locationService = LocationService()
     const [location, setLocation] = useState(undefined)
 
-   /* useEffect(async () => {
-        LoginService.checkPermission(['client'])
-        
-        var _location = await locationService.getById(id);
-
-        if (_location.status != 'EM_ABERTO') {
-            alert('O status da locação é diferente de EM_ABERTO, ela não pode ser entregue novamente.')
-            window.location.href = "/locadora/locacao/list"
-        }
-        
-        setLocation(_location)
-    }, [])*/
-    
     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['client'])
+        (async () => {
+            LoginService.checkPermission(['client'])
+            
             var _location = await locationService.getById(id);
-            if (_location.status !== 'EM_ABERTO') {
+    
+            if (_location.status != 'EM_ABERTO') {
                 alert('O status da locação é diferente de EM_ABERTO, ela não pode ser entregue novamente.')
                 window.location.href = "/locadora/locacao/list"
             }
-            setLocation(_location);
-        }
-    fetchData();
-    }, [id, locationService])
+            
+            setLocation(_location)
+
+        })()
+    }, [])
 
     const devolveLocation = async (getFormData) => {
         var locationData = getFormData()
@@ -51,27 +42,15 @@ const LocationDevolvePage = () => {
         if (!result) {
             alert('Falha ao entregar Locação')
             window.location.href = "/locadora/locacao/list"
+            return
         }
 
         // dar update no veiculo
-        // tem duas variáveis com o mesmo nome e dá bug
-        /*var result = await vehicleService.patch(locationData.veiculo.id, {
+        result = await vehicleService.patch(locationData.veiculo.id, {
             status: "EM_AVALIACAO",
         })
 
         if (result) {
-            alert('Locação entregue com sucesso')
-            window.location.href = "/locadora/locacao/list"
-        } else {
-            alert('Falha ao entregar Locação')
-        }*/
-        
-        // Era pra ser isso??
-        var resultCar = await vehicleService.patch(locationData.veiculo.id, {
-            status: "EM_AVALIACAO",
-        })
-
-        if (result && resultCar) {
             alert('Locação entregue com sucesso')
             window.location.href = "/locadora/locacao/list"
         } else {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const ClientForm = ({ client, isDisabled, footer, showPassword }) => {
 
@@ -66,6 +66,7 @@ const ClientForm = ({ client, isDisabled, footer, showPassword }) => {
                 <div className="form-group">
                     <label> Data de Nascimento: </label>
                     <input type="date" value={dataDeNascimento} className="form-control"
+                        disabled={isDisabled ? "disabled" : ""}
                         onChange={(event) => setDataDeNascimento(event.target.value) } />
                 </div>
                 <br/>

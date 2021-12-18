@@ -7,14 +7,8 @@ import LocationForm from "./LocationForm";
 const LocationCreatePage = () => {
     const locationService = LocationService()
 
-    /*useEffect(async () => {
-        LoginService.checkPermission(['client'])
-    }, [])*/
-    
-     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['client']);
-    }
-    fetchData();
+    useEffect(() => {
+        LoginService.checkPermission(['client']);
     }, [])
 
     const createLocation = async (getFormData) => {

@@ -9,22 +9,27 @@ const ClientShowPage = () => {
     const clientService = ClientService()
     const [client, setClient] = useState(undefined)
 
-   /* useEffect(async () => {
-        var _client = await clientService.getById(id);
-        setClient(_client)
-    }, [])*/
-    
     useEffect(() => {
-        async function fetchData()  {var _client = await clientService.getById(id);
-        setClient(_client);
-        }
-        fetchData();
-    }, [clientService, id])
+        (async () => {
+            var _client = await clientService.getById(id);
+            setClient(_client)
+        })();
+    }, [])
+
+    const footer = (getFormData) => {
+        return (
+            <div className='row text-center'>
+                <div className=''>
+                    <button onClick={() => window.history.go(-1)}>Voltar</button>
+                </div>
+            </div>
+        )
+    }
     
     return (
         <ContentContainer title={"Consultar Cliente"}>
             {
-                client ? <ClientForm client={client} isDisabled={true} /> : undefined
+                client ? <ClientForm client={client} isDisabled={true} footer={footer} /> : undefined
             }
         </ContentContainer>
     )

@@ -11,7 +11,8 @@ const Table = ({ tableActions, header, children }) => {
     };
 
     const getBody = () => {
-        return (children && children.length) ? children : "Nenhum Item foi Encontrado"
+        var colspan = header ? header.length : 1;
+        return (children && children.length) ? children : <td colspan={colspan} className="text-center">Nenhum Item foi Encontrado</td>
     }
 
     return (

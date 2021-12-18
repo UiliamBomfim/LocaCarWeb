@@ -10,19 +10,13 @@ const LocationListPage = () => {
     const [locations, setLocations] = useState([])
     const userIsEmployee = LoginService.userIsEmployee()
 
-   /* useEffect(async () => {
-        var queryParameter = userIsEmployee ? "?listAll=True" : "?listAll=False"
-        var _locations = await locationService.getAll(queryParameter);
-        setLocations(_locations)
-    }, [userIsEmployee])*/
-    
-     useEffect(() => {
-        async function fetchData() {var queryParameter = userIsEmployee ? "?listAll=True" : "?listAll=False"
-        var _locations = await locationService.getAll(queryParameter);
-        setLocations(_locations);
-    }
-    fetchData();
-    }, [locationService, userIsEmployee])
+    useEffect(() => {
+        (async () => {
+            var queryParameter = userIsEmployee ? "?listAll=True" : "?listAll=False"
+            var _locations = await locationService.getAll(queryParameter);
+            setLocations(_locations)
+        })();
+    }, [])
 
     const tableActions = () => {
         return (
@@ -43,7 +37,7 @@ const LocationListPage = () => {
             { 
                 <Table  header={['Status', 'Solicitante', 'Aprovador', 'Data de Locação', 'Valor Total', 'Ações']} tableActions={tableActions}>
                     {
-                        locations.map(element => {
+                        locations && locations.map(element => {
                             return (
                                 <tr>
                                     <td>{ element['status'] }</td>

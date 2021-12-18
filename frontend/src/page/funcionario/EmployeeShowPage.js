@@ -10,19 +10,13 @@ const EmployeeShowPage = () => {
     const employeeService = EmployeeService()
     const [employee, setEmployee] = useState(undefined)
 
-    /*useEffect(async () => {
-        LoginService.checkPermission(['employee'])
-        var _employee = await employeeService.getById(id);
-        setEmployee(_employee)
-    }, [])*/
-    
-     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['employee'])
-        var _employee = await employeeService.getById(id);
-        setEmployee(_employee);
-    }
-    fetchData();
-    }, [employeeService, id])
+    useEffect(() => {
+        (async () => {
+            LoginService.checkPermission(['employee'])
+            var _employee = await employeeService.getById(id);
+            setEmployee(_employee)
+        })()
+    }, [])
 
 
     const footer = (getFormData) => {
