@@ -10,11 +10,19 @@ const LocationListPage = () => {
     const [locations, setLocations] = useState([])
     const userIsEmployee = LoginService.userIsEmployee()
 
-    useEffect(async () => {
+   /* useEffect(async () => {
         var queryParameter = userIsEmployee ? "?listAll=True" : "?listAll=False"
         var _locations = await locationService.getAll(queryParameter);
         setLocations(_locations)
-    }, [userIsEmployee])
+    }, [userIsEmployee])*/
+    
+     useEffect(() => {
+        async function fetchData() {var queryParameter = userIsEmployee ? "?listAll=True" : "?listAll=False"
+        var _locations = await locationService.getAll(queryParameter);
+        setLocations(_locations);
+    }
+    fetchData();
+    }, [locationService, userIsEmployee])
 
     const tableActions = () => {
         return (
