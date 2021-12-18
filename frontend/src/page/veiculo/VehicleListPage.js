@@ -10,10 +10,17 @@ const VehicleListPage = () => {
     const [vehicles, setVehicles] = useState([])
     const userIsEmployee = LoginService.userIsEmployee()
 
-    useEffect(async () => {
+   /* useEffect(async () => {
         var _vehicles = await vehicleService.getAll();
         setVehicles(_vehicles)
-    }, [])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData() {var _vehicles = await vehicleService.getAll();
+        setVehicles(_vehicles);
+        }
+        fetchData();
+    }, [vehicleService])
 
     const tableActions = () => {
         return (
