@@ -1,9 +1,9 @@
 [build] 
   functions = "functions" 
-  publish = "public/" 
+  publish = "build/" 
 
  command = "npm run build"
- 
+
 [[redireciona]] 
   de = "/*" 
   para = "/index.html" 
