@@ -7,13 +7,21 @@ import Table from "../../components/Table";
 const AcquisitionListPage = () => {
     const acquisitionService = AcquisitionService()
     const [acquisitions, setAcquisitions] = useState([])
-    const userIsEmployee = LoginService.userIsEmployee()
+    //const userIsEmployee = LoginService.userIsEmployee()
 
-    useEffect(async () => {
+    /*useEffect(async () => {
         LoginService.checkPermission(['employee'])
         var _acquisitions = await acquisitionService.getAll();
         setAcquisitions(_acquisitions)
-    }, [])
+    }, [])*/
+    
+    useEffect(() => {
+        async function fetchData() {LoginService.checkPermission(['employee'])
+        var _acquisitions = await acquisitionService.getAll();
+        setAcquisitions(_acquisitions);
+    }
+    fetchData();
+    }, [acquisitionService])
 
     const tableActions = () => {
         return (
