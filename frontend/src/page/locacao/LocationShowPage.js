@@ -9,10 +9,17 @@ const LocationShowPage = () => {
     const locationService = LocationService()
     const [location, setLocation] = useState(undefined)
     
-    useEffect(async () => {
+   /* useEffect(async () => {
         var _location = await locationService.getById(id);
         setLocation(_location)
-    }, [])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData() {var _location = await locationService.getById(id);
+        setLocation(_location);
+        }
+        fetchData();
+    }, [id, locationService])
 
     const footer = (getFormData) => {
         return (
