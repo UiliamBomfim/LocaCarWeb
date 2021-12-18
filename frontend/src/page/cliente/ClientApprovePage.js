@@ -11,11 +11,20 @@ const ClientApprovePage = () => {
     const [client, setClient] = useState(undefined)
     const [justification, setJustification] = useState(undefined)
 
-    useEffect(async () => {
+    /*useEffect(async () => {
         LoginService.checkPermission(['employee'])
         var _client = await clientService.getById(id);
         setClient(_client)
-    }, [])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData(){
+            LoginService.checkPermission(['employee'])
+        var _client = await clientService.getById(id);
+        setClient(_client)
+        }
+        fetchData();
+    }, [clientService, id])
 
     const approveClient = async (getFormData) => {
         var clientData = getFormData()
