@@ -29,7 +29,7 @@ const AcquisitionListPage = () => {
     return (
         <ContentContainer title={"Listagem de Compras"}>
             { 
-                <Table  header={['Descrição', 'Data', 'Valor', 'Fornecedor']} tableActions={tableActions}>
+                <Table  header={['Descrição', 'Data', 'Valor', 'Fornecedor', 'Ações']} tableActions={tableActions}>
                     {
                         acquisitions && acquisitions.map(element => {
                             return (
@@ -38,6 +38,13 @@ const AcquisitionListPage = () => {
                                     <td>{ element['data'] }</td>
                                     <td>{ element['valor'] }</td>
                                     <td>{ element['fornecedor']['empresa'] }</td>
+                                    <td className="d-flex justify-content-end">{
+                                        <>
+                                            <a className="btn btn-sm btn-primary pr-5" href={"/locadora/compras/edit/" + element['id']} role="button">Editar</a>
+                                            &nbsp;&nbsp;
+                                            <a className="btn btn-sm btn-primary" href={"/locadora/compras/show/" + element['id']} role="button">Consultar</a>
+                                        </>
+                                     }</td>
                                 </tr>
                             )
                         })

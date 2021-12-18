@@ -27,6 +27,8 @@ import EmployeeShowPage from './page/funcionario/EmployeeShowPage';
 
 import AcquisitionListPage from './page/compra/AcquisitionListPage';
 import AcquisitionCreatePage from './page/compra/AcquisitionCreatePage';
+import AcquisitionShowPage from './page/compra/AcquisitionShowPage';
+import AcquisitionEditPage from './page/compra/AcquisitionEditPage';
 
 import ProviderListPage from './page/provider/ProviderListPage';
 import ProviderCreatePage from './page/provider/ProviderCreatePage';
@@ -173,7 +175,14 @@ const Routers = () => {
                             path: 'create/',
                             element: <AcquisitionCreatePage />
                         },
-                        //TODO: FALTA O DE EDIT E SHOW
+                        {
+                            path: 'show/:id',
+                            element: <AcquisitionShowPage />
+                        },
+                        {
+                            path: 'edit/:id',
+                            element: <AcquisitionEditPage />
+                        },
                     ]
                 },
             ]
