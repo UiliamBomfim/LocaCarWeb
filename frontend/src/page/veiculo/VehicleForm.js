@@ -19,10 +19,11 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
     const [colors, setColors] = useState(undefined)
     const [types, setTypes] = useState(undefined)
     const [states, setStates] = useState(undefined)
+    
+    //const não usado
+   // const [defaultColorValue, setDefaultColorValue] = useState([])
 
-    const [defaultColorValue, setDefaultColorValue] = useState([])
-
-    useEffect(async () => {
+   /* useEffect(async () => {
         var _colors = await vehicleService.getColors()
         setColors(_colors)
         
@@ -31,7 +32,20 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
         
         var _states = await vehicleService.getStates()
         setStates(_states)
-    }, [])
+    }, [])*/
+    
+    useEffect(() => {
+        async function fetchData() {var _colors = await vehicleService.getColors()
+        setColors(_colors)
+        
+        var _types = await vehicleService.getTypes()
+        setTypes(_types)
+        
+        var _states = await vehicleService.getStates()
+        setStates(_states);
+        }
+      fetchData();
+    }, [vehicleService])
 
     const getFormData = () => {
         return {
