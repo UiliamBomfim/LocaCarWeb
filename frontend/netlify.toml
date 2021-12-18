@@ -1,8 +1,9 @@
 [build] 
-  functions = "functions" 
-  publish = "build/" 
+ 
+  command = "npm run build"
+  publish = "backend/build/" 
 
- command = "npm run build"
+
 
 [[redireciona]] 
   de = "/*" 
