@@ -9,11 +9,19 @@ const ClientListPage = () => {
     const clientService = ClientService()
     const [clients, setClients] = useState([])
 
-    useEffect(async () => {
+   /* useEffect(async () => {
         LoginService.checkPermission(['employee'])
         var _clients = await clientService.getAll();
         setClients(_clients)
-    }, [])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData() {LoginService.checkPermission(['employee'])
+        var _clients = await clientService.getAll();
+        setClients(_clients);
+        }
+        fetchData();
+    }, [clientService])
 
     return (
         <ContentContainer title={"Listagem de Clientes"}>
