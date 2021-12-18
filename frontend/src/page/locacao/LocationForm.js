@@ -22,36 +22,37 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
     const [funcionario, setFuncionario] = useState(location.funcionario)
     const [status, setStatus] = useState(location.status)
     //setClient não foi usado
-    const [cliente, setCliente] = useState(location.cliente)
+    const [cliente] = useState(location.cliente)
     const [veiculo, setVeiculo] = useState(location.veiculo)
     const [valor, setValor] = useState(location.valor)
 
     const [employees, setEmployees] = useState([])
-    const [vehicles, setVehicles] = useState([])
+    const [vehicles, setVehicles] = useState([]) //alterado
     const [clients, setClients] = useState([])
 
-   /* useEffect(async () => {
-        var _employees = await employeeService.getAll()
-        setEmployees(_employees)
-        
-        var queryParam = action && action === 'create' ? "?status=DISPONIVEL" : undefined
-        var _vehicles = await vehicleService.getAll(queryParam)
-        setVehicles(_vehicles)
+    /* useEffect(async () => {
+         var _employees = await employeeService.getAll()
+         setEmployees(_employees)
+         
+         var queryParam = action && action === 'create' ? "?status=DISPONIVEL" : undefined
+         var _vehicles = await vehicleService.getAll(queryParam)
+         setVehicles(_vehicles)
+ 
+         var _clients = await clientService.getAll()
+         setClients(_clients)
+     }, [])*/
 
-        var _clients = await clientService.getAll()
-        setClients(_clients)
-    }, [])*/
-    
     useEffect(() => {
-        async function fetchData() {var _employees = await employeeService.getAll()
-        setEmployees(_employees)
-        
-        var queryParam = action && action === 'create' ? "?status=DISPONIVEL" : undefined
-        var _vehicles = await vehicleService.getAll(queryParam)
-        setVehicles(_vehicles)
+        async function fetchData() {
+            var _employees = await employeeService.getAll()
+            setEmployees(_employees)
 
-        var _clients = await clientService.getAll()
-        setClients(_clients);
+            var queryParam = action && action === 'create' ? "?status=DISPONIVEL" : undefined
+            var _vehicles = await vehicleService.getAll(queryParam)
+            setVehicles(_vehicles)
+
+            var _clients = await clientService.getAll()
+            setClients(_clients);
         }
         fetchData();
     }, [action, clientService, employeeService, vehicleService])
@@ -87,9 +88,9 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
 
                                 <input type="date" value={dataLocacao} className="form-control"
                                     disabled={isFieldDisabled('dataLocacao') ? "disabled" : ""}
-                                    onChange={(event) => isFieldDisabled('dataLocacao') ? undefined : setDataLocacao(event.target.value) } />
+                                    onChange={(event) => isFieldDisabled('dataLocacao') ? undefined : setDataLocacao(event.target.value)} />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -102,9 +103,9 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
 
                                 <input type="date" value={dataPrevistaDevolucao} className="form-control"
                                     disabled={isFieldDisabled('dataPrevistaDevolucao') ? "disabled" : ""}
-                                    onChange={(event) => isFieldDisabled('dataPrevistaDevolucao') ? undefined : setDataPrevistaDevolucao(event.target.value) } />
+                                    onChange={(event) => isFieldDisabled('dataPrevistaDevolucao') ? undefined : setDataPrevistaDevolucao(event.target.value)} />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -116,9 +117,9 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                                 <label> Data de devolução: </label>
                                 <input type="date" value={dataDevolucao} className="form-control"
                                     disabled={isFieldDisabled('dataDevolucao') ? "disabled" : ""}
-                                    onChange={(event) => isFieldDisabled('dataDevolucao') ? undefined : setDataDevolucao(event.target.value) } />
+                                    onChange={(event) => isFieldDisabled('dataDevolucao') ? undefined : setDataDevolucao(event.target.value)} />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -129,13 +130,13 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                             <div className="form-group">
                                 <label> Funcionário aprovador: </label>
                                 <Select
-                                    isDisabled ={isFieldDisabled('funcionario')}
-                                    defaultValue={ funcionario ? { value: funcionario.id, label: funcionario.nome } : undefined}
+                                    isDisabled={isFieldDisabled('funcionario')}
+                                    defaultValue={funcionario ? { value: funcionario.id, label: funcionario.nome } : undefined}
                                     onChange={setFuncionario}
-                                    options={employees.map(e => { return { value: e.id, label: e.nome } } )}
+                                    options={employees.map(e => { return { value: e.id, label: e.nome } })}
                                 />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -146,12 +147,12 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                             <div className="form-group">
                                 <label> Solicitante: </label>
                                 <Select
-                                    isDisabled ={isFieldDisabled('cliente')}
+                                    isDisabled={isFieldDisabled('cliente')}
                                     defaultValue={cliente ? { value: cliente.id, label: cliente.nome } : undefined}
-                                    options={clients.map(e => { return { value: e.id, label: e.nome } } )}
+                                    options={clients.map(e => { return { value: e.id, label: e.nome } })}
                                 />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -162,13 +163,13 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                             <div className="form-group">
                                 <label> Veiculo: </label>
                                 <Select
-                                    isDisabled ={isFieldDisabled('veiculo')}
+                                    isDisabled={isFieldDisabled('veiculo')}
                                     defaultValue={veiculo ? { value: veiculo.id, label: veiculo.modelo + " | " + veiculo.cor } : undefined}
                                     onChange={setVeiculo}
-                                    options={vehicles.map(e => { return { value: e.id, label: e.modelo + " | " + e.cor } } )}
+                                    options={vehicles.map(e => { return { value: e.id, label: e.modelo + " | " + e.cor } })}
                                 />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -180,9 +181,9 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                                 <label> Status da locação: </label>
                                 <input type="text" value={status}
                                     disabled={isFieldDisabled('status') ? "disabled" : ""}
-                                    onChange={(event) => isFieldDisabled('status') ? undefined : setStatus(event.target.value) } />
+                                    onChange={(event) => isFieldDisabled('status') ? undefined : setStatus(event.target.value)} />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -194,9 +195,9 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                                 <label> Acréssimo de manutenção: </label>
                                 <input type="text" value={acressimosManutencao}
                                     disabled={isFieldDisabled('acressimosManutencao') ? "disabled" : ""}
-                                    onChange={(event) => isFieldDisabled('acressimosManutencao') ? undefined : setAcressimosManutencao(event.target.value) } />
+                                    onChange={(event) => isFieldDisabled('acressimosManutencao') ? undefined : setAcressimosManutencao(event.target.value)} />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -208,9 +209,9 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                                 <label> Acréssimo de atraso: </label>
                                 <input type="text" value={acressimosAtraso}
                                     disabled={isFieldDisabled('acressimosAtraso') ? "disabled" : ""}
-                                    onChange={(event) => isFieldDisabled('acressimosAtraso') ? undefined : setAcressimosAtraso(event.target.value) } />
+                                    onChange={(event) => isFieldDisabled('acressimosAtraso') ? undefined : setAcressimosAtraso(event.target.value)} />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
@@ -222,18 +223,18 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                                 <label> Valor da locação: </label>
                                 <input type="text" value={valor}
                                     disabled={isFieldDisabled('valor') ? "disabled" : ""}
-                                    onChange={(event) => isFieldDisabled('valor') ? undefined : setValor(event.target.value) } />
+                                    onChange={(event) => isFieldDisabled('valor') ? undefined : setValor(event.target.value)} />
                             </div>
-                            <br/>
+                            <br />
                         </>
                     )
                 }
 
-                { footer && footer(getFormData) }
+                {footer && footer(getFormData)}
             </div >
         )
     }
-    
+
     return getForm()
 };
 

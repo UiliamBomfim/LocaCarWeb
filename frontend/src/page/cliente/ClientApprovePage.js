@@ -9,19 +9,19 @@ const ClientApprovePage = () => {
     const { id } = useParams();
     const clientService = ClientService()
     const [client, setClient] = useState(undefined)
-    const [justification, setJustification] = useState(undefined)
+    //const [justification, setJustification] = useState(undefined)
 
     /*useEffect(async () => {
         LoginService.checkPermission(['employee'])
         var _client = await clientService.getById(id);
         setClient(_client)
     }, [])*/
-    
-     useEffect(() => {
-        async function fetchData(){
+
+    useEffect(() => {
+        async function fetchData() {
             LoginService.checkPermission(['employee'])
-        var _client = await clientService.getById(id);
-        setClient(_client)
+            var _client = await clientService.getById(id);
+            setClient(_client)
         }
         fetchData();
     }, [clientService, id])
@@ -60,7 +60,7 @@ const ClientApprovePage = () => {
             </div>
         )
     }
-    
+
     return (
         <ContentContainer title={"Aprovar Cliente"}>
             {
