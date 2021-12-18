@@ -28,6 +28,11 @@ import EmployeeShowPage from './page/funcionario/EmployeeShowPage';
 import AcquisitionListPage from './page/compra/AcquisitionListPage';
 import AcquisitionCreatePage from './page/compra/AcquisitionCreatePage';
 
+import ProviderListPage from './page/provider/ProviderListPage';
+import ProviderCreatePage from './page/provider/ProviderCreatePage';
+import ProviderEditPage from './page/provider/ProviderEditPage';
+import ProviderShowPage from './page/provider/ProviderShowPage';
+
 import Home from './page/Home';
 
 const Routers = () => {
@@ -134,6 +139,27 @@ const Routers = () => {
                             element: <EmployeeCreatePage />
                         },
                         //TODO: FALTA O DE EDIT
+                    ]
+                },
+                {
+                    path: 'fornecedores/',
+                    children: [
+                        {
+                            path: 'list',
+                            element: <ProviderListPage />
+                        },
+                        {
+                            path: 'show/:id',
+                            element: <ProviderShowPage />
+                        },
+                        {
+                            path: 'create/',
+                            element: <ProviderCreatePage />
+                        },
+                        {
+                            path: 'edit/:id',
+                            element: <ProviderEditPage />
+                        },
                     ]
                 },
                 {

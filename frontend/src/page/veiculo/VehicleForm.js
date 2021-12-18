@@ -9,10 +9,7 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
 
     const [modelo, setModelo] = useState(vehicle.modelo)
     const [placa, setPlaca] = useState(vehicle.placa)
-    const [cor, setCor] = useState(vehicle.cor)
     const [ano, setAno] = useState(vehicle.ano)
-    const [tipo, setTipo] = useState(vehicle.tipo)
-    const [status, setStatus] = useState(vehicle.status)
     const [combustivel, setCombustivel] = useState(vehicle.combustivel)
     const [quilometragem, setQuilometragem] = useState(vehicle.quilometragem)
 
@@ -90,7 +87,7 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
                     <Select
                         isDisabled ={isDisabled ? "disabled" : ""}
                         value={defaultColorValue}
-                        onChange={(item) => { setCor(item); setDefaultColorValue(item) }}
+                        onChange={setDefaultColorValue}
                         options={ colors ? colors.map(e => { return { value: e[0], label: e[1] } } ) : [] }
                     />
                 </div>
@@ -109,7 +106,7 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
                     <Select
                         isDisabled ={isDisabled ? "disabled" : ""}
                         value={defaultTypeValue}
-                        onChange={(item) => { setTipo(item); setDefaultTypeValue(item) }}
+                        onChange={setDefaultTypeValue}
                         options={ types ? types.map(e => { return { value: e[0], label: e[1] } } ) : [] }
                     />
                 </div>
@@ -120,7 +117,7 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
                     <Select
                         isDisabled ={isDisabled ? "disabled" : ""}
                         value={defaultStatusValue}
-                        onChange={(item) => { setStatus(item); setDefaultStatusValue(item) }}
+                        onChange={setDefaultStatusValue}
                         options={ states ? states.map(e => { return { value: e[0], label: e[1] } } ) : [] }
                     />
                 </div>

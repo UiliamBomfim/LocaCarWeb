@@ -18,7 +18,7 @@ const LocationDevolvePage = () => {
             
             var _location = await locationService.getById(id);
     
-            if (_location.status != 'EM_ABERTO') {
+            if (_location.status !== 'EM_ABERTO') {
                 alert('O status da locação é diferente de EM_ABERTO, ela não pode ser entregue novamente.')
                 window.location.href = "/locadora/locacao/list"
             }
