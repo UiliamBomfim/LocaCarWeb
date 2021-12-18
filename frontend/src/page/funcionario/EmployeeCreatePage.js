@@ -7,8 +7,14 @@ import EmployeeForm from "./EmployeeForm";
 const EmployeeCreatePage = () => {
     const employeeService = EmployeeService()
 
-    useEffect(async () => {
+   /* useEffect(async () => {
         LoginService.checkPermission(['employee'])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData() {LoginService.checkPermission(['employee'])
+        }
+    fetchData();
     }, [])
 
     const saveEmployee = async (getFormData) => {
