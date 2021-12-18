@@ -19,10 +19,17 @@ const EmployeeForm = ({ employee, isDisabled, footer, showPassword }) => {
 
     const [employeeRoles, setEmployeeRoles] = useState([])
 
-    useEffect(async () => {
+    /*useEffect(async () => {
         var _employeeRoles = await employeeRoleService.getAll()
         setEmployeeRoles(_employeeRoles)
-    }, [])
+    }, [])*/
+    
+    useEffect(() => {
+        async function fetchData() {var _employeeRoles = await employeeRoleService.getAll()
+        setEmployeeRoles(_employeeRoles);
+        }
+        fetchData();
+    }, [employeeRoleService])
 
     const getFormData = () => {
         var employeeModel = {

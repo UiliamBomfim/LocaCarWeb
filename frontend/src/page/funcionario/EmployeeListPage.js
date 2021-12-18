@@ -9,11 +9,19 @@ const EmployeeListPage = () => {
     const [employees, setEmployee] = useState([])
     const userIsEmployee = LoginService.userIsEmployee()
 
-    useEffect(async () => {
+   /* useEffect(async () => {
         LoginService.checkPermission(['employee'])
         var _employees = await employeeService.getAll();
         setEmployee(_employees)
-    }, [])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData() {LoginService.checkPermission(['employee'])
+        var _employees = await employeeService.getAll();
+        setEmployee(_employees);
+    }
+    fetchData();
+    }, [employeeService])
 
     const tableActions = () => {
         return (

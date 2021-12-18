@@ -7,8 +7,14 @@ import AcquisitionForm from "./AcquisitionForm";
 const AcquisitionCreatePage = () => {
     const acquisitionService = AcquisitionService()
 
-    useEffect(async () => {
+   /* useEffect(async () => {
         LoginService.checkPermission(['employee'])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData()  {LoginService.checkPermission(['employee'])
+        }
+        fetchData();
     }, [])
 
     const saveAcquisition = async (getFormData) => {

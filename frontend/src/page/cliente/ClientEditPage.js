@@ -9,10 +9,17 @@ const ClientEditPage = () => {
     const clientService = ClientService()
     const [client, setClient] = useState(undefined)
 
-    useEffect(async () => {
+    /*useEffect(async () => {
         var _client = await clientService.getById(id);
         setClient(_client)
-    }, [])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData() {var _client = await clientService.getById(id);
+        setClient(_client);
+        }
+        fetchData();
+    }, [clientService, id])
 
     const saveClient = async (getFormData) => {
         var clientData = getFormData()

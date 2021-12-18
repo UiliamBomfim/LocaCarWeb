@@ -10,11 +10,20 @@ const EmployeeShowPage = () => {
     const employeeService = EmployeeService()
     const [employee, setEmployee] = useState(undefined)
 
-    useEffect(async () => {
+    /*useEffect(async () => {
         LoginService.checkPermission(['employee'])
         var _employee = await employeeService.getById(id);
         setEmployee(_employee)
-    }, [])
+    }, [])*/
+    
+     useEffect(() => {
+        async function fetchData() {LoginService.checkPermission(['employee'])
+        var _employee = await employeeService.getById(id);
+        setEmployee(_employee);
+    }
+    fetchData();
+    }, [employeeService, id])
+
 
     const footer = (getFormData) => {
         return (
