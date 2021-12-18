@@ -10,17 +10,12 @@ const VehicleListPage = () => {
     const [vehicles, setVehicles] = useState([])
     const userIsEmployee = LoginService.userIsEmployee()
 
-   /* useEffect(async () => {
-        var _vehicles = await vehicleService.getAll();
-        setVehicles(_vehicles)
-    }, [])*/
-    
-     useEffect(() => {
-        async function fetchData() {var _vehicles = await vehicleService.getAll();
-        setVehicles(_vehicles);
-        }
-        fetchData();
-    }, [vehicleService])
+    useEffect(() => {
+        (async () => {
+            var _vehicles = await vehicleService.getAll();
+            setVehicles(_vehicles)
+        })()
+    }, [])
 
     const tableActions = () => {
         return (
@@ -28,7 +23,7 @@ const VehicleListPage = () => {
                 {
                     userIsEmployee ? (
                         <div className="d-flex justify-content-end">
-                            <a className="btn btn-primary" href={"/locadora/veiculos/create/"} role="button">Cadastrar</a>
+                            <a className="btn btn-sm btn-primary" href={"/locadora/veiculos/create/"} role="button">Cadastrar</a>
                         </div>
                     ) : undefined
                 }
@@ -50,11 +45,11 @@ const VehicleListPage = () => {
                                     <td>{ element['ano'] }</td>
                                     <td>{ element['tipo'] }</td>
                                     <td>{ element['status'] }</td>
-                                    <td>{
+                                    <td className="d-flex justify-content-end">{
                                         <>
-                                            {(('INDISPONIVEL' === element['status']) && userIsEmployee ? <a className="btn btn-primary pr-5" href={"/locadora/veiculos/edit/" + element['id']} role="button">Editar</a> : "")}
+                                            {(userIsEmployee ? <a className="btn btn-sm btn-primary pr-5" href={"/locadora/veiculos/edit/" + element['id']} role="button">Editar</a> : "")}
                                             &nbsp;&nbsp;
-                                            <a className="btn btn-primary" href={"/locadora/veiculos/show/" + element['id']} role="button">Consultar</a>
+                                            <a className="btn btn-sm btn-primary" href={"/locadora/veiculos/show/" + element['id']} role="button">Consultar</a>
                                         </>
                                      }</td>
                                 </tr>

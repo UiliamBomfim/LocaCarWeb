@@ -7,13 +7,8 @@ import VehicleForm from "./VehicleForm";
 const VehicleCreatePage = () => {
     const vehicleService = VehicleService()
 
-   /* useEffect(async () => {
+    useEffect(() => {
         LoginService.checkPermission(['employee'])
-    }, [])*/
-     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['employee']);
-        }
-    fetchData();
     }, [])
 
     const saveVehicle = async (getFormData) => {

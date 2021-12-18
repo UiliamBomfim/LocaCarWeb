@@ -23,7 +23,7 @@ const EmployeeListPage = () => {
                 {
                     userIsEmployee ? (
                         <div className="d-flex justify-content-end">
-                            <a className="btn btn-primary" href={"/locadora/funcionarios/create/"} role="button">Cadastrar</a>
+                            <a className="btn btn-sm btn-primary" href={"/locadora/funcionarios/create/"} role="button">Cadastrar</a>
                         </div>
                     ) : undefined
                 }
@@ -36,18 +36,18 @@ const EmployeeListPage = () => {
             { 
                 <Table  header={['Nome', 'Endereço', 'Email', 'Função', 'Ações']} tableActions={tableActions}>
                     {
-                        employees.map(element => {
+                        employees && employees.map(element => {
                             return (
                                 <tr>
                                     <td>{ element['nome'] }</td>
                                     <td>{ element['endereco'] }</td>
                                     <td>{ element['email'] }</td>
                                     <td>{ element['funcao']['nome'] }</td>
-                                    <td>{
+                                    <td className="d-flex justify-content-end">{
                                         <>
-                                            {/* <a className="btn btn-primary pr-5" href={"/locadora/funcionarios/edit/" + element['id']} role="button">Editar</a> */}
+                                            <a className="btn btn-sm btn-primary pr-5" href={"/locadora/funcionarios/edit/" + element['id']} role="button">Editar</a>
                                             &nbsp;&nbsp;
-                                            <a className="btn btn-primary" href={"/locadora/funcionarios/show/" + element['id']} role="button">Consultar</a>
+                                            <a className="btn btn-sm btn-primary" href={"/locadora/funcionarios/show/" + element['id']} role="button">Consultar</a>
                                         </>
                                      }</td>
                                 </tr>

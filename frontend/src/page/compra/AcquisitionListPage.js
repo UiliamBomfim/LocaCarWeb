@@ -20,7 +20,7 @@ const AcquisitionListPage = () => {
         return (
             <div className="mb-5">
                 <div className="d-flex justify-content-end">
-                    <a className="btn btn-primary" href={"/locadora/compras/create/"} role="button">Cadastrar</a>
+                    <a className="btn btn-sm btn-primary" href={"/locadora/compras/create/"} role="button">Cadastrar</a>
                 </div>
             </div>
         )

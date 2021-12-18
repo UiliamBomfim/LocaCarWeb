@@ -24,7 +24,7 @@ const LocationListPage = () => {
                 {
                     !userIsEmployee ? (
                         <div className="d-flex justify-content-end">
-                            <a className="btn btn-primary" href={"/locadora/locacao/create/"} role="button">Locar</a>
+                            <button className="btn btn-sm btn-primary" href={"/locadora/locacao/create/"} role="button" disabled={ LoginService.getUser().aprovado ? "" : "disabled"}>Locar</button>
                         </div>
                     ) : undefined
                 }
@@ -45,22 +45,22 @@ const LocationListPage = () => {
                                     <td>{ element['funcionario'] ? element['funcionario']['nome'] : "Não Aprovado" }</td>
                                     <td>{ element['data_locacao'] }</td>
                                     <td>{ element['valor'] + element['acressimos_manutencao'] + element['acressimos_atraso'] }</td>
-                                    <td>{
+                                    <td className="d-flex justify-content-end">{
                                         <>
                                             {
                                                 userIsEmployee ? (
                                                     <>
-                                                        { element['status'] === 'RESERVA' ? <a className="btn btn-primary" href={"/locadora/locacao/approve/" + element['id']} role="button">Aprovar</a> : undefined }
-                                                        { element['status'] === 'EM_AVALIACAO' ? <a className="btn btn-primary" href={"/locadora/locacao/end/" + element['id']} role="button">Finalizar</a> : undefined }
+                                                        { element['status'] === 'RESERVA' ? <a className="btn btn-sm btn-primary" href={"/locadora/locacao/approve/" + element['id']} role="button">Aprovar</a> : undefined }
+                                                        { element['status'] === 'EM_AVALIACAO' ? <a className="btn btn-sm btn-primary" href={"/locadora/locacao/end/" + element['id']} role="button">Finalizar</a> : undefined }
                                                     </>
                                                 ) : (
                                                     <>
-                                                        { element['status'] === 'EM_ABERTO' ? <a className="btn btn-primary" href={"/locadora/locacao/devolve/" + element['id']} role="button">Devolver</a> : undefined }
+                                                        { element['status'] === 'EM_ABERTO' ? <a className="btn btn-sm btn-primary" href={"/locadora/locacao/devolve/" + element['id']} role="button">Devolver</a> : undefined }
                                                     </>
                                                 )
                                             }
                                             &nbsp;&nbsp;
-                                            <a className="btn btn-primary" href={"/locadora/locacao/show/" + element['id']} role="button">Consultar</a>
+                                            <a className="btn btn-sm btn-primary" href={"/locadora/locacao/show/" + element['id']} role="button">Consultar</a>
                                         </>
                                      }</td>
                                 </tr>

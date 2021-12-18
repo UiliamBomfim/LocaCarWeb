@@ -24,7 +24,9 @@ import LoginService from '../services/LoginService';
                     isEmployee ? (
                         <Button
                             href="/locadora/compras/list"
-                            color="inherit">
+                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                            disableElevation
+                            size="small">
                             Compras
                         </Button>
                     ) : undefined
@@ -33,14 +35,18 @@ import LoginService from '../services/LoginService';
                     isEmployee ? (
                         <Button
                             href="/locadora/clientes/list"
-                            color="inherit">
+                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                            disableElevation
+                            size="small">
                             Clientes
                         </Button>
                     ) : (
                         user ? (
                             <Button
                                 href={"/locadora/clientes/edit/" + user.id}
-                                color="inherit">
+                                style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                                disableElevation
+                                size="small">
                                 Editar cadastro
                             </Button>
                         ) : undefined
@@ -50,35 +56,45 @@ import LoginService from '../services/LoginService';
                     isEmployee ? (
                         <Button
                             href="/locadora/funcionarios/list"
-                            color="inherit">
+                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                            disableElevation
+                            size="small">
                             Funcionários
                         </Button>
                     ) : undefined
                 }
                 <Button
                     href="/locadora/locacao/list"
-                    color="inherit">
+                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                    disableElevation
+                    size="small">
                     Locações
                 </Button>
                 {
                     isEmployee ? (
                         <Button
                             href="/locadora/fornecedores/list"
-                            color="inherit">
+                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                            disableElevation
+                            size="small">
                             Fornecedores
                         </Button>
                     ) : undefined
                 }
                 <Button
                     href="/locadora/veiculos/list"
-                    color="inherit">
+                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                    disableElevation
+                    size="small">
                     Veículos
                 </Button>
                 {
                     isEmployee ? (
                         <Button
                             href="/locadora/relatorio/despesas"
-                            color="inherit">
+                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                            disableElevation
+                            size="small">
                             Relatório de despesas
                         </Button>
                     ) : undefined
@@ -87,7 +103,9 @@ import LoginService from '../services/LoginService';
                     isEmployee ? (
                         <Button
                             href="/locadora/relatorio/receitas"
-                            color="inherit">
+                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                            disableElevation
+                            size="small">
                             Relatório de receitas
                         </Button>
                     ) : undefined
@@ -95,7 +113,9 @@ import LoginService from '../services/LoginService';
                 <Button
                     onClick={() => loginService.logout()}
                     href="/locadora/login"
-                    color="inherit">
+                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                    disableElevation
+                    size="small">
                     Logout
                 </Button>
             </>
