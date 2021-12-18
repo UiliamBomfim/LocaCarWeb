@@ -1,6 +1,6 @@
 [build] 
   functions = "functions" 
-  publish = "frontend" 
+  publish = "public" 
 [[redireciona]] 
   de = "/*" 
   para = "/index.html" 
