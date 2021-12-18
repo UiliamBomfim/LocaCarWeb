@@ -1,0 +1,7 @@
+[build] 
+  functions = "functions" 
+  publish = "build" 
+[[redireciona]] 
+  de = "/*" 
+  para = "/index.html" 
+  status = 200
