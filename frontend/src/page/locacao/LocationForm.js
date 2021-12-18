@@ -21,6 +21,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
     const [dataLocacao, setDataLocacao] = useState(location.data_locacao)
     const [funcionario, setFuncionario] = useState(location.funcionario)
     const [status, setStatus] = useState(location.status)
+    //setClient não foi usado
     const [cliente, setCliente] = useState(location.cliente)
     const [veiculo, setVeiculo] = useState(location.veiculo)
     const [valor, setValor] = useState(location.valor)
@@ -29,7 +30,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
     const [vehicles, setVehicles] = useState([])
     const [clients, setClients] = useState([])
 
-    useEffect(async () => {
+   /* useEffect(async () => {
         var _employees = await employeeService.getAll()
         setEmployees(_employees)
         
@@ -39,7 +40,21 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
 
         var _clients = await clientService.getAll()
         setClients(_clients)
-    }, [])
+    }, [])*/
+    
+    useEffect(() => {
+        async function fetchData() {var _employees = await employeeService.getAll()
+        setEmployees(_employees)
+        
+        var queryParam = action && action === 'create' ? "?status=DISPONIVEL" : undefined
+        var _vehicles = await vehicleService.getAll(queryParam)
+        setVehicles(_vehicles)
+
+        var _clients = await clientService.getAll()
+        setClients(_clients);
+        }
+        fetchData();
+    }, [action, clientService, employeeService, vehicleService])
 
     const getFormData = () => {
         return {
