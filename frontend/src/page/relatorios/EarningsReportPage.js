@@ -1,3 +1,4 @@
+import { PieChart, Pie, Legend, Tooltip, Cell} from 'recharts';
 import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
 import ReportService from "../../services/ReportService";
@@ -7,26 +8,46 @@ import './report.css'
 
 const EarningsReportPage = () => {
 
+    const chartColors = ['#0088FE', '#00C49F', '#FFBB28'];
     const reportService = ReportService()
     const [report, setReport] = useState(undefined)
+    const [charData, setChartData] = useState(undefined)
 
     useEffect(() => {
         (async () => {
             LoginService.checkPermission(['employee'])
             var _report = await reportService.getEarningsReport();
+            setChartData(getDataToChart(_report))
             setReport(_report)
         })()
     }, [])
+
+    const getDataToChart = (report) => {
+        return [
+            { name: 'Locações Fechadas', value: report.locacoesAbertas.reduce((a, b) => a + b.valor, 0) },
+            { name: 'Locações Abertas', value: report.locacoesFechadas.reduce((a, b) => a + b.valor + b.acressimos_atraso, 0) },
+        ]
+    }
 
     return (
         <ContentContainer title={"Relatório de receitas"} className={"report-container"}>
             {
                 report && (() => (
                     <>
+                        <div className="chart-section row justify-content-md-center">
+                                <PieChart width={400} height={400}>
+                                    <Pie dataKey="value" data={charData} label>
+                                        {charData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                        </div>
                         <div className="tables-section">
                             <div className="row tables-row">
-                                <TableCard tableTitle={"Locações"} header={['Data Locação', 'Data Devolução', 'Valor']}
-                                    source={report.locacoes} sumField={"valor"} sourceMap={element => {
+                                <TableCard tableTitle={"Locações Recebidas"} header={['Data Locação', 'Data Devolução', 'Valor']}
+                                    source={report.locacoesAbertas} sumField={"valor"} sourceMap={element => {
                                         element['valor'] = element['valor'] + element['acressimos_atraso']
                                         return (
                                             <tr>
@@ -36,8 +57,8 @@ const EarningsReportPage = () => {
                                             </tr>
                                         )
                                     }} />
-                                <TableCard tableTitle={"Reservas"} header={['Data Locação', 'Data Prevista Devolução', 'Valor']}
-                                    source={report.reservas} sumField={"valor"} sourceMap={element => {
+                                <TableCard tableTitle={"Locações a receber"} header={['Data Locação', 'Data Prevista Devolução', 'Valor']}
+                                    source={report.locacoesFechadas} sumField={"valor"} sourceMap={element => {
                                         element['valor'] = element['valor'] + element['acressimos_atraso']
                                         return (
                                             <tr>

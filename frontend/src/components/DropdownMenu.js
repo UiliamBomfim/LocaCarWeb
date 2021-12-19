@@ -37,8 +37,10 @@ const DropdownMenu = ({ menuTitle, menuItens }) => {
                 open={open}>
                     {
                         menuItens && menuItens.length > 0 ? (
-                            menuItens.map(i => {
-                                return <MenuItem onClick={() => { i.onClick && i.onClick(); handleClose(i.url) }}>{i.title}</MenuItem>
+                            menuItens.map((e, i) => {
+                                return <MenuItem onClick={() => { e.onClick && e.onClick(); handleClose(e.url) }} key={i}>
+                                                {e.title}
+                                        </MenuItem>
                             })
                         ) : undefined
                     }

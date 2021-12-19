@@ -2,7 +2,7 @@
 from collections import namedtuple
 import datetime
 from django.contrib.auth.models import User, Group
-from django.db.models.query import QuerySet
+from django.db.models.query import QuerySet, Q
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework import status, viewsets
@@ -271,12 +271,12 @@ class RelatorioReceitasViewSet(viewsets.ViewSet):
             mesPesquisa = mesFiltro
         
         #as reservas so sao exibidas no mes atual pq depois muda de status
-        reservas_mes = []
+        loc_abertas_mes = []
         if mesPesquisa == hoje.month:
-            reservas_mes = LocacaoSerializer(models.Locacao.objects.filter(status='RESERVA', data_prevista_devolucao__month=mesPesquisa), many=True).data
+            loc_abertas_mes = LocacaoSerializer(models.Locacao.objects.filter(~Q(status='FECHADA'), data_prevista_devolucao__month=mesPesquisa), many=True).data
 
         #locacoes devolvidas no mes de pesquisa
-        locacoes_mes = LocacaoSerializer(models.Locacao.objects.filter(data_devolucao__month=mesPesquisa), many=True).data
+        loc_fechadas_mes = LocacaoSerializer(models.Locacao.objects.filter(data_devolucao__month=mesPesquisa), many=True).data
 
-        model = { "locacoes": locacoes_mes, "reservas": reservas_mes }
+        model = { "locacoesAbertas": loc_fechadas_mes, "locacoesFechadas": loc_abertas_mes }
         return Response(model, status=status.HTTP_200_OK)

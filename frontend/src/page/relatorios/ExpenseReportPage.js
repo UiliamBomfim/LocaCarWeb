@@ -1,3 +1,4 @@
+import { PieChart, Pie, Legend, Tooltip, Cell} from 'recharts';
 import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
 import ReportService from "../../services/ReportService";
@@ -7,22 +8,43 @@ import './report.css'
 
 const ExpenseReportPage = () => {
 
+    const chartColors = ['#0088FE', '#00C49F', '#FFBB28'];
     const reportService = ReportService()
     const [report, setReport] = useState(undefined)
+    const [charData, setChartData] = useState(undefined)
 
     useEffect(() => {
         (async () => {
             LoginService.checkPermission(['employee'])
             var _report = await reportService.getExpenseReport();
+            setChartData(getDataToChart(_report))
             setReport(_report)
         })()
     }, [])
+
+    const getDataToChart = (report) => {
+        return [
+            { name: 'Aquisições', value: report.aquisicoes.reduce((a, b) => a + b.valor, 0) },
+            { name: 'Funcionários', value: report.funcionarios.reduce((a, b) => a + b.funcao.salarioBase, 0) },
+            { name: 'Manutenções', value: report.manutencoes.reduce((a, b) => a + b.acressimos_manutencao, 0) },
+        ]
+    }
 
     return (
         <ContentContainer title={"Relatório de despesas"} className={"report-container"}>
             {
                 report && (() => (
                     <>
+                        <div className="chart-section row justify-content-md-center">
+                                <PieChart width={400} height={400}>
+                                    <Pie dataKey="value" data={charData} label>
+                                        {charData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={chartColors[index % chartColors.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                </PieChart>
+                        </div>
                         <div className="tables-section">
                             <div className="row tables-row">
                                 <TableCard tableTitle={"Compras"} header={['Descrição', 'Data', 'Valor']}
