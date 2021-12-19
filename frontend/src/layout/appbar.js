@@ -7,137 +7,63 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import HomeIcon from '@mui/icons-material/HomeOutlined';
 import LoginService from '../services/LoginService';
+import DropdownMenu from '../components/DropdownMenu';
 
  const AppBarSys = () => {
-
     const HomeRoutes = () => window.location.href = "/locadora/home"
-
     const loginService = LoginService()
 
     const loggedActions = () => {
         var isEmployee = LoginService.userIsEmployee();
         var user = LoginService.getUser();
+        var userName = user ? user.nome.split(' ')[0] : undefined
 
         return (
             <>
                 {
                     isEmployee ? (
-                        <Button
-                            href="/locadora/compras/list"
-                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                            disableElevation
-                            size="small">
-                            Compras
-                        </Button>
+                        <DropdownMenu menuTitle="Pessoas" menuItens={[
+                            { url: "/locadora/clientes/list", title: "Clientes" },
+                            { url: "/locadora/funcionarios/list", title: "Funcionários" },
+                            { url: "/locadora/cargos/list", title: "Cargos" },
+                        ]}/>
                     ) : undefined
                 }
                 {
                     isEmployee ? (
-                        <Button
-                            href="/locadora/clientes/list"
-                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                            disableElevation
-                            size="small">
-                            Clientes
-                        </Button>
-                    ) : (
-                        user ? (
-                            <>
-                                <Button
-                                    href={"/locadora/clientes/delete/" + user.id}
-                                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                                    disableElevation
-                                    size="small">
-                                    Deletar cadastro
-                                </Button>
-                                <Button
-                                    href={"/locadora/clientes/edit/" + user.id}
-                                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                                    disableElevation
-                                    size="small">
-                                    Editar cadastro
-                                </Button>
-                            </>
-                        ) : undefined
-                    )
-                }
-                {
-                    isEmployee ? (
-                        <Button
-                            href="/locadora/funcionarios/list"
-                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                            disableElevation
-                            size="small">
-                            Funcionários
-                        </Button>
+                        <DropdownMenu menuTitle="Financeiro" menuItens={[
+                            { url: "/locadora/fornecedores/list", title: "Fornecedores" },
+                            { url: "/locadora/compras/list", title: "Compras" },
+                        ]}/>
                     ) : undefined
                 }
                 {
-                    isEmployee ? (
-                        <Button
-                            href="/locadora/cargos/list"
-                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                            disableElevation
-                            size="small">
-                            Cargos
-                        </Button>
+                    !isEmployee ? (
+                        <DropdownMenu menuTitle="Cadastro" menuItens={[
+                            { url: "/locadora/clientes/edit/" + user.id, title: "Editar cadastro" },
+                            { url: "/locadora/clientes/delete/" + user.id, title: "Deletar cadastro" },
+                        ]}/>
                     ) : undefined
                 }
-                <Button
-                    href="/locadora/locacao/list"
-                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                    disableElevation
-                    size="small">
-                    Locações
-                </Button>
+                <DropdownMenu menuTitle="Locação" menuItens={[
+                    { url: "/locadora/veiculos/list", title: "Veículos" },
+                    { url: "/locadora/locacao/list", title: "Locações" },
+                ]}/>
                 {
                     isEmployee ? (
-                        <Button
-                            href="/locadora/fornecedores/list"
-                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                            disableElevation
-                            size="small">
-                            Fornecedores
-                        </Button>
-                    ) : undefined
-                }
-                <Button
-                    href="/locadora/veiculos/list"
-                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                    disableElevation
-                    size="small">
-                    Veículos
-                </Button>
-                {
-                    isEmployee ? (
-                        <Button
-                            href="/locadora/relatorio/despesas"
-                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                            disableElevation
-                            size="small">
-                            Relatório de despesas
-                        </Button>
+                        <DropdownMenu menuTitle="Relatórios" menuItens={[
+                            { url: "/locadora/relatorio/despesas/", title: "Relatório de despesas" },
+                            { url: "/locadora/relatorio/receitas/", title: "Relatório de receitas" },
+                        ]}/>
                     ) : undefined
                 }
                 {
-                    isEmployee ? (
-                        <Button
-                            href="/locadora/relatorio/receitas"
-                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                            disableElevation
-                            size="small">
-                            Relatório de receitas
-                        </Button>
+                    userName ? (
+                        <DropdownMenu menuTitle={"Olá, " + userName} menuItens={[
+                            { url: "/locadora/login", title: "Logout", onClick: () => loginService.logout() },
+                        ]}/>
                     ) : undefined
                 }
-                <Button
-                    onClick={() => loginService.logout()}
-                    href="/locadora/login"
-                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                    disableElevation
-                    size="small">
-                    Logout
-                </Button>
             </>
         );
     }
