@@ -31,6 +31,7 @@ import AcquisitionCreatePage from './page/compra/AcquisitionCreatePage';
 import Home from './page/Home';
 
 const Routers = () => {
+
     return useRoutes([
         {
             path: '/locadora',
