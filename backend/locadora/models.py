@@ -15,7 +15,7 @@ class FuncaoFuncionario(models.Model):
 
 
 class Funcionarios(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT)
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()
@@ -23,7 +23,7 @@ class Funcionarios(models.Model):
     telefone = models.IntegerField()
     cpf = models.IntegerField()
     email = models.CharField(max_length=60, blank=True, null=True)
-    funcao = models.ForeignKey(FuncaoFuncionario, on_delete=models.CASCADE)
+    funcao = models.ForeignKey(FuncaoFuncionario, on_delete=models.RESTRICT)
 
     class Meta:
         db_table = 'funcionarios'
@@ -33,7 +33,7 @@ class Funcionarios(models.Model):
 
 
 class Cliente(models.Model):
-    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.RESTRICT)
     nome = models.CharField(max_length=30)
     nacionalidade = models.CharField(max_length=50)
     dataDeNascimento = models.DateField()
@@ -52,8 +52,8 @@ class Cliente(models.Model):
 
 
 class JustificativaReprovacao(models.Model):
-    funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    funcionario = models.ForeignKey(Funcionarios, on_delete=models.RESTRICT)
+    cliente = models.ForeignKey(Cliente, on_delete=models.RESTRICT)
     texto = models.CharField(max_length=200)
 
     class Meta:
@@ -126,7 +126,7 @@ class Fornecedor(models.Model):
         return self.empresa
 
 class Aquisicao(models.Model):
-    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.CASCADE)
+    fornecedor = models.ForeignKey(Fornecedor, on_delete=models.RESTRICT)
     valor = models.FloatField()
     data = models.DateField()
     descricao = models.CharField(max_length=200)
@@ -150,9 +150,9 @@ class Locacao(models.Model):
     data_prevista_devolucao = models.DateField()
     data_devolucao = models.DateField(null=True, blank=True)
     status = models.CharField(max_length=15, choices=LOCACAO_STATUS)
-    funcionario = models.ForeignKey(Funcionarios, on_delete=models.CASCADE, null=True, blank=True)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
+    funcionario = models.ForeignKey(Funcionarios, on_delete=models.RESTRICT, null=True, blank=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.RESTRICT)
+    veiculo = models.ForeignKey(Veiculo, on_delete=models.RESTRICT)
     acressimos_manutencao = models.FloatField(default=0)
     acressimos_atraso = models.FloatField(default=0)
     valor = models.FloatField(default=0)
