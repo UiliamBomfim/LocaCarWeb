@@ -34,7 +34,7 @@ const BaseApi = () => {
         return create().put(url, content, _config);
     };
 
-    const del = (url, content, config) => {
+    const del = (url, config) => {
         var _config = appendConfig(config)
         return create().delete(url, _config);
     };

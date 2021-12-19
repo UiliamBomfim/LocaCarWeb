@@ -15,6 +15,7 @@ import ClientApprovePage from './page/cliente/ClientApprovePage';
 import ClientEditPage from './page/cliente/ClientEditPage';
 import ClientShowPage from './page/cliente/ClientShowPage';
 import ClientCreatePage from './page/cliente/ClientCreatePage';
+import ClientDeletePage from './page/cliente/ClientDeletePage';
 
 import VehicleListPage from './page/veiculo/VehicleListPage';
 import VehicleShowPage from './page/veiculo/VehicleShowPage';
@@ -131,7 +132,11 @@ const Routers = () => {
                         {
                             path: 'create/',
                             element: <ClientCreatePage />
-                        }
+                        },
+                        {
+                            path: 'delete/:id',
+                            element: <ClientDeletePage />
+                        },
                     ]
                 },
                 {
