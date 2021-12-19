@@ -19,12 +19,13 @@ const LocationListPage = () => {
     }, [])
 
     const tableActions = () => {
+        var disabledClass = LoginService.getUser().aprovado ? "" : "disabled"
         return (
             <div className="mb-5">
                 {
                     !userIsEmployee ? (
                         <div className="d-flex justify-content-end">
-                            <button className="btn btn-sm btn-primary" href={"/locadora/locacao/create/"} role="button" disabled={ LoginService.getUser().aprovado ? "" : "disabled"}>Locar</button>
+                            <a className={"btn btn-sm btn-primary " + disabledClass} href={"/locadora/locacao/create/"} role="button">Locar</a>
                         </div>
                     ) : undefined
                 }
