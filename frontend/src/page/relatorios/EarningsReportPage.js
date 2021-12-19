@@ -24,8 +24,8 @@ const EarningsReportPage = () => {
 
     const getDataToChart = (report) => {
         return [
-            { name: 'Locações Fechadas', value: report.locacoesAbertas.reduce((a, b) => a + b.valor, 0) },
-            { name: 'Locações Abertas', value: report.locacoesFechadas.reduce((a, b) => a + b.valor + b.acressimos_atraso, 0) },
+            { name: 'Locações Fechadas', value: report.locacoesFechadas.reduce((a, b) => a + b.valor + b.acressimos_atraso + b.acressimos_manutencao, 0) },
+            { name: 'Locações Abertas', value: report.locacoesAbertas.reduce((a, b) => a + b.valor, 0) },
         ]
     }
 
@@ -47,19 +47,18 @@ const EarningsReportPage = () => {
                         <div className="tables-section">
                             <div className="row tables-row">
                                 <TableCard tableTitle={"Locações Recebidas"} header={['Data Locação', 'Data Devolução', 'Valor']}
-                                    source={report.locacoesAbertas} sumField={"valor"} sourceMap={element => {
-                                        element['valor'] = element['valor'] + element['acressimos_atraso']
+                                    source={report.locacoesFechadas} sumField={"sum"} sourceMap={element => {
+                                        element['sum'] = element['valor'] + element['acressimos_atraso'] + element['acressimos_manutencao']
                                         return (
                                             <tr>
                                                 <td>{ element['data_locacao'] }</td>
                                                 <td>{ element['data_devolucao'] }</td>
-                                                <td>{ element['valor'] }</td>
+                                                <td>{ element['sum'] }</td>
                                             </tr>
                                         )
                                     }} />
                                 <TableCard tableTitle={"Locações a receber"} header={['Data Locação', 'Data Prevista Devolução', 'Valor']}
-                                    source={report.locacoesFechadas} sumField={"valor"} sourceMap={element => {
-                                        element['valor'] = element['valor'] + element['acressimos_atraso']
+                                    source={report.locacoesAbertas} sumField={"valor"} sourceMap={element => {
                                         return (
                                             <tr>
                                                 <td>{ element['data_locacao'] }</td>

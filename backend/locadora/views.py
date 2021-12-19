@@ -278,5 +278,5 @@ class RelatorioReceitasViewSet(viewsets.ViewSet):
         #locacoes devolvidas no mes de pesquisa
         loc_fechadas_mes = LocacaoSerializer(models.Locacao.objects.filter(data_devolucao__month=mesPesquisa), many=True).data
 
-        model = { "locacoesAbertas": loc_fechadas_mes, "locacoesFechadas": loc_abertas_mes }
+        model = { "locacoesAbertas": loc_abertas_mes, "locacoesFechadas": loc_fechadas_mes }
         return Response(model, status=status.HTTP_200_OK)
