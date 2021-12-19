@@ -1,5 +1,5 @@
 
-const Table = ({ tableActions, header, children }) => {
+const Table = ({ tableActions, header, children, className }) => {
 
     const getHeader = () => {
         return header && header.length > 0 ?
@@ -18,7 +18,7 @@ const Table = ({ tableActions, header, children }) => {
     return (
         <>
             { tableActions && tableActions() }
-            <table className="table table-striped table-bordered">
+            <table className={"table table-striped " + (className ? className : "")}>
                 <thead>
                     { getHeader() }
                 </thead>

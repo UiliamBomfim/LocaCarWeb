@@ -35,6 +35,9 @@ import ProviderCreatePage from './page/provider/ProviderCreatePage';
 import ProviderEditPage from './page/provider/ProviderEditPage';
 import ProviderShowPage from './page/provider/ProviderShowPage';
 
+import ExpenseReportPage from './page/relatorios/ExpenseReportPage';
+import EarningsReportPage from './page/relatorios/EarningsReportPage';
+
 import Home from './page/Home';
 
 const Routers = () => {
@@ -182,6 +185,19 @@ const Routers = () => {
                         {
                             path: 'edit/:id',
                             element: <AcquisitionEditPage />
+                        },
+                    ]
+                },
+                {
+                    path: 'relatorio/',
+                    children: [
+                        {
+                            path: 'despesas/',
+                            element: <ExpenseReportPage />
+                        },
+                        {
+                            path: 'receitas/',
+                            element: <EarningsReportPage />
                         },
                     ]
                 },
