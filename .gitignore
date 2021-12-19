@@ -76,7 +76,7 @@ pip-delete-this-directory.txt
 htmlcov/ 
 .tox/ 
 .coverage 
-.coverage.* 
+.coverage.* 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
 .cache 
 .pytest_cache/ 
 nosetests.xml 
@@ -140,7 +140,6 @@ GitHub.sublime-settings
 
 # ----------------------------- React ----------------------------- #
 .DS_STORE
-node_modules
 scripts/flow/*/.flowconfig
 .flowconfig
 *~
@@ -148,7 +147,6 @@ scripts/flow/*/.flowconfig
 .grunt
 _SpecRunner.html
 __benchmarks__
-build/
 remote-repo/
 coverage/
 .module-cache

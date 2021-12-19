@@ -44,7 +44,7 @@ const ClientApprovePage = () => {
             </div>
         )
     }
-    
+
     return (
         <ContentContainer title={"Aprovar Cliente"}>
             {

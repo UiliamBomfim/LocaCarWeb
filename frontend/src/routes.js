@@ -52,6 +52,7 @@ import EmployeeRoleDeletePage from './page/cargo/EmployeeRoleDeletePage';
 import Home from './page/Home';
 
 const Routers = () => {
+
     return useRoutes([
         {
             path: '/locadora',

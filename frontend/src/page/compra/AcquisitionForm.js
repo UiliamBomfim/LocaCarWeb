@@ -72,11 +72,11 @@ const AcquisitionForm = ({ acquisition, isDisabled, footer }) => {
                 <br/>
 
                 { footer && footer(getFormData) }
-
+            
             </div>
         )
     }
-
+    
     return getForm()
 }
 
