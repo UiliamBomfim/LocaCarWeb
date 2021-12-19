@@ -34,6 +34,11 @@ const BaseApi = () => {
         return create().put(url, content, _config);
     };
 
+    const del = (url, content, config) => {
+        var _config = appendConfig(config)
+        return create().delete(url, _config);
+    };
+
     const appendConfig = (config) => {
         var _config = defaultConfig
         _config.headers = { "Authorization": localStorage.getItem("token") }
@@ -46,6 +51,7 @@ const BaseApi = () => {
         get: get,
         patch: patch,
         put: put,
+        del: del,
     }
 };
 

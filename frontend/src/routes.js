@@ -42,6 +42,7 @@ import EmployeeRoleCreatePage from './page/cargo/EmployeeRoleCreatePage';
 import EmployeeRoleEditPage from './page/cargo/EmployeeRoleEditPage';
 import EmployeeRoleListPage from './page/cargo/EmployeeRoleListPage';
 import EmployeeRoleShowPage from './page/cargo/EmployeeRoleShowPage';
+import EmployeeRoleDeletePage from './page/cargo/EmployeeRoleDeletePage';
 
 import Home from './page/Home';
 
@@ -211,6 +212,10 @@ const Routers = () => {
                         {
                             path: 'edit/:id',
                             element: <EmployeeRoleEditPage />
+                        },
+                        {
+                            path: 'delete/:id',
+                            element: <EmployeeRoleDeletePage />
                         },
                     ]
                 },
