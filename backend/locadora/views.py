@@ -45,6 +45,13 @@ class FuncionariosViewSet(viewsets.ModelViewSet):
 
         return Response(FuncionariosSerializer(funcionario).data, status=status.HTTP_201_CREATED)
 
+    def destroy(self, request, *args, **kwargs):
+        funcionario = models.Funcionarios.objects.get(id=kwargs['pk'])
+        user = funcionario.usuario
+        funcionario.delete()
+        user.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
 
 class FuncaoFuncionarioViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.FuncaoFuncionarioSerializer
@@ -69,6 +76,13 @@ class ClientesViewSet(viewsets.ModelViewSet):
     
     def create(self, request, *args, **kwargs):
         return Response({ 'mensagem': "Não implementado" }, status=status.HTTP_501_NOT_IMPLEMENTED)
+
+    def destroy(self, request, *args, **kwargs):
+        cliente = models.Cliente.objects.get(id=kwargs['pk'])
+        user = cliente.usuario
+        cliente.delete()
+        user.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
 
 class CreateClienteViewSet(viewsets.ModelViewSet):
     queryset = models.Cliente.objects.all()

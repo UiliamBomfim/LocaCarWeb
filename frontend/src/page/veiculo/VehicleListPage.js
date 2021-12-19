@@ -45,12 +45,14 @@ const VehicleListPage = () => {
                                     <td>{ element['ano'] }</td>
                                     <td>{ element['tipo'] }</td>
                                     <td>{ element['status'] }</td>
-                                    <td className="d-flex justify-content-end">{
-                                        <>
+                                    <td>{
+                                        <div className="d-flex justify-content-end">
+                                            {(userIsEmployee && element['status'] !== 'INDISPONIVEL' ? <a className="btn btn-sm btn-primary pr-5" href={"/locadora/veiculos/delete/" + element['id']} role="button">Deletar</a> : "")}
+                                            &nbsp;&nbsp;
                                             {(userIsEmployee ? <a className="btn btn-sm btn-primary pr-5" href={"/locadora/veiculos/edit/" + element['id']} role="button">Editar</a> : "")}
                                             &nbsp;&nbsp;
                                             <a className="btn btn-sm btn-primary" href={"/locadora/veiculos/show/" + element['id']} role="button">Consultar</a>
-                                        </>
+                                        </div>
                                      }</td>
                                 </tr>
                             )

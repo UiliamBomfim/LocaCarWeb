@@ -46,8 +46,8 @@ const LocationListPage = () => {
                                     <td>{ element['funcionario'] ? element['funcionario']['nome'] : "Não Aprovado" }</td>
                                     <td>{ element['data_locacao'] }</td>
                                     <td>{ element['valor'] + element['acressimos_manutencao'] + element['acressimos_atraso'] }</td>
-                                    <td className="d-flex justify-content-end">{
-                                        <>
+                                    <td>{
+                                        <div className="d-flex justify-content-end">
                                             {
                                                 userIsEmployee ? (
                                                     <>
@@ -62,7 +62,7 @@ const LocationListPage = () => {
                                             }
                                             &nbsp;&nbsp;
                                             <a className="btn btn-sm btn-primary" href={"/locadora/locacao/show/" + element['id']} role="button">Consultar</a>
-                                        </>
+                                        </div>
                                      }</td>
                                 </tr>
                             )

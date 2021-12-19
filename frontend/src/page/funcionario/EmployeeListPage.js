@@ -43,12 +43,14 @@ const EmployeeListPage = () => {
                                     <td>{ element['endereco'] }</td>
                                     <td>{ element['email'] }</td>
                                     <td>{ element['funcao']['nome'] }</td>
-                                    <td className="d-flex justify-content-end">{
-                                        <>
+                                    <td>{
+                                        <div className="d-flex justify-content-end">
                                             <a className="btn btn-sm btn-primary pr-5" href={"/locadora/funcionarios/edit/" + element['id']} role="button">Editar</a>
                                             &nbsp;&nbsp;
+                                            <a className="btn btn-sm btn-primary pr-5" href={"/locadora/funcionarios/delete/" + element['id']} role="button">Deletar</a>
+                                            &nbsp;&nbsp;
                                             <a className="btn btn-sm btn-primary" href={"/locadora/funcionarios/show/" + element['id']} role="button">Consultar</a>
-                                        </>
+                                        </div>
                                      }</td>
                                 </tr>
                             )

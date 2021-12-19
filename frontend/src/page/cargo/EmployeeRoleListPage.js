@@ -36,14 +36,14 @@ const EmployeeRoleListPage = () => {
                                 <tr>
                                     <td>{ element['nome'] }</td>
                                     <td>{ element['salarioBase'] }</td>
-                                    <td className="d-flex justify-content-end">{
-                                        <>
+                                    <td>{
+                                        <div className="d-flex justify-content-end">
                                             <a className="btn btn-sm btn-primary pr-5" href={"/locadora/cargos/edit/" + element['id']} role="button">Editar</a>
                                             &nbsp;&nbsp;
-                                            {/* <a className="btn btn-sm btn-primary pr-5" href={"/locadora/cargos/delete/" + element['id']} role="button">Deletar</a>
-                                            &nbsp;&nbsp; */}
+                                            <a className="btn btn-sm btn-primary pr-5" href={"/locadora/cargos/delete/" + element['id']} role="button">Deletar</a>
+                                            &nbsp;&nbsp;
                                             <a className="btn btn-sm btn-primary" href={"/locadora/cargos/show/" + element['id']} role="button">Consultar</a>
-                                        </>
+                                        </div>
                                      }</td>
                                 </tr>
                             )

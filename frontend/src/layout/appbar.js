@@ -42,13 +42,22 @@ import LoginService from '../services/LoginService';
                         </Button>
                     ) : (
                         user ? (
-                            <Button
-                                href={"/locadora/clientes/edit/" + user.id}
-                                style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
-                                disableElevation
-                                size="small">
-                                Editar cadastro
-                            </Button>
+                            <>
+                                <Button
+                                    href={"/locadora/clientes/delete/" + user.id}
+                                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                                    disableElevation
+                                    size="small">
+                                    Deletar cadastro
+                                </Button>
+                                <Button
+                                    href={"/locadora/clientes/edit/" + user.id}
+                                    style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                                    disableElevation
+                                    size="small">
+                                    Editar cadastro
+                                </Button>
+                            </>
                         ) : undefined
                     )
                 }

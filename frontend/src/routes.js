@@ -21,20 +21,24 @@ import VehicleListPage from './page/veiculo/VehicleListPage';
 import VehicleShowPage from './page/veiculo/VehicleShowPage';
 import VehicleCreatePage from './page/veiculo/VehicleCreatePage';
 import VehicleEditPage from './page/veiculo/VehicleEditPage';
+import VehicleDeletePage from './page/veiculo/VehicleDeletePage';
 
 import EmployeeListPage from './page/funcionario/EmployeeListPage';
 import EmployeeCreatePage from './page/funcionario/EmployeeCreatePage';
 import EmployeeShowPage from './page/funcionario/EmployeeShowPage';
+import EmployeeDeletePage from './page/funcionario/EmployeeDeletePage';
 
 import AcquisitionListPage from './page/compra/AcquisitionListPage';
 import AcquisitionCreatePage from './page/compra/AcquisitionCreatePage';
 import AcquisitionShowPage from './page/compra/AcquisitionShowPage';
 import AcquisitionEditPage from './page/compra/AcquisitionEditPage';
+import AcquisitionDeletePage from './page/compra/AcquisitionDeletePage';
 
 import ProviderListPage from './page/provider/ProviderListPage';
 import ProviderCreatePage from './page/provider/ProviderCreatePage';
 import ProviderEditPage from './page/provider/ProviderEditPage';
 import ProviderShowPage from './page/provider/ProviderShowPage';
+import ProviderDeletePage from './page/provider/ProviderDeletePage';
 
 import ExpenseReportPage from './page/relatorios/ExpenseReportPage';
 import EarningsReportPage from './page/relatorios/EarningsReportPage';
@@ -107,7 +111,11 @@ const Routers = () => {
                         {
                             path: 'edit/:id',
                             element: <VehicleEditPage />
-                        }
+                        },
+                        {
+                            path: 'delete/:id',
+                            element: <VehicleDeletePage />
+                        },
                     ]
                 },
                 {
@@ -154,6 +162,10 @@ const Routers = () => {
                             path: 'create/',
                             element: <EmployeeCreatePage />
                         },
+                        {
+                            path: 'delete/:id',
+                            element: <EmployeeDeletePage />
+                        },
                         //TODO: FALTA O DE EDIT
                     ]
                 },
@@ -176,6 +188,10 @@ const Routers = () => {
                             path: 'edit/:id',
                             element: <ProviderEditPage />
                         },
+                        {
+                            path: 'delete/:id',
+                            element: <ProviderDeletePage />
+                        },
                     ]
                 },
                 {
@@ -196,6 +212,10 @@ const Routers = () => {
                         {
                             path: 'edit/:id',
                             element: <AcquisitionEditPage />
+                        },
+                        {
+                            path: 'delete/:id',
+                            element: <AcquisitionDeletePage />
                         },
                     ]
                 },

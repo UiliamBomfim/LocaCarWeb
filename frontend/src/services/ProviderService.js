@@ -49,12 +49,22 @@ const ProviderService = () => {
         }
     }
 
+    const del = async (id) => {
+        try {
+            var status = (await api.del(BASE_URL + id + "/")).status
+            return status === 204
+        } catch (error) {
+            return null
+        }
+    }
+
     return {
         getAll: getAll,
         getById: getById,
         patch: patch,
         post: post,
         put: put,
+        del: del,
     }
 }
 

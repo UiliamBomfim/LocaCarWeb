@@ -1,39 +1,40 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
-import EmployeeRoleService from '../../services/EmployeeRoleService';
+import EmployeeService from '../../services/EmployeeService';
 import LoginService from '../../services/LoginService';
-import EmployeeRoleForm from './EmployeeRoleForm';
+import EmployeeForm from './EmployeeForm';
 
-const EmployeeRoleDeletePage = () => {
+const EmployeeDeletePage = () => {
     const { id } = useParams();
-    const employeeRoleService = EmployeeRoleService()
-    const [employeeRole, setEmployeeRole] = useState(undefined)
+    const employeeService = EmployeeService()
+    const [employee, setEmployee] = useState(undefined)
 
     useEffect(() => {
         (async () => {
             LoginService.checkPermission(['employee'])
-            var _employeeRole = await employeeRoleService.getById(id);
-            setEmployeeRole(_employeeRole)
+            var _employee = await employeeService.getById(id);
+            setEmployee(_employee)
         })()
     }, [])
 
-    const deleteEmployeeRole = async (getFormData) => {
-        var result = await employeeRoleService.del(id)
+    const deleteEmployee = async (getFormData) => {
+        var result = await employeeService.del(id)
 
         if (result) {
             alert('Exclusão realizada com sucesso')
-            window.location.href = "/locadora/cargos/list"
+            window.location.href = "/locadora/funcionarios/list"
         } else {
             alert('Falha ao realizar axclusão')
         }
     }
 
+
     const footer = (getFormData) => {
         return (
             <div className='row text-center'>
                 <div className=''>
-                    <button onClick={() => deleteEmployeeRole(getFormData)}>Excluir</button>
+                    <button onClick={() => deleteEmployee(getFormData)}>Excluir</button>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <button onClick={() => window.history.go(-1)}>Voltar</button>
                 </div>
@@ -42,13 +43,12 @@ const EmployeeRoleDeletePage = () => {
     }
     
     return (
-        <ContentContainer title={"Deletar Cargo"}>
+        <ContentContainer title={"Deletar Funcionário"}>
             {
-                employeeRole ? <EmployeeRoleForm employeeRole={employeeRole} isDisabled={true} footer={footer} /> : undefined
+                employee ? <EmployeeForm employee={employee} isDisabled={true} footer={footer} /> : undefined
             }
         </ContentContainer>
     )
-
 }
 
-export default EmployeeRoleDeletePage
+export default EmployeeDeletePage

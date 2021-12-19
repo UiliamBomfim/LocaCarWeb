@@ -28,14 +28,14 @@ const ClientListPage = () => {
                                     <td>{ element['nome'] }</td>
                                     <td>{ element['email'] }</td>
                                     <td>{ element['aprovado'] ? "Sim" : "Não" }</td>
-                                    <td className="d-flex justify-content-end">{
-                                        <>
+                                    <td>{
+                                        <div className="d-flex justify-content-end">
                                             {(!element['aprovado'] ? <a className="btn btn-sm btn-primary pr-5" href={"/locadora/clientes/approve/" + element['id']} role="button">Aprovar</a> : "")}
                                             &nbsp;&nbsp;
-                                            {/* {(!element['aprovado'] ? <a className="btn btn-sm btn-primary pr-5" href={"/locadora/clientes/delete/" + element['id']} role="button">Deletar</a> : "")}
-                                            &nbsp;&nbsp; */}
+                                            {(!element['aprovado'] ? <a className="btn btn-sm btn-primary pr-5" href={"/locadora/clientes/delete/" + element['id']} role="button">Deletar</a> : "")}
+                                            &nbsp;&nbsp;
                                             <a className="btn btn-sm btn-primary" href={"/locadora/clientes/show/" + element['id']} role="button">Consultar</a>
-                                        </>
+                                        </div>
                                      }</td>
                                 </tr>
                             )

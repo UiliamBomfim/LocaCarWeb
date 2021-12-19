@@ -10,6 +10,7 @@ const ClientDeletePage = () => {
     const clientService = ClientService()
     const [client, setClient] = useState(undefined)
     const userIsEmployee = LoginService.userIsEmployee()
+    const sucessReturnUrl = userIsEmployee ?  "/locadora/clientes/list" : "/locadora/login"
 
     useEffect(() => {
         (async () => {
@@ -29,7 +30,10 @@ const ClientDeletePage = () => {
 
         if (result) {
             alert('Exclusão realizada com sucesso')
-            window.location.href = "/locadora/clientes/list"
+
+            !userIsEmployee && LoginService().logout()
+
+            window.location.href = sucessReturnUrl
         } else {
             alert('Falha ao realizar axclusão')
         }
@@ -48,7 +52,7 @@ const ClientDeletePage = () => {
     }
     
     return (
-        <ContentContainer title={"Consultar Cliente"}>
+        <ContentContainer title={"Deletar Cliente"}>
             {
                 client ? <ClientForm client={client} isDisabled={true} footer={footer} /> : undefined
             }
