@@ -44,7 +44,7 @@ const ClientEditPage = () => {
     }
     
     return (
-        <ContentContainer title={"Editar Cliente"}>
+        <ContentContainer title={"Editar Cadastro"}>
             {
                 client ? <ClientForm client={client} isDisabled={false} footer={footer} /> : undefined
             }

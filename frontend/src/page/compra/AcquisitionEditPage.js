@@ -46,7 +46,7 @@ const AcquisitionEditPage = () => {
     }
     
     return (
-        <ContentContainer title={"Editar Veículo"}>
+        <ContentContainer title={"Editar Compra"}>
             {
                 acquisition ? <AcquisitionForm acquisition={acquisition} isDisabled={false} footer={footer} /> : undefined
             }

@@ -19,7 +19,7 @@ const ExpenseReportPage = () => {
     }, [])
 
     return (
-        <ContentContainer title={"Relatório de despesas"}>
+        <ContentContainer title={"Relatório de despesas"} className={"report-container"}>
             {
                 report && (() => (
                     <>

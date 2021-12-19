@@ -46,7 +46,7 @@ const ProviderEditPage = () => {
     }
 
     return (
-        <ContentContainer title={"Editar Veículo"}>
+        <ContentContainer title={"Editar Fornecedor"}>
             {
                 provider ? <ProviderForm provider={provider} isDisabled={false} footer={footer} /> : undefined
             }

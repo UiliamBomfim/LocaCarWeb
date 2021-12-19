@@ -1,20 +1,20 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
-import AcquisitionService from "../../services/AcquisitionService";
+import EmployeeRoleService from '../../services/EmployeeRoleService';
 import LoginService from '../../services/LoginService';
-import AcquisitionForm from './AcquisitionForm';
+import EmployeeRoleForm from './EmployeeRoleForm';
 
-const AcquisitionShowPage = () => {
+const EmployeeRoleShowPage = () => {
     const { id } = useParams();
-    const acquisitionService = AcquisitionService()
-    const [acquisition, setAcquisition] = useState(undefined)
+    const employeeRoleService = EmployeeRoleService()
+    const [employeeRole, setEmployeeRole] = useState(undefined)
 
     useEffect(() => {
         (async () => {
             LoginService.checkPermission(['employee'])
-            var _acquisition = await acquisitionService.getById(id);
-            setAcquisition(_acquisition)
+            var _employeeRole = await employeeRoleService.getById(id);
+            setEmployeeRole(_employeeRole)
         })()
     }, [])
 
@@ -29,13 +29,13 @@ const AcquisitionShowPage = () => {
     }
     
     return (
-        <ContentContainer title={"Consultar Compra"}>
+        <ContentContainer title={"Consultar Cargo"}>
             {
-                acquisition ? <AcquisitionForm acquisition={acquisition} isDisabled={true} footer={footer} /> : undefined
+                employeeRole ? <EmployeeRoleForm employeeRole={employeeRole} isDisabled={true} footer={footer} /> : undefined
             }
         </ContentContainer>
     )
 
 }
 
-export default AcquisitionShowPage
+export default EmployeeRoleShowPage

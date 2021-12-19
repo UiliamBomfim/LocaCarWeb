@@ -63,6 +63,17 @@ import LoginService from '../services/LoginService';
                         </Button>
                     ) : undefined
                 }
+                {
+                    isEmployee ? (
+                        <Button
+                            href="/locadora/cargos/list"
+                            style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}
+                            disableElevation
+                            size="small">
+                            Cargos
+                        </Button>
+                    ) : undefined
+                }
                 <Button
                     href="/locadora/locacao/list"
                     style={{ backgroundColor: 'transparent', color: 'white', padding: '0 10px' }}

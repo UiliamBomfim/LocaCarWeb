@@ -72,7 +72,7 @@ const LocationEndPage = () => {
     var editable = ['acressimosAtraso', 'acressimosManutencao']
     
     return (
-        <ContentContainer title={"Entregar Locação"}>
+        <ContentContainer title={"Finalizar Locação"}>
             {
                 location ? <LocationForm location={location} isDisabled={true} footer={footer} editable={editable} /> : undefined
             }

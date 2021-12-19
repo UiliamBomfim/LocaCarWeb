@@ -38,6 +38,11 @@ import ProviderShowPage from './page/provider/ProviderShowPage';
 import ExpenseReportPage from './page/relatorios/ExpenseReportPage';
 import EarningsReportPage from './page/relatorios/EarningsReportPage';
 
+import EmployeeRoleCreatePage from './page/cargo/EmployeeRoleCreatePage';
+import EmployeeRoleEditPage from './page/cargo/EmployeeRoleEditPage';
+import EmployeeRoleListPage from './page/cargo/EmployeeRoleListPage';
+import EmployeeRoleShowPage from './page/cargo/EmployeeRoleShowPage';
+
 import Home from './page/Home';
 
 const Routers = () => {
@@ -185,6 +190,27 @@ const Routers = () => {
                         {
                             path: 'edit/:id',
                             element: <AcquisitionEditPage />
+                        },
+                    ]
+                },
+                {
+                    path: 'cargos/',
+                    children: [
+                        {
+                            path: 'list',
+                            element: <EmployeeRoleListPage />
+                        },
+                        {
+                            path: 'show/:id',
+                            element: <EmployeeRoleShowPage />
+                        },
+                        {
+                            path: 'create/',
+                            element: <EmployeeRoleCreatePage />
+                        },
+                        {
+                            path: 'edit/:id',
+                            element: <EmployeeRoleEditPage />
                         },
                     ]
                 },
