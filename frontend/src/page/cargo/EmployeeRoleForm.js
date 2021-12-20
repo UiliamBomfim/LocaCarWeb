@@ -5,7 +5,7 @@ const EmployeeRoleForm = ({ employeeRole, isDisabled, footer, validations }) => 
     employeeRole = employeeRole ? employeeRole : {}
 
     const [nome, setNome] = useState(employeeRole.nome || '')
-    const [salarioBase, setSalarioBase] = useState(employeeRole.salarioBase || 0)
+    const [salarioBase, setSalarioBase] = useState(employeeRole.salarioBase || '')
 
     const [validationErrors, setValidationErrors] = useState({})
 
@@ -16,7 +16,7 @@ const EmployeeRoleForm = ({ employeeRole, isDisabled, footer, validations }) => 
             nome: nome,
         }
 
-        if (!Validator.validate(model, validations, setValidationErrors)) return
+        //if (!Validator.validate(model, validations, setValidationErrors)) return
 
         return model
     }
