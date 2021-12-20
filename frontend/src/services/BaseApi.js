@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BaseApi = () => {
     
-    const BASE_URL = "http://ubomfim.pythonanywhere.com/"
+    const BASE_URL = "https://dsousa.pythonanywhere.com/"
 
     const defaultConfig = {
         "Content-Type": "application/json",
