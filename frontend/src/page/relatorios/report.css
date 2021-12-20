@@ -1,0 +1,23 @@
+div.report-container.contentContainer div.col-md-8 {
+    margin-left: 8.33333333% !important;
+    flex: 0 0 auto !important;
+    width: 83.33333333% !important;
+}
+
+div.tables-section div.tables-col {
+    margin: 1.5%;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+}
+
+p.table-title {
+    font-size: x-large;
+    text-align: center;
+    background-color: #cfe7ff;
+    border-radius: 0.25rem;
+    margin-top: 1%;
+}
+
+.d-invisible {
+    opacity: 0;
+}

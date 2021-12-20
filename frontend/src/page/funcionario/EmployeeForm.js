@@ -19,17 +19,12 @@ const EmployeeForm = ({ employee, isDisabled, footer, showPassword }) => {
 
     const [employeeRoles, setEmployeeRoles] = useState([])
 
-    /*useEffect(async () => {
-        var _employeeRoles = await employeeRoleService.getAll()
-        setEmployeeRoles(_employeeRoles)
-    }, [])*/
-    
     useEffect(() => {
-        async function fetchData() {var _employeeRoles = await employeeRoleService.getAll()
-        setEmployeeRoles(_employeeRoles);
-        }
-        fetchData();
-    }, [employeeRoleService])
+        (async () => {
+            var _employeeRoles = await employeeRoleService.getAll()
+            setEmployeeRoles(_employeeRoles);
+        })();
+    }, [])
 
     const getFormData = () => {
         var employeeModel = {
@@ -117,7 +112,7 @@ const EmployeeForm = ({ employee, isDisabled, footer, showPassword }) => {
                         isDisabled ={isDisabled}
                         defaultValue={ employee && employee.funcao ? { value: employee.funcao.id, label: employee.funcao.nome } : undefined}
                         onChange={setFuncao}
-                        options={employeeRoles.map(e => { return { value: e.id, label: e.nome } } )}
+                        options={employeeRoles ? employeeRoles.map(e => { return { value: e.id, label: e.nome } }) : []}
                     />
                 </div>
                 <br/>

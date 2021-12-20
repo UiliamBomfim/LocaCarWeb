@@ -21,41 +21,27 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
     const [dataLocacao, setDataLocacao] = useState(location.data_locacao)
     const [funcionario, setFuncionario] = useState(location.funcionario)
     const [status, setStatus] = useState(location.status)
-    //setClient não foi usado
-    const [cliente] = useState(location.cliente)
     const [veiculo, setVeiculo] = useState(location.veiculo)
     const [valor, setValor] = useState(location.valor)
+    const cliente = location.cliente
 
     const [employees, setEmployees] = useState([])
     const [vehicles, setVehicles] = useState([]) //alterado
     const [clients, setClients] = useState([])
 
-    /* useEffect(async () => {
-         var _employees = await employeeService.getAll()
-         setEmployees(_employees)
-         
-         var queryParam = action && action === 'create' ? "?status=DISPONIVEL" : undefined
-         var _vehicles = await vehicleService.getAll(queryParam)
-         setVehicles(_vehicles)
- 
-         var _clients = await clientService.getAll()
-         setClients(_clients)
-     }, [])*/
-
     useEffect(() => {
-        async function fetchData() {
+        (async () => {
             var _employees = await employeeService.getAll()
             setEmployees(_employees)
-
+            
             var queryParam = action && action === 'create' ? "?status=DISPONIVEL" : undefined
             var _vehicles = await vehicleService.getAll(queryParam)
             setVehicles(_vehicles)
-
+    
             var _clients = await clientService.getAll()
-            setClients(_clients);
-        }
-        fetchData();
-    }, [action, clientService, employeeService, vehicleService])
+            setClients(_clients)
+        })();
+    }, [])
 
     const getFormData = () => {
         return {
@@ -133,7 +119,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                                     isDisabled={isFieldDisabled('funcionario')}
                                     defaultValue={funcionario ? { value: funcionario.id, label: funcionario.nome } : undefined}
                                     onChange={setFuncionario}
-                                    options={employees.map(e => { return { value: e.id, label: e.nome } })}
+                                    options={employees ? employees.map(e => { return { value: e.id, label: e.nome } } ) : [] }
                                 />
                             </div>
                             <br />
@@ -149,7 +135,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                                 <Select
                                     isDisabled={isFieldDisabled('cliente')}
                                     defaultValue={cliente ? { value: cliente.id, label: cliente.nome } : undefined}
-                                    options={clients.map(e => { return { value: e.id, label: e.nome } })}
+                                    options={clients ? clients.map(e => { return { value: e.id, label: e.nome } } ) : [] }
                                 />
                             </div>
                             <br />
@@ -166,7 +152,7 @@ const LocationForm = ({ location, isDisabled, footer, except, editable, action }
                                     isDisabled={isFieldDisabled('veiculo')}
                                     defaultValue={veiculo ? { value: veiculo.id, label: veiculo.modelo + " | " + veiculo.cor } : undefined}
                                     onChange={setVeiculo}
-                                    options={vehicles.map(e => { return { value: e.id, label: e.modelo + " | " + e.cor } })}
+                                    options={vehicles ? vehicles.map(e => { return { value: e.id, label: e.modelo + " | " + e.cor } } ) : [] }
                                 />
                             </div>
                             <br />

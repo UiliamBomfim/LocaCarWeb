@@ -9,17 +9,12 @@ const VehicleShowPage = () => {
     const vehicleService = VehicleService()
     const [vehicle, setVehicle] = useState(undefined)
 
-   /* useEffect(async () => {
-        var _vehicle = await vehicleService.getById(id);
-        setVehicle(_vehicle)
-    }, [])*/
-    
     useEffect(() => {
-        async function fetchData() {var _vehicle = await vehicleService.getById(id);
-        setVehicle(_vehicle);
-        }
-        fetchData();
-    }, [id, vehicleService])
+        (async () => {
+            var _vehicle = await vehicleService.getById(id);
+            setVehicle(_vehicle)
+        })()
+    }, [])
 
     const footer = (getFormData) => {
         return (

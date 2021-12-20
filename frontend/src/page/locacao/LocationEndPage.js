@@ -12,33 +12,20 @@ const LocationEndPage = () => {
     const locationService = LocationService()
     const [location, setLocation] = useState(undefined)
 
-   /* useEffect(async () => {
-        LoginService.checkPermission(['employee'])
-        
-        var _location = await locationService.getById(id);
-
-        if (_location.status !== 'EM_AVALIACAO') {
-            alert('O status da locação é diferente de EM_AVALIACAO, ela não pode ser finalizada novamente.')
-            window.location.href = "/locadora/locacao/list"
-        }
-        
-        setLocation(_location)
-    }, [])*/
+    useEffect(() => {
+        (async () => {
+            LoginService.checkPermission(['employee'])
+            
+            var _location = await locationService.getById(id);
     
-     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['employee'])
-        
-        var _location = await locationService.getById(id);
-
-        if (_location.status !== 'EM_AVALIACAO') {
-            alert('O status da locação é diferente de EM_AVALIACAO, ela não pode ser finalizada novamente.')
-            window.location.href = "/locadora/locacao/list"
-        }
-        
-        setLocation(_location);
-    }
-    fetchData();
-    }, [id, locationService])
+            if (_location.status !== 'EM_AVALIACAO') {
+                alert('O status da locação é diferente de EM_AVALIACAO, ela não pode ser finalizada novamente.')
+                window.location.href = "/locadora/locacao/list"
+            }
+            
+            setLocation(_location)
+        })()
+    }, [])
 
     const endLocation = async (getFormData) => {
         var locationData = getFormData()
@@ -53,27 +40,16 @@ const LocationEndPage = () => {
         if (!result) {
             alert('Falha ao finalizar Locação')
             window.location.href = "/locadora/locacao/list"
+            return
         }
 
         // dar update no veiculo
         var vehicleStatus = locationData.acressimosManutencao > 0 ? 'CONSERTO' : 'DISPONIVEL'
-        
-        // o result se repete
-        /*var result = await vehicleService.patch(locationData.veiculo.id, {
+        result = await vehicleService.patch(locationData.veiculo.id, {
             status: vehicleStatus,
         })
 
         if (result) {
-            alert('Locação finalizada com sucesso')
-            window.location.href = "/locadora/locacao/list"
-        } else {
-            alert('Falha ao finalizar Locação')
-        }*/
-         var resultCar = await vehicleService.patch(locationData.veiculo.id, {
-            status: vehicleStatus,
-        })
-
-        if (result && resultCar) {
             alert('Locação finalizada com sucesso')
             window.location.href = "/locadora/locacao/list"
         } else {
@@ -96,7 +72,7 @@ const LocationEndPage = () => {
     var editable = ['acressimosAtraso', 'acressimosManutencao']
     
     return (
-        <ContentContainer title={"Entregar Locação"}>
+        <ContentContainer title={"Finalizar Locação"}>
             {
                 location ? <LocationForm location={location} isDisabled={true} footer={footer} editable={editable} /> : undefined
             }

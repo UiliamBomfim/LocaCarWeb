@@ -66,7 +66,8 @@ const ClientForm = ({ client, isDisabled, footer, showPassword }) => {
                 <div className="form-group">
                     <label> Data de Nascimento: </label>
                     <input type="date" value={dataDeNascimento} className="form-control"
-                        onChange={(event) => setDataDeNascimento(event.target.value)} />
+                        disabled={isDisabled ? "disabled" : ""}
+                        onChange={(event) => setDataDeNascimento(event.target.value) } />
                 </div>
                 <br />
 

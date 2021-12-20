@@ -26,8 +26,11 @@ const ClientCreatePage = () => {
     const footer = (getFormData) => {
         return (
             <div className='row text-center'>
-                <div className=''>
+                <div className='col-md-6'>
                     <button onClick={() => saveClient(getFormData)}>Salvar</button>
+                </div>
+                <div className='col-md-6'>
+                    <button onClick={() => window.history.go(-1)}>Voltar</button>
                 </div>
             </div>
         )

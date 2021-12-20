@@ -1,23 +1,25 @@
 
-const Table = ({ tableActions, header, children }) => {
+const Table = ({ tableActions, header, children, className }) => {
 
     const getHeader = () => {
-        return header && header.length > 0 ?
-            <tr>
-                { header.map((element) => <th>{element}</th>) }
-            </tr>
-            :
-            ""
+        return <tr>
+            {
+                header && header.length > 0 ?
+                    header.map((element, i) => <th key={i} >{element}</th>) :
+                    undefined
+            }
+        </tr>
     };
 
     const getBody = () => {
-        return (children && children.length) ? children : "Nenhum Item foi Encontrado"
+        var colspan = header ? header.length : 1;
+        return (children && children.length) ? children : <tr><td colSpan={colspan} className="text-center">Nenhum Item foi Encontrado</td></tr>
     }
 
     return (
         <>
             { tableActions && tableActions() }
-            <table className="table table-striped table-bordered">
+            <table className={"table table-striped " + (className ? className : "")}>
                 <thead>
                     { getHeader() }
                 </thead>

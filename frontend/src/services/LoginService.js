@@ -20,9 +20,9 @@ const LoginService = () => {
         token = ((token === undefined) ? null : ('Token ' + token))
         localStorage.setItem("token", token);
 
-        user = await getLoggedUser()
-        localStorage.setItem("user", JSON.stringify(user));
-        localStorage.setItem("user-is-employee", `${(user.funcao !== undefined)}`);
+        var LoggeUser = await getLoggedUser()
+        localStorage.setItem("user", JSON.stringify(LoggeUser));
+        localStorage.setItem("user-is-employee", `${(LoggeUser.funcao !== undefined)}`);
 
         return ((token === undefined) ? Boolean(false) : token)
     };

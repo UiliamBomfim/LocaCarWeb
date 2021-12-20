@@ -9,37 +9,33 @@ const ClientListPage = () => {
     const clientService = ClientService()
     const [clients, setClients] = useState([])
 
-   /* useEffect(async () => {
-        LoginService.checkPermission(['employee'])
-        var _clients = await clientService.getAll();
-        setClients(_clients)
-    }, [])*/
-    
-     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['employee'])
-        var _clients = await clientService.getAll();
-        setClients(_clients);
-        }
-        fetchData();
-    }, [clientService])
+    useEffect(() => {
+        (async () => {
+            LoginService.checkPermission(['employee'])
+            var _clients = await clientService.getAll();
+            setClients(_clients)
+        })();
+    }, [])
 
     return (
         <ContentContainer title={"Listagem de Clientes"}>
             { 
                 <Table  header={['Nome', 'Email', 'Aprovado', 'Ações']}>
                     {
-                        clients.map(element => {
+                        clients && clients.map(element => {
                             return (
                                 <tr>
                                     <td>{ element['nome'] }</td>
                                     <td>{ element['email'] }</td>
                                     <td>{ element['aprovado'] ? "Sim" : "Não" }</td>
                                     <td>{
-                                        <>
-                                            {(!element['aprovado'] ? <a className="btn btn-primary pr-5" href={"/locadora/clientes/approve/" + element['id']} role="button">Aprovar</a> : "")}
+                                        <div className="d-flex justify-content-end">
+                                            {(!element['aprovado'] ? <a className="btn btn-sm btn-primary pr-5" href={"/locadora/clientes/approve/" + element['id']} role="button">Aprovar</a> : "")}
                                             &nbsp;&nbsp;
-                                            <a className="btn btn-primary" href={"/locadora/clientes/show/" + element['id']} role="button">Consultar</a>
-                                        </>
+                                            {(!element['aprovado'] ? <a className="btn btn-sm btn-primary pr-5" href={"/locadora/clientes/delete/" + element['id']} role="button">Deletar</a> : "")}
+                                            &nbsp;&nbsp;
+                                            <a className="btn btn-sm btn-primary" href={"/locadora/clientes/show/" + element['id']} role="button">Consultar</a>
+                                        </div>
                                      }</td>
                                 </tr>
                             )

@@ -9,19 +9,13 @@ const EmployeeListPage = () => {
     const [employees, setEmployee] = useState([])
     const userIsEmployee = LoginService.userIsEmployee()
 
-   /* useEffect(async () => {
-        LoginService.checkPermission(['employee'])
-        var _employees = await employeeService.getAll();
-        setEmployee(_employees)
-    }, [])*/
-    
-     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['employee'])
-        var _employees = await employeeService.getAll();
-        setEmployee(_employees);
-    }
-    fetchData();
-    }, [employeeService])
+    useEffect(() => {
+        (async () => {
+            LoginService.checkPermission(['employee'])
+            var _employees = await employeeService.getAll();
+            setEmployee(_employees)
+        })()
+    }, [])
 
     const tableActions = () => {
         return (
@@ -29,7 +23,7 @@ const EmployeeListPage = () => {
                 {
                     userIsEmployee ? (
                         <div className="d-flex justify-content-end">
-                            <a className="btn btn-primary" href={"/locadora/funcionarios/create/"} role="button">Cadastrar</a>
+                            <a className="btn btn-sm btn-primary" href={"/locadora/funcionarios/create/"} role="button">Cadastrar</a>
                         </div>
                     ) : undefined
                 }
@@ -42,7 +36,7 @@ const EmployeeListPage = () => {
             { 
                 <Table  header={['Nome', 'Endereço', 'Email', 'Função', 'Ações']} tableActions={tableActions}>
                     {
-                        employees.map(element => {
+                        employees && employees.map(element => {
                             return (
                                 <tr>
                                     <td>{ element['nome'] }</td>
@@ -50,11 +44,13 @@ const EmployeeListPage = () => {
                                     <td>{ element['email'] }</td>
                                     <td>{ element['funcao']['nome'] }</td>
                                     <td>{
-                                        <>
-                                            {/* <a className="btn btn-primary pr-5" href={"/locadora/funcionarios/edit/" + element['id']} role="button">Editar</a> */}
+                                        <div className="d-flex justify-content-end">
+                                            <a className="btn btn-sm btn-primary pr-5" href={"/locadora/funcionarios/edit/" + element['id']} role="button">Editar</a>
                                             &nbsp;&nbsp;
-                                            <a className="btn btn-primary" href={"/locadora/funcionarios/show/" + element['id']} role="button">Consultar</a>
-                                        </>
+                                            <a className="btn btn-sm btn-primary pr-5" href={"/locadora/funcionarios/delete/" + element['id']} role="button">Deletar</a>
+                                            &nbsp;&nbsp;
+                                            <a className="btn btn-sm btn-primary" href={"/locadora/funcionarios/show/" + element['id']} role="button">Consultar</a>
+                                        </div>
                                      }</td>
                                 </tr>
                             )

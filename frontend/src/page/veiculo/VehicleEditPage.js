@@ -10,19 +10,13 @@ const VehicleEditPage = () => {
     const vehicleService = VehicleService()
     const [vehicle, setVehicle] = useState(undefined)
 
-  /*  useEffect(async () => {
-        LoginService.checkPermission(['employee'])
-        var _vehicle = await vehicleService.getById(id);
-        setVehicle(_vehicle)
-    }, [])*/
-    
     useEffect(() => {
-        async function fetchData() {LoginService.checkPermission(['employee'])
-        var _vehicle = await vehicleService.getById(id);
-        setVehicle(_vehicle);
-    }
-    fetchData();
-    }, [id, vehicleService])
+        (async () => {
+            LoginService.checkPermission(['employee'])
+            var _vehicle = await vehicleService.getById(id);
+            setVehicle(_vehicle)
+        })();
+    }, [])
 
     const saveVehicle = async (getFormData) => {
         var vehicleData = getFormData()

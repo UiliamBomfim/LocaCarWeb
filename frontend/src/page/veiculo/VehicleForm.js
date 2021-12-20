@@ -9,10 +9,7 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
 
     const [modelo, setModelo] = useState(vehicle.modelo)
     const [placa, setPlaca] = useState(vehicle.placa)
-    const [cor, setCor] = useState(vehicle.cor)
     const [ano, setAno] = useState(vehicle.ano)
-    const [tipo, setTipo] = useState(vehicle.tipo)
-    const [status, setStatus] = useState(vehicle.status)
     const [combustivel, setCombustivel] = useState(vehicle.combustivel)
     const [quilometragem, setQuilometragem] = useState(vehicle.quilometragem)
 
@@ -20,41 +17,34 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
     const [types, setTypes] = useState(undefined)
     const [states, setStates] = useState(undefined)
     
-    //const não usado
-   // const [defaultColorValue, setDefaultColorValue] = useState([])
+    const [defaultStatusValue, setDefaultStatusValue] = useState({})
+    const [defaultColorValue, setDefaultColorValue] = useState({})
+    const [defaultTypeValue, setDefaultTypeValue] = useState({})
 
-   /* useEffect(async () => {
-        var _colors = await vehicleService.getColors()
-        setColors(_colors)
-        
-        var _types = await vehicleService.getTypes()
-        setTypes(_types)
-        
-        var _states = await vehicleService.getStates()
-        setStates(_states)
-    }, [])*/
-    
     useEffect(() => {
-        async function fetchData() {var _colors = await vehicleService.getColors()
-        setColors(_colors)
-        
-        var _types = await vehicleService.getTypes()
-        setTypes(_types)
-        
-        var _states = await vehicleService.getStates()
-        setStates(_states);
-        }
-      fetchData();
-    }, [vehicleService])
+        (async () => {
+            var _colors = await vehicleService.getColors()
+            setDefaultColorValue(vehicle ? getSelectOption(_colors, vehicle.cor) : undefined)
+            setColors(_colors)
+            
+            var _types = await vehicleService.getTypes()
+            setDefaultTypeValue(vehicle ? getSelectOption(_types, vehicle.tipo) : undefined)
+            setTypes(_types)
+            
+            var _states = await vehicleService.getStates()
+            setDefaultStatusValue(vehicle ? getSelectOption(_states, vehicle.status) : undefined)
+            setStates(_states)
+        })();
+    }, [])
 
     const getFormData = () => {
         return {
+            status: defaultStatusValue.value,
+            cor: defaultColorValue.value,
+            tipo: defaultTypeValue.value,
             modelo: modelo,
             placa: placa,
-            cor: cor.value,
             ano: ano,
-            tipo: tipo.value,
-            status: status.value,
             id: vehicle.id,
             combustivel: combustivel,
             quilometragem: quilometragem,
@@ -62,7 +52,9 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
     }
 
     const getSelectOption = (values, key) => {
-        var _value = values.find(e => e[0] === key)
+        var _value = values && values.length > 0 ?
+            values.find(e => e[0] === key) :
+            undefined
 
         if (_value)
             return { value: _value[0], label: _value[1] }
@@ -94,8 +86,8 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
                     <label> Cor: </label>
                     <Select
                         isDisabled ={isDisabled ? "disabled" : ""}
-                        defaultValue={ (colors && colors.length > 0 && vehicle) ? getSelectOption(colors, vehicle.cor) : undefined}
-                        onChange={setCor}
+                        value={defaultColorValue}
+                        onChange={setDefaultColorValue}
                         options={ colors ? colors.map(e => { return { value: e[0], label: e[1] } } ) : [] }
                     />
                 </div>
@@ -113,8 +105,8 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
                     <label> Tipo: </label>
                     <Select
                         isDisabled ={isDisabled ? "disabled" : ""}
-                        defaultValue={ types && types.length > 0 && vehicle ? getSelectOption(types, vehicle.tipo) : undefined}
-                        onChange={setTipo}
+                        value={defaultTypeValue}
+                        onChange={setDefaultTypeValue}
                         options={ types ? types.map(e => { return { value: e[0], label: e[1] } } ) : [] }
                     />
                 </div>
@@ -124,8 +116,8 @@ const VehicleForm = ({ vehicle, isDisabled, footer }) => {
                     <label> Status: </label>
                     <Select
                         isDisabled ={isDisabled ? "disabled" : ""}
-                        defaultValue={ states && states.length > 0 && vehicle ? getSelectOption(states, vehicle.status) : undefined}
-                        onChange={setStatus}
+                        value={defaultStatusValue}
+                        onChange={setDefaultStatusValue}
                         options={ states ? states.map(e => { return { value: e[0], label: e[1] } } ) : [] }
                     />
                 </div>
