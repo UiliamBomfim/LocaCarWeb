@@ -3,6 +3,7 @@ import EmployeeRoleService from "../../services/EmployeeRoleService";
 import LoginService from '../../services/LoginService';
 import { useEffect } from "react";
 import EmployeeRoleForm from "./EmployeeRoleForm";
+import Validator from "../../util/Validator";
 
 const EmployeeRoleCreatePage = () => {
     const employeeRoleService = EmployeeRoleService()
@@ -13,6 +14,8 @@ const EmployeeRoleCreatePage = () => {
 
     const saveEmployeeRole = async (getFormData) => {
         var employeeRoleData = getFormData()
+
+        if (!employeeRoleData) return
         
         delete employeeRoleData.id
 
@@ -37,11 +40,16 @@ const EmployeeRoleCreatePage = () => {
             </div>
         )
     }
+
+    var validations = {
+        nome : [ Validator.isNotNull ],
+        salarioBase : [ Validator.isNotNull, Validator.hasOnlyNumbers ]
+    }
     
     return (
         <ContentContainer title={"Cadastrar Cargo"}>
             {
-                <EmployeeRoleForm isDisabled={false} footer={footer} />
+                <EmployeeRoleForm isDisabled={false} footer={footer} validations={validations} />
             }
         </ContentContainer>
     )

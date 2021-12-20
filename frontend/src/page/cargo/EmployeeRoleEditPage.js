@@ -4,6 +4,7 @@ import ContentContainer from "../../components/ContentContainer";
 import EmployeeRoleService from '../../services/EmployeeRoleService';
 import LoginService from '../../services/LoginService';
 import EmployeeRoleForm from './EmployeeRoleForm';
+import Validator from '../../util/Validator';
 
 const EmployeeRoleEditPage = () => {
     const { id } = useParams();
@@ -20,6 +21,8 @@ const EmployeeRoleEditPage = () => {
 
     const saveEmployeeRole = async (getFormData) => {
         var employeeRoleData = getFormData()
+
+        if (!employeeRoleData) return
         
         delete employeeRoleData.id
 
@@ -44,11 +47,16 @@ const EmployeeRoleEditPage = () => {
             </div>
         )
     }
+
+    var validations = {
+        nome : [ Validator.isNotNull ],
+        salarioBase : [ Validator.isNotNull, Validator.hasOnlyNumbers ]
+    }
     
     return (
         <ContentContainer title={"Editar Cargo"}>
             {
-                employeeRole ? <EmployeeRoleForm employeeRole={employeeRole} isDisabled={false} footer={footer} /> : undefined
+                employeeRole ? <EmployeeRoleForm employeeRole={employeeRole} isDisabled={false} footer={footer} validations={validations} /> : undefined
             }
         </ContentContainer>
     )
