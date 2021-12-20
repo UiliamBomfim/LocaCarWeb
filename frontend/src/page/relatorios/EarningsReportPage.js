@@ -1,4 +1,4 @@
-import { PieChart, Pie, Legend, Tooltip, Cell} from 'recharts';
+import { PieChart, Pie, Tooltip, Cell} from 'recharts';
 import { useEffect, useState } from "react";
 import ContentContainer from "../../components/ContentContainer";
 import ReportService from "../../services/ReportService";

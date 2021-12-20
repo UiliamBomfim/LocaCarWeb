@@ -31,9 +31,9 @@ const EmployeeRoleListPage = () => {
             { 
                 <Table  header={['Descrição', 'Salário base', 'Ações']} tableActions={tableActions}>
                     {
-                        employeeRoles && employeeRoles.map(element => {
+                        employeeRoles && employeeRoles.map((element, i) => {
                             return (
-                                <tr>
+                                <tr key={i}>
                                     <td>{ element['nome'] }</td>
                                     <td>{ element['salarioBase'] }</td>
                                     <td>{

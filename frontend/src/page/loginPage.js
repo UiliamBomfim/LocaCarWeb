@@ -48,7 +48,7 @@ const LoginPage = () => {
                     <hr/>
                     <div className="d-flex justify-content-center row pt-5">
                         <p className="text-center col mb-4">Ou Cadastre-se agora</p>
-                        <div class="w-100"></div>
+                        <div className="w-100"></div>
                         <a className="btn btn-primary col" href="/locadora/clientes/create">Cadastrar</a>
                     </div>
                 </div >
